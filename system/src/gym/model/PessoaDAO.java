@@ -30,6 +30,6 @@ public class PessoaDAO {
     }
 
     public List<Pessoa> mostrarPessoas() {
-        return new ArrayList<>(pessoas);
+        return pessoas;
     }
 }

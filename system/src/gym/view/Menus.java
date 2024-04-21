@@ -29,11 +29,10 @@ public class Menus {
         System.out.println("Escolha uma opção:\n");
         System.out.println("1 - Sistema de Academia\n");
         System.out.println("2 - Sistema de Pessoas\n");
+        System.out.println("3 - Sair\n");
         System.out.println("\nDigite a opção escolhida:");
         int menuOption = 0;
-        while (menuOption < 1 || menuOption > 2) {
-            menuOption = Integer.parseInt(scanner.nextLine());
-        }
+        menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
 
@@ -81,11 +80,10 @@ public class Menus {
                     break;
                 }
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    mostrarOpcaoInvalida();
                     break;
             }
-            System.out.println("Aperte qualquer tecla para continuar...");
-            scanner.nextLine();
+            digitarQualquerTecla();
         }
     }
 
@@ -149,11 +147,10 @@ public class Menus {
                     mostrarMenuPrincipal();
                     break;
                 default:
-                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    mostrarOpcaoInvalida();
                     break;
             }
-            System.out.println("Aperte qualquer tecla para continuar...");
-            scanner.nextLine();
+            digitarQualquerTecla();
         }
     }
 
@@ -161,5 +158,20 @@ public class Menus {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
         }
+    }
+
+    public static void mostrarOpcaoInvalida() {
+        System.out.println("Opção inválida. Por favor, tente novamente.");
+    }
+
+    public static void digitarQualquerTecla() {
+        System.out.println("Aperte qualquer tecla para continuar...");
+        scanner.nextLine();
+    }
+
+    public static void retornarMenu() {
+        mostrarOpcaoInvalida();
+        digitarQualquerTecla();
+        mostrarMenuPrincipal();
     }
 }
