@@ -28,6 +28,34 @@ public class AcademiaDAO {
         academias.add(academia);
     }
     
+    public void alterarAcademia(int id, Academia novaAcademia){
+        for (Academia academia : academias) {
+            if (academia.getId() == id) {
+                academia.setNome(novaAcademia.getNome());
+                academia.setEndereço(novaAcademia.getEndereço());
+                academia.setDataModificacao(LocalDate.now());
+                break;
+            }
+        }
+    }
+    
+    public void removerAcademia(int id){
+        academias.removeIf(academia -> academia.getId() == id);
+        
+        for (int i = 0; i < academias.size(); i++) {
+            academias.get(i).setId(i + 1);
+        }
+    }
+    
+    public Academia buscarAcademia(int id) {
+        for (Academia academia : academias) {
+            if (academia.getId() == id) {
+                return academia;
+            }
+        }
+        return null; 
+    }
+    
     public List<Academia> mostrarAcademias(){
         return academias;
     }

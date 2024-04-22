@@ -29,6 +29,35 @@ public class PessoaDAO {
         pessoas.add(pessoa);
     }
 
+    public void alterarPessoa(int id, String login, String senha, String tipoUsuario) {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getId() == id) {
+                pessoa.setLogin(login);
+                pessoa.setSenha(senha);
+                pessoa.setTipoUsuario(tipoUsuario);
+                pessoa.setDataModificacao(LocalDate.now());
+                break; 
+            }
+        }
+    }
+    
+    public Pessoa buscarPessoa(int id) {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getId() == id) {
+                return pessoa;
+            }
+        }
+        return null; 
+    }
+    
+    public void removerPessoa(int id) {
+        pessoas.removeIf(pessoa -> pessoa.getId() == id);
+        
+        for (int i = 0; i < pessoas.size(); i++) {
+            pessoas.get(i).setId(i + 1);
+        }
+    }
+    
     public List<Pessoa> mostrarPessoas() {
         return pessoas;
     }

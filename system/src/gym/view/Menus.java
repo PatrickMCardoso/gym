@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gym;
+package gym.view;
 
 import java.util.Scanner;
 import java.util.List;
@@ -31,20 +31,22 @@ public class Menus {
         System.out.println("2 - Sistema de Pessoas\n");
         System.out.println("3 - Sair\n");
         System.out.println("\nDigite a opção escolhida:");
-        int menuOption = 0;
-        menuOption = Integer.parseInt(scanner.nextLine());
+        int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
 
     public static void academiaMenu() {
         int menuOption = 0;
-        while (menuOption != 3) {
+        while (menuOption != 6) {
             menuOption = 0;
             System.out.println("======SISTEMA DE ACADEMIAS======\n");
             System.out.println("Escolha uma opção:\n");
             System.out.println("1 - Adicionar academia\n");
             System.out.println("2 - Mostrar academias\n");
-            System.out.println("3 - Sair\n");
+            System.out.println("3 - Alterar academia\n");
+            System.out.println("4 - Buscar academia\n");
+            System.out.println("5 - Remover academia\n");
+            System.out.println("6 - Sair\n");
             System.out.println("\nDigite a opção escolhida:");
             menuOption = Integer.parseInt(scanner.nextLine());
             switch (menuOption) {
@@ -61,21 +63,67 @@ public class Menus {
                 }
                 case 2: {
                     List<Academia> academias = academiaDAO.mostrarAcademias();
-
-                    System.out.println("------------------------");
-
-                    for (int i = 0; i < academias.size(); i++) {
-                        Academia academia = academias.get(i);
-                        System.out.println("ID: " + academia.getId());
-                        System.out.println("Nome: " + academia.getNome());
-                        System.out.println("Endereço: " + academia.getEndereço());
-                        System.out.println("Data de Criação: " + academia.getDataCriacao());
-                        System.out.println("Data de Modificação: " + academia.getDataModificacao());
+                    if (academias.isEmpty()) {
+                        System.out.println("Nenhuma academia cadastrada.");
+                    } else {
                         System.out.println("------------------------");
+                        for (Academia academia : academias) {
+                            System.out.println("ID: " + academia.getId());
+                            System.out.println("Nome: " + academia.getNome());
+                            System.out.println("Endereço: " + academia.getEndereço());
+                            System.out.println("Data de Criação: " + academia.getDataCriacao());
+                            System.out.println("Data de Modificação: " + academia.getDataModificacao());
+                            System.out.println("------------------------");
+                        }
                     }
                     break;
                 }
                 case 3: {
+                    if (academiaDAO.mostrarAcademias().isEmpty()) {
+                        System.out.println("Nenhuma academia cadastrada. Impossível alterar.");
+                    } else {
+                        System.out.println("Digite o ID da academia que deseja alterar:");
+                        int id = Integer.parseInt(scanner.nextLine());
+                        Academia novaAcademia = new Academia();
+                        System.out.println("Digite o novo nome da academia: ");
+                        String nome = scanner.nextLine();
+                        System.out.println("Digite o novo endereço da academia: ");
+                        String endereco = scanner.nextLine();
+                        novaAcademia.setNome(nome);
+                        novaAcademia.setEndereço(endereco);
+                        academiaDAO.alterarAcademia(id, novaAcademia);
+                        System.out.println("Academia alterada com sucesso.");
+                    }
+                    break;
+                }                
+                case 4: { 
+                    System.out.println("Digite o ID da academia que deseja buscar:");
+                    int idBusca = Integer.parseInt(scanner.nextLine());
+                    Academia academiaBuscada = academiaDAO.buscarAcademia(idBusca);
+                    if (academiaBuscada != null) {
+                        System.out.println("Academia encontrada:");
+                        System.out.println("ID: " + academiaBuscada.getId());
+                        System.out.println("Nome: " + academiaBuscada.getNome());
+                        System.out.println("Endereço: " + academiaBuscada.getEndereço());
+                        System.out.println("Data de Criação: " + academiaBuscada.getDataCriacao());
+                        System.out.println("Data de Modificação: " + academiaBuscada.getDataModificacao());
+                    } else {
+                        System.out.println("Academia não encontrada.");
+                    }
+                    break;
+                }  
+                case 5: {
+                    if (academiaDAO.mostrarAcademias().isEmpty()) {
+                        System.out.println("Nenhuma academia cadastrada. Impossível remover.");
+                    } else {
+                        System.out.println("Digite o ID da academia que deseja remover:");
+                        int id = Integer.parseInt(scanner.nextLine());
+                        academiaDAO.removerAcademia(id);
+                        System.out.println("Academia removida com sucesso.");
+                    }
+                    break;
+                }
+                case 6: {
                     mostrarMenuPrincipal();
                     break;
                 }
@@ -89,13 +137,16 @@ public class Menus {
 
     public static void pessoaMenu() {
         int menuOption = 0;
-        while (menuOption != 3) {
+        while (menuOption != 6) {
             menuOption = 0;
             System.out.println("======SISTEMA DE GERENCIAMENTO DE PESSOAS======\n");
             System.out.println("Escolha uma opção:\n");
             System.out.println("1 - Adicionar pessoa\n");
             System.out.println("2 - Mostrar todas as pessoas\n");
-            System.out.println("3 - Sair\n");
+            System.out.println("3 - Alterar pessoa\n");
+            System.out.println("4 - Buscar pessoa\n");
+            System.out.println("5 - Remover pessoa\n");
+            System.out.println("6 - Sair\n");
             System.out.println("\nDigite a opção escolhida:");
             menuOption = Integer.parseInt(scanner.nextLine());
 
@@ -143,7 +194,46 @@ public class Menus {
                     }
                     break;
                 }
-                case 3:
+                case 3: { 
+                    System.out.println("Digite o ID da pessoa que deseja alterar:");
+                    int idAlteracao = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Digite o novo login:");
+                    String novoLogin = scanner.nextLine();
+                    System.out.println("Digite a nova senha:");
+                    String novaSenha = scanner.nextLine();
+                    System.out.println("Digite o novo tipo de usuário (1-Admin, 2-User):");
+                    String novoTipoUsuario = Integer.parseInt(scanner.nextLine()) == 1 ? "Admin" : "User";
+
+                    pessoaDAO.alterarPessoa(idAlteracao, novoLogin, novaSenha, novoTipoUsuario);
+                    System.out.println("Pessoa alterada com sucesso!");
+                    break;
+                }
+                case 4: { 
+                    System.out.println("Digite o ID da pessoa que deseja buscar:");
+                    int idBusca = Integer.parseInt(scanner.nextLine());
+                    Pessoa pessoaBuscada = pessoaDAO.buscarPessoa(idBusca);
+                    if (pessoaBuscada != null) {
+                        System.out.println("Pessoa encontrada:");
+                        System.out.println("ID: " + pessoaBuscada.getId());
+                        System.out.println("Nome: " + pessoaBuscada.getNome());
+                        System.out.println("Login: " + pessoaBuscada.getLogin());
+                        System.out.println("Senha: " + pessoaBuscada.getSenha());
+                        System.out.println("Tipo de Usuário: " + pessoaBuscada.getTipoUsuario());
+                        System.out.println("Data de Criação: " + pessoaBuscada.getDataCriacao());
+                        System.out.println("Data de Modificação: " + pessoaBuscada.getDataModificacao());
+                    } else {
+                        System.out.println("Pessoa não encontrada.");
+                    }
+                    break;
+                }
+                case 5: { 
+                    System.out.println("Digite o ID da pessoa que deseja remover:");
+                    int idRemocao = Integer.parseInt(scanner.nextLine());
+                    pessoaDAO.removerPessoa(idRemocao);
+                    System.out.println("Pessoa removida com sucesso!");
+                    break;
+                }
+                case 6:
                     mostrarMenuPrincipal();
                     break;
                 default:

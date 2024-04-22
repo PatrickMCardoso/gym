@@ -1,6 +1,6 @@
 package gym.controller;
 
-import gym.Menus;
+import gym.view.Menus;
 
 public class Gym {
 
