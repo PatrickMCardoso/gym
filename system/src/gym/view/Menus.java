@@ -62,8 +62,8 @@ public class Menus {
                     break;
                 }
                 case 2: {
-                    List<Academia> academias = academiaDAO.mostrarAcademias();
-                    if (academias.isEmpty()) {
+                    Academia[] academias = academiaDAO.mostrarAcademias();
+                    if (academias.length == 0) {
                         System.out.println("Nenhuma academia cadastrada.");
                     } else {
                         System.out.println("------------------------");
@@ -79,7 +79,7 @@ public class Menus {
                     break;
                 }
                 case 3: {
-                    if (academiaDAO.mostrarAcademias().isEmpty()) {
+                    if (academiaDAO.mostrarAcademias().length == 0) {
                         System.out.println("Nenhuma academia cadastrada. Impossível alterar.");
                     } else {
                         System.out.println("Digite o ID da academia que deseja alterar:");
@@ -113,7 +113,7 @@ public class Menus {
                     break;
                 }  
                 case 5: {
-                    if (academiaDAO.mostrarAcademias().isEmpty()) {
+                    if (academiaDAO.mostrarAcademias().length == 0) {
                         System.out.println("Nenhuma academia cadastrada. Impossível remover.");
                     } else {
                         System.out.println("Digite o ID da academia que deseja remover:");
@@ -176,7 +176,7 @@ public class Menus {
                     break;
                 }
                 case 2: {
-                    List<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
+                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
 
                     System.out.println("------------------------");
 
