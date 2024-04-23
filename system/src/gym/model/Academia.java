@@ -16,6 +16,15 @@ public class Academia {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
+    ///////////////////////////////////////////////////////////
+    public Academia(int id, String nome, String endereço, LocalDate dataCriacao, LocalDate dataModificacao) {
+        this.id = id;
+        this.nome = nome;
+        this.endereço = endereço;
+        this.dataCriacao = dataCriacao;
+        this.dataModificacao = dataModificacao;
+    }
+    /////////////////////////////////////////////////////////////
     public int getId() {
         return id;
     }

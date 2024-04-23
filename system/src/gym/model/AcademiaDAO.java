@@ -14,6 +14,17 @@ public class AcademiaDAO {
         this.academias = new Academia[10];
         this.tamanho = 0;
     }
+    ////////////////////////////////////////////////////////////////////////
+    public void adicionarAcademiasExemplo() {
+        Academia academia1 = new Academia(1, "Tasmanian Gym", "R. Píres de Campos, 409", LocalDate.now(), LocalDate.now());
+        Academia academia2 = new Academia(2, "BioTech Prime", "Av. Nenê Sabino, 915", LocalDate.now(), LocalDate.now());
+        Academia academia3 = new Academia(3, "Smart Fit", "Av. Guilherme Ferreira, 1550", LocalDate.now(), LocalDate.now());
+     
+        adicionarAcademia(academia1);
+        adicionarAcademia(academia2);
+        adicionarAcademia(academia3);
+    }
+    /////////////////////////////////////////////////////////////////////////
     
     public void adicionarAcademia(Academia academia){
         if (tamanho == academias.length) {

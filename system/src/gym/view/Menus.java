@@ -50,14 +50,14 @@ public class Menus {
             System.out.println("\nDigite a opção escolhida:");
             menuOption = Integer.parseInt(scanner.nextLine());
             switch (menuOption) {
-                case 1: {
-                    Academia academia = new Academia();
+                case 1: {                    
                     System.out.println("Digite o nome da academia: ");
                     String nome = scanner.nextLine();
                     System.out.println("Digite o endereço da academia: ");
                     String endereco = scanner.nextLine();
-                    academia.setNome(nome);
-                    academia.setEndereço(endereco);
+                    
+                    LocalDate dataAtual = LocalDate.now();
+                    Academia academia = new Academia(0, nome, endereco, dataAtual, dataAtual);
                     academiaDAO.adicionarAcademia(academia);
                     break;
                 }
@@ -84,18 +84,22 @@ public class Menus {
                     } else {
                         System.out.println("Digite o ID da academia que deseja alterar:");
                         int id = Integer.parseInt(scanner.nextLine());
-                        Academia novaAcademia = new Academia();
-                        System.out.println("Digite o novo nome da academia: ");
-                        String nome = scanner.nextLine();
-                        System.out.println("Digite o novo endereço da academia: ");
-                        String endereco = scanner.nextLine();
-                        novaAcademia.setNome(nome);
-                        novaAcademia.setEndereço(endereco);
-                        academiaDAO.alterarAcademia(id, novaAcademia);
-                        System.out.println("Academia alterada com sucesso.");
+                        Academia academiaExistente = academiaDAO.buscarAcademia(id);
+                        if (academiaExistente != null) {
+                            System.out.println("Digite o novo nome da academia:");
+                            String novoNome = scanner.nextLine();
+                            System.out.println("Digite o novo endereço da academia:");
+                            String novoEndereco = scanner.nextLine();
+                            LocalDate dataAtualizacao = LocalDate.now();
+                            Academia novaAcademia = new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
+                            academiaDAO.alterarAcademia(id, novaAcademia);
+                            System.out.println("Academia alterada com sucesso.");
+                        } else {
+                            System.out.println("Academia não encontrada.");
+                        }
                     }
                     break;
-                }                
+                }          
                 case 4: { 
                     System.out.println("Digite o ID da academia que deseja buscar:");
                     int idBusca = Integer.parseInt(scanner.nextLine());
@@ -151,8 +155,7 @@ public class Menus {
             menuOption = Integer.parseInt(scanner.nextLine());
 
             switch (menuOption) {
-                case 1: {
-                    Pessoa pessoa = new Pessoa();
+                case 1: {             
                     System.out.println("Digite o nome da pessoa: ");
                     String nome = scanner.nextLine();
                     System.out.println("Digite o sexo da pessoa (M/F): ");
@@ -166,12 +169,8 @@ public class Menus {
                     System.out.println("Digite o tipo de usuário (1-Admin, 2-User): ");
                     String tipoUsuario = Integer.parseInt(scanner.nextLine()) == 1 ? "Admin" : "User";
 
-                    pessoa.setNome(nome);
-                    pessoa.setSexo(sexo);
-                    pessoa.setNascimento(nascimento);
-                    pessoa.setLogin(login);
-                    pessoa.setSenha(senha);
-                    pessoa.setTipoUsuario(tipoUsuario);
+                    LocalDate dataAtual = LocalDate.now();
+                    Pessoa pessoa = new Pessoa(0, nome, sexo, nascimento, login, senha, tipoUsuario, dataAtual, dataAtual); 
                     pessoaDAO.adicionarPessoa(pessoa);
                     break;
                 }

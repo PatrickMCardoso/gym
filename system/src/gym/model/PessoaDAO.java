@@ -15,7 +15,18 @@ public class PessoaDAO {
         this.pessoas = new Pessoa[10]; 
         this.tamanho = 0;
     }
+    
+    /////////////////////////////////////////////////////////////////////////////
+    public void adicionarPessoasExemplo() {
+        Pessoa pessoa1 = new Pessoa(1, "Eduardo", 'M', LocalDate.of(1990, 5, 15), "eduardoADMIN", "duardin", "Admin", LocalDate.now(), LocalDate.now());
+        Pessoa pessoa2 = new Pessoa(2, "Patrick Machado Cardoso", 'M', LocalDate.of(2004, 4, 12), "patrickcardoso", "123123", "User", LocalDate.now(), LocalDate.now());
+        Pessoa pessoa3 = new Pessoa(3, "Ruan", 'M', LocalDate.of(2000, 3, 10), "ruan789", "ruanzin", "User", LocalDate.now(), LocalDate.now());
 
+        adicionarPessoa(pessoa1);
+        adicionarPessoa(pessoa2);
+        adicionarPessoa(pessoa3);
+    }
+    /////////////////////////////////////////////////////////////////////////////
     public void adicionarPessoa(Pessoa pessoa) {
         if (tamanho == pessoas.length) {
             aumentarCapacidade();
