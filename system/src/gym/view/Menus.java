@@ -5,13 +5,9 @@
 package gym.view;
 
 import java.util.Scanner;
-import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import gym.model.Academia;
-import gym.model.AcademiaDAO;
-import gym.model.Pessoa;
-import gym.model.PessoaDAO;
+import gym.model.*;
 
 /**
  *
@@ -22,6 +18,7 @@ public class Menus {
     static Scanner scanner = new Scanner(System.in);
     static AcademiaDAO academiaDAO = new AcademiaDAO();
     static PessoaDAO pessoaDAO = new PessoaDAO();
+    static ExercicioDAO exercicioDAO = new ExercicioDAO();
 
     public static int mostrarMenuPrincipal() {
         limparTela();
@@ -29,7 +26,8 @@ public class Menus {
         System.out.println("Escolha uma opção:\n");
         System.out.println("1 - Sistema de Academia\n");
         System.out.println("2 - Sistema de Pessoas\n");
-        System.out.println("3 - Sair\n");
+        System.out.println("3 - Sistema de Exercicios\n");
+        System.out.println("4 - Sair\n");
         System.out.println("\nDigite a opção escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -50,12 +48,12 @@ public class Menus {
             System.out.println("\nDigite a opção escolhida:");
             menuOption = Integer.parseInt(scanner.nextLine());
             switch (menuOption) {
-                case 1: {                    
+                case 1: {
                     System.out.println("Digite o nome da academia: ");
                     String nome = scanner.nextLine();
                     System.out.println("Digite o endereço da academia: ");
                     String endereco = scanner.nextLine();
-                    
+
                     LocalDate dataAtual = LocalDate.now();
                     Academia academia = new Academia(0, nome, endereco, dataAtual, dataAtual);
                     academiaDAO.adicionarAcademia(academia);
@@ -99,8 +97,8 @@ public class Menus {
                         }
                     }
                     break;
-                }          
-                case 4: { 
+                }
+                case 4: {
                     System.out.println("Digite o ID da academia que deseja buscar:");
                     int idBusca = Integer.parseInt(scanner.nextLine());
                     Academia academiaBuscada = academiaDAO.buscarAcademia(idBusca);
@@ -115,7 +113,7 @@ public class Menus {
                         System.out.println("Academia não encontrada.");
                     }
                     break;
-                }  
+                }
                 case 5: {
                     if (academiaDAO.mostrarAcademias().length == 0) {
                         System.out.println("Nenhuma academia cadastrada. Impossível remover.");
@@ -155,7 +153,7 @@ public class Menus {
             menuOption = Integer.parseInt(scanner.nextLine());
 
             switch (menuOption) {
-                case 1: {             
+                case 1: {
                     System.out.println("Digite o nome da pessoa: ");
                     String nome = scanner.nextLine();
                     System.out.println("Digite o sexo da pessoa (M/F): ");
@@ -170,7 +168,7 @@ public class Menus {
                     String tipoUsuario = Integer.parseInt(scanner.nextLine()) == 1 ? "Admin" : "User";
 
                     LocalDate dataAtual = LocalDate.now();
-                    Pessoa pessoa = new Pessoa(0, nome, sexo, nascimento, login, senha, tipoUsuario, dataAtual, dataAtual); 
+                    Pessoa pessoa = new Pessoa(0, nome, sexo, nascimento, login, senha, tipoUsuario, dataAtual, dataAtual);
                     pessoaDAO.adicionarPessoa(pessoa);
                     break;
                 }
@@ -193,7 +191,7 @@ public class Menus {
                     }
                     break;
                 }
-                case 3: { 
+                case 3: {
                     System.out.println("Digite o ID da pessoa que deseja alterar:");
                     int idAlteracao = Integer.parseInt(scanner.nextLine());
                     System.out.println("Digite o novo login:");
@@ -207,7 +205,7 @@ public class Menus {
                     System.out.println("Pessoa alterada com sucesso!");
                     break;
                 }
-                case 4: { 
+                case 4: {
                     System.out.println("Digite o ID da pessoa que deseja buscar:");
                     int idBusca = Integer.parseInt(scanner.nextLine());
                     Pessoa pessoaBuscada = pessoaDAO.buscarPessoa(idBusca);
@@ -225,11 +223,99 @@ public class Menus {
                     }
                     break;
                 }
-                case 5: { 
+                case 5: {
                     System.out.println("Digite o ID da pessoa que deseja remover:");
                     int idRemocao = Integer.parseInt(scanner.nextLine());
                     pessoaDAO.removerPessoa(idRemocao);
                     System.out.println("Pessoa removida com sucesso!");
+                    break;
+                }
+                case 6:
+                    mostrarMenuPrincipal();
+                    break;
+                default:
+                    mostrarOpcaoInvalida();
+                    break;
+            }
+            digitarQualquerTecla();
+        }
+    }
+
+    public static void exercicioMenu() {
+        int menuOption = 0;
+        while (menuOption != 6) {
+            menuOption = 0;
+            System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS======\n");
+            System.out.println("Escolha uma opção:\n");
+            System.out.println("1 - Adicionar exercício\n");
+            System.out.println("2 - Mostrar todos os exercícios\n");
+            System.out.println("3 - Alterar exercício\n");
+            System.out.println("4 - Buscar exercício\n");
+            System.out.println("5 - Remover exercício\n");
+            System.out.println("6 - Sair\n");
+            System.out.println("\nDigite a opção escolhida:");
+            menuOption = Integer.parseInt(scanner.nextLine());
+
+            switch (menuOption) {
+                case 1: {
+                    System.out.println("Digite o nome do exercício: ");
+                    String nome = scanner.nextLine();
+                    System.out.println("Digite a descrição do exercício: ");
+                    String descricao = scanner.nextLine();
+
+                    LocalDate dataAtual = LocalDate.now();
+                    Exercicio exercicio = new Exercicio(0, nome, descricao, dataAtual, dataAtual);
+                    exercicioDAO.adicionarExercicio(exercicio);
+                    break;
+                }
+                case 2: {
+                    Exercicio[] exercicios = exercicioDAO.mostrarExercicios();
+
+                    System.out.println("------------------------");
+
+                    for (Exercicio exercicio : exercicios) {
+                        System.out.println("ID: " + exercicio.getId());
+                        System.out.println("Nome: " + exercicio.getNome());
+                        System.out.println("Descrição: " + exercicio.getDescricao());
+                        System.out.println("Data de Criação: " + exercicio.getDataCriacao());
+                        System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
+                        System.out.println("------------------------");
+                    }
+                    break;
+                }
+                case 3: {
+                    System.out.println("Digite o ID do exercício que deseja alterar:");
+                    int idAlteracao = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Digite o novo nome do exercício:");
+                    String novoNome = scanner.nextLine();
+                    System.out.println("Digite a nova descrição do exercício:");
+                    String novaDescricao = scanner.nextLine();
+
+                    exercicioDAO.alterarExercicio(idAlteracao, new Exercicio(0, novoNome, novaDescricao, null, null));
+                    System.out.println("Exercício alterado com sucesso!");
+                    break;
+                }
+                case 4: {
+                    System.out.println("Digite o ID do exercício que deseja buscar:");
+                    int idBusca = Integer.parseInt(scanner.nextLine());
+                    Exercicio exercicioBuscado = exercicioDAO.buscarExercicio(idBusca);
+                    if (exercicioBuscado != null) {
+                        System.out.println("Exercício encontrado:");
+                        System.out.println("ID: " + exercicioBuscado.getId());
+                        System.out.println("Nome: " + exercicioBuscado.getNome());
+                        System.out.println("Descrição: " + exercicioBuscado.getDescricao());
+                        System.out.println("Data de Criação: " + exercicioBuscado.getDataCriacao());
+                        System.out.println("Data de Modificação: " + exercicioBuscado.getDataModificacao());
+                    } else {
+                        System.out.println("Exercício não encontrado.");
+                    }
+                    break;
+                }
+                case 5: {
+                    System.out.println("Digite o ID do exercício que deseja remover:");
+                    int idRemocao = Integer.parseInt(scanner.nextLine());
+                    exercicioDAO.removerExercicio(idRemocao);
+                    System.out.println("Exercício removido com sucesso!");
                     break;
                 }
                 case 6:

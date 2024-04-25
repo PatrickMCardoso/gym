@@ -1,8 +1,7 @@
 package gym.controller;
 
 import gym.view.Menus;
-import gym.model.AcademiaDAO;
-import gym.model.PessoaDAO;
+import gym.model.*;
 
 public class Gym {
 
@@ -10,11 +9,13 @@ public class Gym {
         /////////////////////////////////////////////////////////
         AcademiaDAO academiaDAO = new AcademiaDAO();
         PessoaDAO pessoaDAO = new PessoaDAO();
-        
+        ExercicioDAO exercicioDAO = new ExercicioDAO();
+
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
+        exercicioDAO.adicionarExercicioExemplos();
         ////////////////////////////////////////////////////////////
-        
+
         int option = Menus.mostrarMenuPrincipal();
         switch (option) {
             case 1:
@@ -24,6 +25,9 @@ public class Gym {
                 Menus.pessoaMenu();
                 break;
             case 3:
+                Menus.exercicioMenu();
+                break;
+            case 4:
                 break;
             default:
                 Menus.retornarMenu();
