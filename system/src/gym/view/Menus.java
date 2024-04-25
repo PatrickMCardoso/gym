@@ -15,12 +15,18 @@ import gym.model.*;
  */
 public class Menus {
 
-    static Scanner scanner = new Scanner(System.in);
-    static AcademiaDAO academiaDAO = new AcademiaDAO();
-    static PessoaDAO pessoaDAO = new PessoaDAO();
-    static ExercicioDAO exercicioDAO = new ExercicioDAO();
-
-    public static int mostrarMenuPrincipal() {
+    Scanner scanner = new Scanner(System.in);
+    AcademiaDAO academiaDAO = new AcademiaDAO();
+    PessoaDAO pessoaDAO = new PessoaDAO();
+    ExercicioDAO exercicioDAO = new ExercicioDAO();
+    
+    public Menus(){
+        academiaDAO.adicionarAcademiasExemplo();
+        pessoaDAO.adicionarPessoasExemplo();
+        exercicioDAO.adicionarExercicioExemplos();
+    }
+    
+    public int mostrarMenuPrincipal() {
         limparTela();
         System.out.println("====== HealthierLifeGym ======\n");
         System.out.println("Escolha uma opção:\n");
@@ -33,7 +39,7 @@ public class Menus {
         return menuOption;
     }
 
-    public static void academiaMenu() {
+    public void academiaMenu() {
         int menuOption = 0;
         while (menuOption != 6) {
             menuOption = 0;
@@ -137,7 +143,7 @@ public class Menus {
         }
     }
 
-    public static void pessoaMenu() {
+    public void pessoaMenu() {
         int menuOption = 0;
         while (menuOption != 6) {
             menuOption = 0;
@@ -241,7 +247,7 @@ public class Menus {
         }
     }
 
-    public static void exercicioMenu() {
+    public void exercicioMenu() {
         int menuOption = 0;
         while (menuOption != 6) {
             menuOption = 0;
@@ -329,22 +335,22 @@ public class Menus {
         }
     }
 
-    public static void limparTela() {
+    public void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
         }
     }
 
-    public static void mostrarOpcaoInvalida() {
+    public void mostrarOpcaoInvalida() {
         System.out.println("Opção inválida. Por favor, tente novamente.");
     }
 
-    public static void digitarQualquerTecla() {
+    public void digitarQualquerTecla() {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
     }
 
-    public static void retornarMenu() {
+    public void retornarMenu() {
         mostrarOpcaoInvalida();
         digitarQualquerTecla();
         mostrarMenuPrincipal();

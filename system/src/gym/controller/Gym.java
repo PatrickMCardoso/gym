@@ -1,37 +1,18 @@
 package gym.controller;
 
 import gym.view.Menus;
-import gym.model.*;
 
 public class Gym {
 
-    public static void main(String[] args) {
-        /////////////////////////////////////////////////////////
-        AcademiaDAO academiaDAO = new AcademiaDAO();
-        PessoaDAO pessoaDAO = new PessoaDAO();
-        ExercicioDAO exercicioDAO = new ExercicioDAO();
-
-        academiaDAO.adicionarAcademiasExemplo();
-        pessoaDAO.adicionarPessoasExemplo();
-        exercicioDAO.adicionarExercicioExemplos();
-        ////////////////////////////////////////////////////////////
-
-        int option = Menus.mostrarMenuPrincipal();
+    public static void main(String[] args){
+        Menus menu = new Menus();
+        int option = menu.mostrarMenuPrincipal();
         switch (option) {
-            case 1:
-                Menus.academiaMenu();
-                break;
-            case 2:
-                Menus.pessoaMenu();
-                break;
-            case 3:
-                Menus.exercicioMenu();
-                break;
-            case 4:
-                break;
-            default:
-                Menus.retornarMenu();
-                break;
+            case 1 -> menu.academiaMenu();
+            case 2 -> menu.pessoaMenu();
+            case 3 -> menu.exercicioMenu();
+            case 4 -> {}
+            default -> menu.exercicioMenu();
         }
     }
 }
