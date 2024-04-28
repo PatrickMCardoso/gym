@@ -6,16 +6,16 @@ import java.time.LocalDate;
  *
  * @author ruanemanuell
  */
-
 public class PessoaDAO {
+
     private Pessoa[] pessoas;
     private int tamanho;
 
     public PessoaDAO() {
-        this.pessoas = new Pessoa[10]; 
+        this.pessoas = new Pessoa[10];
         this.tamanho = 0;
     }
-    
+
     /////////////////////////////////////////////////////////////////////////////
     public void adicionarPessoasExemplo() {
         Pessoa pessoa1 = new Pessoa(1, "Eduardo", 'M', LocalDate.of(1990, 5, 15), "eduardoADMIN", "duardin", "Admin", LocalDate.now(), LocalDate.now());
@@ -26,6 +26,7 @@ public class PessoaDAO {
         adicionarPessoa(pessoa2);
         adicionarPessoa(pessoa3);
     }
+
     /////////////////////////////////////////////////////////////////////////////
     public void adicionarPessoa(Pessoa pessoa) {
         if (tamanho == pessoas.length) {
@@ -46,12 +47,15 @@ public class PessoaDAO {
         pessoas = novoArray;
     }
 
-    public void alterarPessoa(int id, String login, String senha, String tipoUsuario) {
+    public void alterarPessoa(int id, Pessoa novaPessoa) {
         for (int i = 0; i < tamanho; i++) {
             if (pessoas[i].getId() == id) {
-                pessoas[i].setLogin(login);
-                pessoas[i].setSenha(senha);
-                pessoas[i].setTipoUsuario(tipoUsuario);
+                pessoas[i].setNome(novaPessoa.getNome());
+                pessoas[i].setSexo(novaPessoa.getSexo());
+                pessoas[i].setNascimento(novaPessoa.getNascimento());
+                pessoas[i].setLogin(novaPessoa.getLogin());
+                pessoas[i].setSenha(novaPessoa.getSenha());
+                pessoas[i].setTipoUsuario(novaPessoa.getTipoUsuario());
                 pessoas[i].setDataModificacao(LocalDate.now());
                 break;
             }

@@ -5,9 +5,9 @@
 package gym.view;
 
 import java.util.Scanner;
+import gym.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import gym.model.*;
 
 /**
  *
@@ -15,18 +15,9 @@ import gym.model.*;
  */
 public class Menus {
 
-    Scanner scanner = new Scanner(System.in);
-    AcademiaDAO academiaDAO = new AcademiaDAO();
-    PessoaDAO pessoaDAO = new PessoaDAO();
-    ExercicioDAO exercicioDAO = new ExercicioDAO();
-    
-    public Menus(){
-        academiaDAO.adicionarAcademiasExemplo();
-        pessoaDAO.adicionarPessoasExemplo();
-        exercicioDAO.adicionarExercicioExemplos();
-    }
-    
-    public int mostrarMenuPrincipal() {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static int mostrarMenuPrincipal() {
         limparTela();
         System.out.println("====== HealthierLifeGym ======\n");
         System.out.println("Escolha uma opção:\n");
@@ -39,320 +30,264 @@ public class Menus {
         return menuOption;
     }
 
-    public void academiaMenu() {
-        int menuOption = 0;
-        while (menuOption != 6) {
-            menuOption = 0;
-            System.out.println("======SISTEMA DE ACADEMIAS======\n");
-            System.out.println("Escolha uma opção:\n");
-            System.out.println("1 - Adicionar academia\n");
-            System.out.println("2 - Mostrar academias\n");
-            System.out.println("3 - Alterar academia\n");
-            System.out.println("4 - Buscar academia\n");
-            System.out.println("5 - Remover academia\n");
-            System.out.println("6 - Sair\n");
-            System.out.println("\nDigite a opção escolhida:");
-            menuOption = Integer.parseInt(scanner.nextLine());
-            switch (menuOption) {
-                case 1: {
-                    System.out.println("Digite o nome da academia: ");
-                    String nome = scanner.nextLine();
-                    System.out.println("Digite o endereço da academia: ");
-                    String endereco = scanner.nextLine();
+    public static int academiaMenu() {
+        System.out.println("======SISTEMA DE ACADEMIAS======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar academia\n");
+        System.out.println("2 - Mostrar academias\n");
+        System.out.println("3 - Alterar academia\n");
+        System.out.println("4 - Buscar academia\n");
+        System.out.println("5 - Remover academia\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
 
-                    LocalDate dataAtual = LocalDate.now();
-                    Academia academia = new Academia(0, nome, endereco, dataAtual, dataAtual);
-                    academiaDAO.adicionarAcademia(academia);
-                    break;
-                }
-                case 2: {
-                    Academia[] academias = academiaDAO.mostrarAcademias();
-                    if (academias.length == 0) {
-                        System.out.println("Nenhuma academia cadastrada.");
-                    } else {
-                        System.out.println("------------------------");
-                        for (Academia academia : academias) {
-                            System.out.println("ID: " + academia.getId());
-                            System.out.println("Nome: " + academia.getNome());
-                            System.out.println("Endereço: " + academia.getEndereço());
-                            System.out.println("Data de Criação: " + academia.getDataCriacao());
-                            System.out.println("Data de Modificação: " + academia.getDataModificacao());
-                            System.out.println("------------------------");
-                        }
-                    }
-                    break;
-                }
-                case 3: {
-                    if (academiaDAO.mostrarAcademias().length == 0) {
-                        System.out.println("Nenhuma academia cadastrada. Impossível alterar.");
-                    } else {
-                        System.out.println("Digite o ID da academia que deseja alterar:");
-                        int id = Integer.parseInt(scanner.nextLine());
-                        Academia academiaExistente = academiaDAO.buscarAcademia(id);
-                        if (academiaExistente != null) {
-                            System.out.println("Digite o novo nome da academia:");
-                            String novoNome = scanner.nextLine();
-                            System.out.println("Digite o novo endereço da academia:");
-                            String novoEndereco = scanner.nextLine();
-                            LocalDate dataAtualizacao = LocalDate.now();
-                            Academia novaAcademia = new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
-                            academiaDAO.alterarAcademia(id, novaAcademia);
-                            System.out.println("Academia alterada com sucesso.");
-                        } else {
-                            System.out.println("Academia não encontrada.");
-                        }
-                    }
-                    break;
-                }
-                case 4: {
-                    System.out.println("Digite o ID da academia que deseja buscar:");
-                    int idBusca = Integer.parseInt(scanner.nextLine());
-                    Academia academiaBuscada = academiaDAO.buscarAcademia(idBusca);
-                    if (academiaBuscada != null) {
-                        System.out.println("Academia encontrada:");
-                        System.out.println("ID: " + academiaBuscada.getId());
-                        System.out.println("Nome: " + academiaBuscada.getNome());
-                        System.out.println("Endereço: " + academiaBuscada.getEndereço());
-                        System.out.println("Data de Criação: " + academiaBuscada.getDataCriacao());
-                        System.out.println("Data de Modificação: " + academiaBuscada.getDataModificacao());
-                    } else {
-                        System.out.println("Academia não encontrada.");
-                    }
-                    break;
-                }
-                case 5: {
-                    if (academiaDAO.mostrarAcademias().length == 0) {
-                        System.out.println("Nenhuma academia cadastrada. Impossível remover.");
-                    } else {
-                        System.out.println("Digite o ID da academia que deseja remover:");
-                        int id = Integer.parseInt(scanner.nextLine());
-                        academiaDAO.removerAcademia(id);
-                        System.out.println("Academia removida com sucesso.");
-                    }
-                    break;
-                }
-                case 6: {
-                    mostrarMenuPrincipal();
-                    break;
-                }
-                default:
-                    mostrarOpcaoInvalida();
-                    break;
+    public static Academia adicionarAcademiaMenu() {
+        System.out.println("Digite o nome da academia: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o endereço da academia: ");
+        String endereco = scanner.nextLine();
+        LocalDate dataAtual = LocalDate.now();
+        Academia academia = new Academia(0, nome, endereco, dataAtual, dataAtual);
+        return academia;
+    }
+
+    public static void mostrarTodasAcademiasMenu(Academia[] academias) {
+        if (academias.length == 0) {
+            System.out.println("Nenhuma academia cadastrada.");
+        } else {
+            System.out.println("------------------------");
+            for (Academia academia : academias) {
+                System.out.println("ID: " + academia.getId());
+                System.out.println("Nome: " + academia.getNome());
+                System.out.println("Endereço: " + academia.getEndereço());
+                System.out.println("Data de Criação: " + academia.getDataCriacao());
+                System.out.println("Data de Modificação: " + academia.getDataModificacao());
+                System.out.println("------------------------");
             }
-            digitarQualquerTecla();
         }
     }
 
-    public void pessoaMenu() {
-        int menuOption = 0;
-        while (menuOption != 6) {
-            menuOption = 0;
-            System.out.println("======SISTEMA DE GERENCIAMENTO DE PESSOAS======\n");
-            System.out.println("Escolha uma opção:\n");
-            System.out.println("1 - Adicionar pessoa\n");
-            System.out.println("2 - Mostrar todas as pessoas\n");
-            System.out.println("3 - Alterar pessoa\n");
-            System.out.println("4 - Buscar pessoa\n");
-            System.out.println("5 - Remover pessoa\n");
-            System.out.println("6 - Sair\n");
-            System.out.println("\nDigite a opção escolhida:");
-            menuOption = Integer.parseInt(scanner.nextLine());
+    public static void mostrarAcademiaMenu(Academia academia) {
+        System.out.println("ID: " + academia.getId());
+        System.out.println("Nome: " + academia.getNome());
+        System.out.println("Endereço: " + academia.getEndereço());
+        System.out.println("Data de Criação: " + academia.getDataCriacao());
+        System.out.println("Data de Modificação: " + academia.getDataModificacao());
+        System.out.println("------------------------");
+    }
 
-            switch (menuOption) {
-                case 1: {
-                    System.out.println("Digite o nome da pessoa: ");
-                    String nome = scanner.nextLine();
-                    System.out.println("Digite o sexo da pessoa (M/F): ");
-                    char sexo = scanner.nextLine().charAt(0);
-                    System.out.println("Digite a data de nascimento (DD-MM-YYYY): ");
-                    LocalDate nascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                    System.out.println("Digite o login da pessoa: ");
-                    String login = scanner.nextLine();
-                    System.out.println("Digite a senha da pessoa: ");
-                    String senha = scanner.nextLine();
-                    System.out.println("Digite o tipo de usuário (1-Admin, 2-User): ");
-                    String tipoUsuario = Integer.parseInt(scanner.nextLine()) == 1 ? "Admin" : "User";
+    public static int buscarAcademiaMenu(String modo) {
+        System.out.println("Digite o ID da academia que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
 
-                    LocalDate dataAtual = LocalDate.now();
-                    Pessoa pessoa = new Pessoa(0, nome, sexo, nascimento, login, senha, tipoUsuario, dataAtual, dataAtual);
-                    pessoaDAO.adicionarPessoa(pessoa);
-                    break;
-                }
-                case 2: {
-                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+    public static Academia alterarAcademiaMenu(int id, Academia academiaExistente) {
+        System.out.println("Digite o novo nome da academia:");
+        String novoNome = scanner.nextLine();
+        System.out.println("Digite o novo endereço da academia:");
+        String novoEndereco = scanner.nextLine();
+        LocalDate dataAtualizacao = LocalDate.now();
+        Academia novaAcademia = new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
+        return novaAcademia;
+    }
 
-                    System.out.println("------------------------");
+    public static int pessoaMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE PESSOAS======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar pessoa\n");
+        System.out.println("2 - Mostrar todas as pessoas\n");
+        System.out.println("3 - Alterar pessoa\n");
+        System.out.println("4 - Buscar pessoa\n");
+        System.out.println("5 - Remover pessoa\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
 
-                    for (Pessoa pessoa : pessoas) {
-                        System.out.println("ID: " + pessoa.getId());
-                        System.out.println("Nome: " + pessoa.getNome());
-                        System.out.println("Sexo: " + pessoa.getSexo());
-                        System.out.println("Data de Nascimento: " + pessoa.getNascimento());
-                        System.out.println("Login: " + pessoa.getLogin());
-                        System.out.println("Senha: " + pessoa.getSenha());
-                        System.out.println("Tipo de Usuário: " + pessoa.getTipoUsuario());
-                        System.out.println("Data de Criação: " + pessoa.getDataCriacao());
-                        System.out.println("Data de Modificação: " + pessoa.getDataModificacao());
-                        System.out.println("------------------------");
-                    }
-                    break;
-                }
-                case 3: {
-                    System.out.println("Digite o ID da pessoa que deseja alterar:");
-                    int idAlteracao = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Digite o novo login:");
-                    String novoLogin = scanner.nextLine();
-                    System.out.println("Digite a nova senha:");
-                    String novaSenha = scanner.nextLine();
-                    System.out.println("Digite o novo tipo de usuário (1-Admin, 2-User):");
-                    String novoTipoUsuario = Integer.parseInt(scanner.nextLine()) == 1 ? "Admin" : "User";
+    public static Pessoa adicionarPessoaMenu() {
+        System.out.println("Digite o nome da pessoa: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o sexo da pessoa (M/F): ");
+        char sexo = scanner.nextLine().charAt(0);
+        System.out.println("Digite a data de nascimento (DD-MM-YYYY): ");
+        LocalDate nascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.println("Digite o login da pessoa: ");
+        String login = scanner.nextLine();
+        System.out.println("Digite a senha da pessoa: ");
+        String senha = scanner.nextLine();
+        System.out.println("Digite o tipo de usuário (1-Admin, 2-Professor, 3-Usuario):");
+        int numeroTipoUsuario = Integer.parseInt(scanner.nextLine());
+        String tipoUsuario = "";
 
-                    pessoaDAO.alterarPessoa(idAlteracao, novoLogin, novaSenha, novoTipoUsuario);
-                    System.out.println("Pessoa alterada com sucesso!");
-                    break;
-                }
-                case 4: {
-                    System.out.println("Digite o ID da pessoa que deseja buscar:");
-                    int idBusca = Integer.parseInt(scanner.nextLine());
-                    Pessoa pessoaBuscada = pessoaDAO.buscarPessoa(idBusca);
-                    if (pessoaBuscada != null) {
-                        System.out.println("Pessoa encontrada:");
-                        System.out.println("ID: " + pessoaBuscada.getId());
-                        System.out.println("Nome: " + pessoaBuscada.getNome());
-                        System.out.println("Login: " + pessoaBuscada.getLogin());
-                        System.out.println("Senha: " + pessoaBuscada.getSenha());
-                        System.out.println("Tipo de Usuário: " + pessoaBuscada.getTipoUsuario());
-                        System.out.println("Data de Criação: " + pessoaBuscada.getDataCriacao());
-                        System.out.println("Data de Modificação: " + pessoaBuscada.getDataModificacao());
-                    } else {
-                        System.out.println("Pessoa não encontrada.");
-                    }
-                    break;
-                }
-                case 5: {
-                    System.out.println("Digite o ID da pessoa que deseja remover:");
-                    int idRemocao = Integer.parseInt(scanner.nextLine());
-                    pessoaDAO.removerPessoa(idRemocao);
-                    System.out.println("Pessoa removida com sucesso!");
-                    break;
-                }
-                case 6:
-                    mostrarMenuPrincipal();
-                    break;
-                default:
-                    mostrarOpcaoInvalida();
-                    break;
+        switch (numeroTipoUsuario) {
+            case 1:
+                tipoUsuario = "Admin";
+                break;
+            case 2:
+                tipoUsuario = "Professor";
+                break;
+            default:
+                tipoUsuario = "Usuario";
+                break;
+        }
+
+        LocalDate dataAtual = LocalDate.now();
+        Pessoa pessoa = new Pessoa(0, nome, sexo, nascimento, login, senha, tipoUsuario, dataAtual, dataAtual);
+        return pessoa;
+    }
+
+    public static void mostrarTodasPessoasMenu(Pessoa[] pessoas) {
+        if (pessoas.length == 0) {
+            System.out.println("Nenhuma pessoa cadastrada.");
+        } else {
+            System.out.println("------------------------");
+            for (Pessoa pessoa : pessoas) {
+                System.out.println("ID: " + pessoa.getId());
+                System.out.println("Nome: " + pessoa.getNome());
+                System.out.println("Sexo: " + pessoa.getSexo());
+                System.out.println("Data de Nascimento: " + pessoa.getNascimento());
+                System.out.println("Login: " + pessoa.getLogin());
+                System.out.println("Senha: " + pessoa.getSenha());
+                System.out.println("Tipo de Usuário: " + pessoa.getTipoUsuario());
+                System.out.println("Data de Criação: " + pessoa.getDataCriacao());
+                System.out.println("Data de Modificação: " + pessoa.getDataModificacao());
+                System.out.println("------------------------");
             }
-            digitarQualquerTecla();
         }
     }
 
-    public void exercicioMenu() {
-        int menuOption = 0;
-        while (menuOption != 6) {
-            menuOption = 0;
-            System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS======\n");
-            System.out.println("Escolha uma opção:\n");
-            System.out.println("1 - Adicionar exercício\n");
-            System.out.println("2 - Mostrar todos os exercícios\n");
-            System.out.println("3 - Alterar exercício\n");
-            System.out.println("4 - Buscar exercício\n");
-            System.out.println("5 - Remover exercício\n");
-            System.out.println("6 - Sair\n");
-            System.out.println("\nDigite a opção escolhida:");
-            menuOption = Integer.parseInt(scanner.nextLine());
-
-            switch (menuOption) {
-                case 1: {
-                    System.out.println("Digite o nome do exercício: ");
-                    String nome = scanner.nextLine();
-                    System.out.println("Digite a descrição do exercício: ");
-                    String descricao = scanner.nextLine();
-
-                    LocalDate dataAtual = LocalDate.now();
-                    Exercicio exercicio = new Exercicio(0, nome, descricao, dataAtual, dataAtual);
-                    exercicioDAO.adicionarExercicio(exercicio);
-                    break;
-                }
-                case 2: {
-                    Exercicio[] exercicios = exercicioDAO.mostrarExercicios();
-
-                    System.out.println("------------------------");
-
-                    for (Exercicio exercicio : exercicios) {
-                        System.out.println("ID: " + exercicio.getId());
-                        System.out.println("Nome: " + exercicio.getNome());
-                        System.out.println("Descrição: " + exercicio.getDescricao());
-                        System.out.println("Data de Criação: " + exercicio.getDataCriacao());
-                        System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
-                        System.out.println("------------------------");
-                    }
-                    break;
-                }
-                case 3: {
-                    System.out.println("Digite o ID do exercício que deseja alterar:");
-                    int idAlteracao = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Digite o novo nome do exercício:");
-                    String novoNome = scanner.nextLine();
-                    System.out.println("Digite a nova descrição do exercício:");
-                    String novaDescricao = scanner.nextLine();
-
-                    exercicioDAO.alterarExercicio(idAlteracao, new Exercicio(0, novoNome, novaDescricao, null, null));
-                    System.out.println("Exercício alterado com sucesso!");
-                    break;
-                }
-                case 4: {
-                    System.out.println("Digite o ID do exercício que deseja buscar:");
-                    int idBusca = Integer.parseInt(scanner.nextLine());
-                    Exercicio exercicioBuscado = exercicioDAO.buscarExercicio(idBusca);
-                    if (exercicioBuscado != null) {
-                        System.out.println("Exercício encontrado:");
-                        System.out.println("ID: " + exercicioBuscado.getId());
-                        System.out.println("Nome: " + exercicioBuscado.getNome());
-                        System.out.println("Descrição: " + exercicioBuscado.getDescricao());
-                        System.out.println("Data de Criação: " + exercicioBuscado.getDataCriacao());
-                        System.out.println("Data de Modificação: " + exercicioBuscado.getDataModificacao());
-                    } else {
-                        System.out.println("Exercício não encontrado.");
-                    }
-                    break;
-                }
-                case 5: {
-                    System.out.println("Digite o ID do exercício que deseja remover:");
-                    int idRemocao = Integer.parseInt(scanner.nextLine());
-                    exercicioDAO.removerExercicio(idRemocao);
-                    System.out.println("Exercício removido com sucesso!");
-                    break;
-                }
-                case 6:
-                    mostrarMenuPrincipal();
-                    break;
-                default:
-                    mostrarOpcaoInvalida();
-                    break;
-            }
-            digitarQualquerTecla();
-        }
+    public static void mostrarPessoaMenu(Pessoa pessoa) {
+        System.out.println("ID: " + pessoa.getId());
+        System.out.println("Nome: " + pessoa.getNome());
+        System.out.println("Sexo: " + pessoa.getSexo());
+        System.out.println("Data de Nascimento: " + pessoa.getNascimento());
+        System.out.println("Login: " + pessoa.getLogin());
+        System.out.println("Senha: " + pessoa.getSenha());
+        System.out.println("Tipo de Usuário: " + pessoa.getTipoUsuario());
+        System.out.println("Data de Criação: " + pessoa.getDataCriacao());
+        System.out.println("Data de Modificação: " + pessoa.getDataModificacao());
+        System.out.println("------------------------");
     }
 
-    public void limparTela() {
+    public static int buscarPessoaMenu(String modo) {
+        System.out.println("Digite o ID da pessoa que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
+    public static Pessoa alterarPessoaMenu(int id, Pessoa pessoaExistente) {
+        System.out.println("Digite o novo nome da pessoa:");
+        String novoNome = scanner.nextLine();
+        System.out.println("Digite o novo sexo da pessoa (M/F):");
+        char novoSexo = scanner.nextLine().charAt(0);
+        System.out.println("Digite a nova data de nascimento (DD-MM-YYYY):");
+        LocalDate novaDataNascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.println("Digite o novo login da pessoa:");
+        String novoLogin = scanner.nextLine();
+        System.out.println("Digite a nova senha da pessoa:");
+        String novaSenha = scanner.nextLine();
+        System.out.println("Digite o novo tipo de usuário (1-Admin, 2-Professor, 3-Usuario):");
+        int numeroNovoTipoUsuario = Integer.parseInt(scanner.nextLine());
+        String novoTipoUsuario = "";
+
+        switch (numeroNovoTipoUsuario) {
+            case 1:
+                novoTipoUsuario = "Admin";
+                break;
+            case 2:
+                novoTipoUsuario = "Professor";
+                break;
+            default:
+                novoTipoUsuario = "Usuario";
+                break;
+        }
+
+        LocalDate dataAtualizacao = LocalDate.now();
+        Pessoa novaPessoa = new Pessoa(id, novoNome, novoSexo, novaDataNascimento, novoLogin, novaSenha, novoTipoUsuario, pessoaExistente.getDataCriacao(), dataAtualizacao);
+        return novaPessoa;
+    }
+
+    public static int exercicioMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar exercício\n");
+        System.out.println("2 - Mostrar todos os exercícios\n");
+        System.out.println("3 - Alterar exercício\n");
+        System.out.println("4 - Buscar exercício\n");
+        System.out.println("5 - Remover exercício\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static Exercicio adicionarExerciciosMenu() {
+        System.out.println("Digite o nome do exercício: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite a descrição do exercício: ");
+        String descricao = scanner.nextLine();
+
+        LocalDate dataAtual = LocalDate.now();
+        Exercicio exercicio = new Exercicio(0, nome, descricao, dataAtual, dataAtual);
+        return exercicio;
+    }
+    
+    public static void mostrarTodosExerciciosMenu(Exercicio[] exercicios) {
+        System.out.println("------------------------");
+
+        for (Exercicio exercicio : exercicios) {
+            System.out.println("ID: " + exercicio.getId());
+            System.out.println("Nome: " + exercicio.getNome());
+            System.out.println("Descrição: " + exercicio.getDescricao());
+            System.out.println("Data de Criação: " + exercicio.getDataCriacao());
+            System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
+            System.out.println("------------------------");
+        }
+    }
+    
+        public static void mostrarExercicioMenu(Exercicio exercicio) {
+            System.out.println("ID: " + exercicio.getId());
+            System.out.println("Nome: " + exercicio.getNome());
+            System.out.println("Descrição: " + exercicio.getDescricao());
+            System.out.println("Data de Criação: " + exercicio.getDataCriacao());
+            System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
+            System.out.println("------------------------");
+            }
+
+
+    public static int buscarExercicioMenu(String modo) {
+        System.out.println("Digite o ID do exercicio que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
+    public static Exercicio alterarExercicioMenu(int id, Exercicio exercicio) {
+        System.out.println("Digite o novo nome do exercício:");
+        String novoNome = scanner.nextLine();
+        System.out.println("Digite a nova descrição do exercício:");
+        String novaDescricao = scanner.nextLine();
+                LocalDate dataAtualizacao = LocalDate.now();
+        Exercicio novoExercicio = new Exercicio(id, novoNome, novaDescricao, exercicio.getDataCriacao(), dataAtualizacao);
+        return novoExercicio;
+    }
+
+    public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
         }
     }
 
-    public void mostrarOpcaoInvalida() {
+    public static void mostrarOpcaoInvalida() {
         System.out.println("Opção inválida. Por favor, tente novamente.");
     }
 
-    public void digitarQualquerTecla() {
+    public static void digitarQualquerTecla() {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
-    }
-
-    public void retornarMenu() {
-        mostrarOpcaoInvalida();
-        digitarQualquerTecla();
-        mostrarMenuPrincipal();
     }
 }

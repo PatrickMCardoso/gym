@@ -14,6 +14,7 @@ public class AcademiaDAO {
         this.academias = new Academia[10];
         this.tamanho = 0;
     }
+    
     ////////////////////////////////////////////////////////////////////////
     public void adicionarAcademiasExemplo() {
         Academia academia1 = new Academia(1, "Tasmanian Gym", "R. Píres de Campos, 409", LocalDate.now(), LocalDate.now());
