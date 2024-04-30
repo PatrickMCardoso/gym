@@ -14,6 +14,7 @@ public class Gym {
         AcademiaDAO academiaDAO = new AcademiaDAO();
         PessoaDAO pessoaDAO = new PessoaDAO();
         ExercicioDAO exercicioDAO = new ExercicioDAO();
+        ExercicioAplicacaoDAO exercicioAplicaoDAO = new ExercicioAplicacaoDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
