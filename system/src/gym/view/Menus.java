@@ -17,6 +17,8 @@ public class Menus {
 
     static Scanner scanner = new Scanner(System.in);
 
+    
+    // MENU PRINCIPAL
     public static int mostrarMenuPrincipal() {
         limparTela();
         System.out.println("====== HealthierLifeGym ======\n");
@@ -30,6 +32,8 @@ public class Menus {
         return menuOption;
     }
 
+    
+    // ACADEMIA
     public static int academiaMenu() {
         System.out.println("======SISTEMA DE ACADEMIAS======\n");
         System.out.println("Escolha uma opção:\n");
@@ -94,7 +98,9 @@ public class Menus {
         Academia novaAcademia = new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
         return novaAcademia;
     }
-
+    
+    
+    // PESSOA
     public static int pessoaMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE PESSOAS======\n");
         System.out.println("Escolha uma opção:\n");
@@ -211,7 +217,9 @@ public class Menus {
         Pessoa novaPessoa = new Pessoa(id, novoNome, novoSexo, novaDataNascimento, novoLogin, novaSenha, novoTipoUsuario, pessoaExistente.getDataCriacao(), dataAtualizacao);
         return novaPessoa;
     }
-
+    
+    
+    // EXERCÍCIO
     public static int exercicioMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS======\n");
         System.out.println("Escolha uma opção:\n");
@@ -249,16 +257,15 @@ public class Menus {
             System.out.println("------------------------");
         }
     }
-    
-        public static void mostrarExercicioMenu(Exercicio exercicio) {
-            System.out.println("ID: " + exercicio.getId());
-            System.out.println("Nome: " + exercicio.getNome());
-            System.out.println("Descrição: " + exercicio.getDescricao());
-            System.out.println("Data de Criação: " + exercicio.getDataCriacao());
-            System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
-            System.out.println("------------------------");
-            }
 
+    public static void mostrarExercicioMenu(Exercicio exercicio) {
+        System.out.println("ID: " + exercicio.getId());
+        System.out.println("Nome: " + exercicio.getNome());
+        System.out.println("Descrição: " + exercicio.getDescricao());
+        System.out.println("Data de Criação: " + exercicio.getDataCriacao());
+        System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
+        System.out.println("------------------------");
+    }
 
     public static int buscarExercicioMenu(String modo) {
         System.out.println("Digite o ID do exercicio que deseja " + modo + ": ");
@@ -276,6 +283,7 @@ public class Menus {
         return novoExercicio;
     }
 
+    
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();

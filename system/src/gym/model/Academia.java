@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gym.model;
+
 import java.time.LocalDate;
 
-/**
- *
- * @author ruanemanuell
- */
 public class Academia {
     private int id;
     private String nome;
@@ -16,7 +9,6 @@ public class Academia {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    ///////////////////////////////////////////////////////////
     public Academia(int id, String nome, String endereço, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.nome = nome;
@@ -24,7 +16,7 @@ public class Academia {
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
     }
-    /////////////////////////////////////////////////////////////
+    
     public int getId() {
         return id;
     }

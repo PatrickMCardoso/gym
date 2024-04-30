@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gym.model;
+
 import java.time.LocalDate;
 
-/**
- *
- * @author CAUPT - ALUNOS
- */
 public class Exercicio {
     private int id;
     private String nome;

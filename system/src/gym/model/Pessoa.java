@@ -1,15 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gym.model;
 
 import java.time.LocalDate;
-
-/**
- *
- * @author ruanemanuell
- */
 
 public class Pessoa {
     private int id;

@@ -2,10 +2,6 @@ package gym.model;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author ruanemanuell
- */
 public class AcademiaDAO {
     private Academia[] academias;
     private int tamanho;
