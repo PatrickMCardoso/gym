@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package gym.view;
 
 import java.util.Scanner;
@@ -9,10 +5,6 @@ import gym.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author ruanemanuell
- */
 public class Menus {
 
     static Scanner scanner = new Scanner(System.in);
@@ -26,7 +18,8 @@ public class Menus {
         System.out.println("1 - Sistema de Academia\n");
         System.out.println("2 - Sistema de Pessoas\n");
         System.out.println("3 - Sistema de Exercicios\n");
-        System.out.println("4 - Sair\n");
+        System.out.println("4 - Sistema de Aplicação de Exercicios\n");
+        System.out.println("5 - Sair\n");
         System.out.println("\nDigite a opção escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -126,7 +119,7 @@ public class Menus {
         String login = scanner.nextLine();
         System.out.println("Digite a senha da pessoa: ");
         String senha = scanner.nextLine();
-        System.out.println("Digite o tipo de usuário (1-Admin, 2-Professor, 3-Usuario):");
+        System.out.println("Digite o tipo de usuário (1-Admin, 2-Professor, 3-Aluno):");
         int numeroTipoUsuario = Integer.parseInt(scanner.nextLine());
         String tipoUsuario = "";
 
@@ -138,7 +131,7 @@ public class Menus {
                 tipoUsuario = "Professor";
                 break;
             default:
-                tipoUsuario = "Usuario";
+                tipoUsuario = "Aluno";
                 break;
         }
 
@@ -197,7 +190,7 @@ public class Menus {
         String novoLogin = scanner.nextLine();
         System.out.println("Digite a nova senha da pessoa:");
         String novaSenha = scanner.nextLine();
-        System.out.println("Digite o novo tipo de usuário (1-Admin, 2-Professor, 3-Usuario):");
+        System.out.println("Digite o novo tipo de usuário (1-Admin, 2-Professor, 3-Aluno):");
         int numeroNovoTipoUsuario = Integer.parseInt(scanner.nextLine());
         String novoTipoUsuario = "";
 
@@ -282,6 +275,86 @@ public class Menus {
         Exercicio novoExercicio = new Exercicio(id, novoNome, novaDescricao, exercicio.getDataCriacao(), dataAtualizacao);
         return novoExercicio;
     }
+    
+    // EXERCÍCIO APLICAÇÃO
+    public static int exercicioAplicacaoMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS DE APLICAÇÃO======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar exercício de aplicação\n");
+        System.out.println("2 - Mostrar todos os exercícios de aplicação\n");
+        System.out.println("3 - Alterar exercício de aplicação\n");
+        System.out.println("4 - Buscar exercício de aplicação\n");
+        System.out.println("5 - Remover exercício de aplicação\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static ExercicioAplicacao adicionarExercicioAplicacaoMenu(ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
+        System.out.println("Digite o ID do exercício existente: ");
+        int idExercicio = Integer.parseInt(scanner.nextLine());
+        Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idExercicio);
+
+        if (exercicioExistente != null) {
+            System.out.println("Digite a descrição do exercício de aplicação: ");
+            String descricao = scanner.nextLine();
+
+            exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioDAO, idExercicio, descricao);
+
+            LocalDate dataAtual = LocalDate.now();
+            ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(idExercicio, descricao, dataAtual, dataAtual);
+            return exercicioAplicacao;
+        } else {
+            System.out.println("Exercício não encontrado.");
+            return null;
+        }
+    }
+
+
+    public static void mostrarTodosExerciciosAplicacaoMenu(ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
+        System.out.println("------------------------");
+
+        ExercicioAplicacao[] exerciciosAplicacao = exercicioAplicacaoDAO.mostrarExerciciosAplicacao();
+
+        for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
+            Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getId());
+            if (exercicio != null) {
+                System.out.println("Nome do Exercício: " + exercicio.getNome());
+                System.out.println("Descrição do Exercício: " + exercicio.getDescricao());
+                System.out.println("Descrição do Exercício de Aplicação: " + exercicioAplicacao.getDescricao());
+                System.out.println("Data de Criação: " + exercicioAplicacao.getDataCriacao());
+                System.out.println("Data de Modificação: " + exercicioAplicacao.getDataModificacao());
+                System.out.println("------------------------");
+            } else {
+                System.out.println("Exercício não encontrado.");
+            }
+        }
+    }
+
+
+    public static void mostrarExercicioAplicacaoMenu(ExercicioAplicacao exercicioAplicacao) {
+        System.out.println("ID: " + exercicioAplicacao.getId());
+        System.out.println("Descrição: " + exercicioAplicacao.getDescricao());
+        System.out.println("Data de Criação: " + exercicioAplicacao.getDataCriacao());
+        System.out.println("Data de Modificação: " + exercicioAplicacao.getDataModificacao());
+        System.out.println("------------------------");
+    }
+
+    public static int buscarExercicioAplicacaoMenu(String modo) {
+        System.out.println("Digite o ID do exercício de aplicação que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
+    public static ExercicioAplicacao alterarExercicioAplicacaoMenu(int id, ExercicioAplicacao exercicioAplicacao) {
+        System.out.println("Digite a nova descrição do exercício de aplicação:");
+        String novaDescricao = scanner.nextLine();
+        LocalDate dataAtualizacao = LocalDate.now();
+        ExercicioAplicacao novoExercicioAplicacao = new ExercicioAplicacao(id, novaDescricao, exercicioAplicacao.getDataCriacao(), dataAtualizacao);
+        return novoExercicioAplicacao;
+    }
+
 
     
     public static void limparTela() {

@@ -14,8 +14,8 @@ public class PessoaDAO {
 
     public void adicionarPessoasExemplo() {
         Pessoa pessoa1 = new Pessoa(1, "Eduardo", 'M', LocalDate.of(1990, 5, 15), "eduardoADMIN", "duardin", "Admin", LocalDate.now(), LocalDate.now());
-        Pessoa pessoa2 = new Pessoa(2, "Patrick Machado Cardoso", 'M', LocalDate.of(2004, 4, 12), "patrickcardoso", "123123", "Usuario", LocalDate.now(), LocalDate.now());
-        Pessoa pessoa3 = new Pessoa(3, "Ruan Emanuell", 'M', LocalDate.of(2004, 3, 10), "ruan789", "ruanzin", "Usuario", LocalDate.now(), LocalDate.now());
+        Pessoa pessoa2 = new Pessoa(2, "Patrick Machado Cardoso", 'M', LocalDate.of(2004, 4, 12), "patrickcardoso", "123123", "Aluno", LocalDate.now(), LocalDate.now());
+        Pessoa pessoa3 = new Pessoa(3, "Ruan Emanuell", 'M', LocalDate.of(2004, 3, 10), "ruan789", "ruanzin", "Aluno", LocalDate.now(), LocalDate.now());
         Pessoa pessoa4 = new Pessoa(4, "Samuel Colombo", 'M', LocalDate.of(2005, 6, 27), "colombo", "samu", "Professor", LocalDate.now(), LocalDate.now());
 
         adicionarPessoa(pessoa1);

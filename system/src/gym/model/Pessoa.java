@@ -13,7 +13,6 @@ public class Pessoa {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    //////////////////////////////////////////////////////////////////////////////
     public Pessoa(int id, String nome, char sexo, LocalDate nascimento, String login, String senha, String tipoUsuario, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.nome = nome;
@@ -24,8 +23,7 @@ public class Pessoa {
         this.tipoUsuario = tipoUsuario;
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
-    }
-    ///////////////////////////////////////////////////////////////////////////////
+    }    
     
     public int getId() {
         return id;

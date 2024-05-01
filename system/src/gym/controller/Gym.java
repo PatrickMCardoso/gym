@@ -13,15 +13,15 @@ public class Gym {
         Scanner scanner = new Scanner(System.in);
         AcademiaDAO academiaDAO = new AcademiaDAO();
         PessoaDAO pessoaDAO = new PessoaDAO();
-        ExercicioDAO exercicioDAO = new ExercicioDAO();
-        ExercicioAplicacaoDAO exercicioAplicaoDAO = new ExercicioAplicacaoDAO();
-
+        ExercicioDAO exercicioDAO = new ExercicioDAO();       
+        ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
+        
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
 
         int opcao = 0;
-        while (opcao != 4) {
+        while (opcao != 5) {
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 case 1: {
@@ -200,6 +200,65 @@ public class Gym {
                     }
                 }
                 case 4:
+                    int opcaoExercicioAplicacao = 0;
+                    while (opcaoExercicioAplicacao != 6) {
+                        Menus.digitarQualquerTecla();
+                        opcaoExercicioAplicacao = Menus.exercicioAplicacaoMenu();
+                        switch (opcaoExercicioAplicacao) {
+                            case 1: {
+                                ExercicioAplicacao exercicioAplicacao = Menus.adicionarExercicioAplicacaoMenu(exercicioDAO, exercicioAplicacaoDAO);
+                                if (exercicioAplicacao != null) {
+                                    exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioDAO, exercicioAplicacao.getId(), exercicioAplicacao.getDescricao());
+                                    System.out.println("Exercício de Aplicação adicionado com sucesso!");
+                                } else {
+                                    System.out.println("Erro ao adicionar Exercício de Aplicação.");
+                                }
+                            }
+                            break;
+
+                            case 2: {
+                                Menus.mostrarTodosExerciciosAplicacaoMenu(exercicioDAO, exercicioAplicacaoDAO);
+                            }
+                            break;
+
+                            case 3: {
+                                int idAlteracao = Menus.buscarExercicioAplicacaoMenu("alterar");
+                                ExercicioAplicacao exercicioAplicacaoExistente = exercicioAplicacaoDAO.buscarExercicioAplicacao(idAlteracao);
+                                if (exercicioAplicacaoExistente != null) {
+                                    ExercicioAplicacao novoExercicioAplicacao = Menus.alterarExercicioAplicacaoMenu(idAlteracao, exercicioAplicacaoExistente);
+                                    exercicioAplicacaoDAO.alterarExercicioAplicacao(idAlteracao, novoExercicioAplicacao);
+                                    System.out.println("Exercício aplicação alterado com sucesso!");
+                                } else {
+                                    System.out.println("Exercício aplicação não encontrado.");
+                                }
+                            }
+                            break;
+                            case 4: {
+                                int idBusca = Menus.buscarExercicioAplicacaoMenu("buscar");
+                                ExercicioAplicacao exercicioAplicacaoBuscado = exercicioAplicacaoDAO.buscarExercicioAplicacao(idBusca);
+                                if (exercicioAplicacaoBuscado != null) {
+                                    Menus.mostrarExercicioAplicacaoMenu(exercicioAplicacaoBuscado);
+                                } else {
+                                    System.out.println("Exercício aplicação não encontrado.");
+                                }
+                            }
+                            break;
+                            case 5: {
+                                int idRemocao = Menus.buscarExercicioAplicacaoMenu("remover");
+                                exercicioAplicacaoDAO.removerExercicioAplicacao(idRemocao);
+                                System.out.println("Exercício aplicação removido com sucesso!");
+                            }
+                            break;
+                            case 6:
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
+                    break;
+                    
+                case 5:
                     break;
                 default:
                     Menus.mostrarOpcaoInvalida();
