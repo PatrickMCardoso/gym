@@ -52,10 +52,6 @@ public class ExercicioAplicacaoDAO {
                 break;
             }
         }
-
-        for (int i = 0; i < tamanho; i++) {
-            exerciciosAplicacao[i].setId(i + 1);
-        }
     }
 
     public ExercicioAplicacao buscarExercicioAplicacao(int id) {

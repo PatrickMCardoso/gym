@@ -65,10 +65,6 @@ public class AcademiaDAO {
                 break;
             }
         }
-
-        for (int i = 0; i < tamanho; i++) {
-            academias[i].setId(i + 1);
-        }
     }
 
     public Academia buscarAcademia(int id) {

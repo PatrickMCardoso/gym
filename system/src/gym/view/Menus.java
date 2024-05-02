@@ -331,7 +331,7 @@ public class Menus {
     }
 
     public static int buscarExercicioAplicacaoMenu(String modo) {
-        System.out.println("Digite o ID do exercício que deseja" + modo + " a aplicação: ");
+        System.out.println("Digite o ID do exercício aplicação que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }

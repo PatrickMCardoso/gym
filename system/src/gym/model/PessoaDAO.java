@@ -79,10 +79,6 @@ public class PessoaDAO {
                 break;
             }
         }
-
-        for (int i = 0; i < tamanho; i++) {
-            pessoas[i].setId(i + 1);
-        }
     }
 
     public Pessoa[] mostrarPessoas() {

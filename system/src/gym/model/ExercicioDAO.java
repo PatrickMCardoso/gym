@@ -109,10 +109,6 @@ public class ExercicioDAO {
                 break;
             }
         }
-
-        for (int i = 0; i < tamanho; i++) {
-            exercicios[i].setId(i + 1);
-        }
     }
 
     public Exercicio buscarExercicio(int id) {

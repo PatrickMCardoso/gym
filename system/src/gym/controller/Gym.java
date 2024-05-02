@@ -218,7 +218,6 @@ public class Gym {
                                 }
                             }
                             break;
-
                             case 2: {
                                 Menus.mostrarTodosExerciciosAplicacaoMenu(exercicioDAO, exercicioAplicacaoDAO);
                             }
@@ -228,9 +227,13 @@ public class Gym {
                                 int idAlteracao = Menus.buscarExercicioAplicacaoMenu("alterar");
                                 ExercicioAplicacao exercicioAplicacaoExistente = exercicioAplicacaoDAO.buscarExercicioAplicacao(idAlteracao);
                                 if (exercicioAplicacaoExistente != null) {
-                                    ExercicioAplicacao novoExercicioAplicacao = Menus.alterarExercicioAplicacaoMenu(idAlteracao, exercicioAplicacaoExistente);
-                                    exercicioAplicacaoDAO.alterarExercicioAplicacao(idAlteracao, novoExercicioAplicacao);
-                                    System.out.println("Exercício aplicação alterado com sucesso!");
+                                    if (exercicioDAO.buscarExercicio(exercicioAplicacaoExistente.getIdExercicio()) != null) {
+                                        ExercicioAplicacao novoExercicioAplicacao = Menus.alterarExercicioAplicacaoMenu(idAlteracao, exercicioAplicacaoExistente);
+                                        exercicioAplicacaoDAO.alterarExercicioAplicacao(idAlteracao, novoExercicioAplicacao);
+                                        System.out.println("Exercício aplicação alterado com sucesso!");
+                                    } else {
+                                        System.out.println("Exercício aplicação alterado com sucesso!");
+                                    }
                                 } else {
                                     System.out.println("Exercício aplicação não encontrado.");
                                 }
@@ -240,7 +243,11 @@ public class Gym {
                                 int idBusca = Menus.buscarExercicioAplicacaoMenu("buscar");
                                 ExercicioAplicacao exercicioAplicacaoBuscado = exercicioAplicacaoDAO.buscarExercicioAplicacao(idBusca);
                                 if (exercicioAplicacaoBuscado != null) {
-                                    Menus.mostrarExercicioAplicacaoMenu(exercicioAplicacaoBuscado);
+                                    if (exercicioDAO.buscarExercicio(exercicioAplicacaoBuscado.getIdExercicio()) != null) {
+                                        Menus.mostrarExercicioAplicacaoMenu(exercicioAplicacaoBuscado);
+                                    } else {
+                                        System.out.println("Exercício aplicação não encontrado.");
+                                    }
                                 } else {
                                     System.out.println("Exercício aplicação não encontrado.");
                                 }
@@ -250,8 +257,12 @@ public class Gym {
                                 int idRemocao = Menus.buscarExercicioAplicacaoMenu("remover");
                                 ExercicioAplicacao exercicioAplicacaoBuscado = exercicioAplicacaoDAO.buscarExercicioAplicacao(idRemocao);
                                 if (exercicioAplicacaoBuscado != null) {
-                                    exercicioAplicacaoDAO.removerExercicioAplicacao(idRemocao);
-                                    System.out.println("Exercício aplicação removido com sucesso!");
+                                    if (exercicioDAO.buscarExercicio(exercicioAplicacaoBuscado.getIdExercicio()) != null) {
+                                        exercicioAplicacaoDAO.removerExercicioAplicacao(idRemocao);
+                                        System.out.println("Exercício aplicação removido com sucesso!");
+                                    } else {
+                                        System.out.println("Exercício aplicação não encontrado.");
+                                    }
                                 } else {
                                     System.out.println("Exercício aplicação não encontrado.");
                                 }
