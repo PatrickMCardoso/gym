@@ -13,9 +13,9 @@ public class Gym {
         Scanner scanner = new Scanner(System.in);
         AcademiaDAO academiaDAO = new AcademiaDAO();
         PessoaDAO pessoaDAO = new PessoaDAO();
-        ExercicioDAO exercicioDAO = new ExercicioDAO();       
+        ExercicioDAO exercicioDAO = new ExercicioDAO();
         ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
-        
+
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
@@ -199,6 +199,7 @@ public class Gym {
                         }
                     }
                 }
+                break;
                 case 4:
                     int opcaoExercicioAplicacao = 0;
                     while (opcaoExercicioAplicacao != 6) {
@@ -206,12 +207,14 @@ public class Gym {
                         opcaoExercicioAplicacao = Menus.exercicioAplicacaoMenu();
                         switch (opcaoExercicioAplicacao) {
                             case 1: {
-                                ExercicioAplicacao exercicioAplicacao = Menus.adicionarExercicioAplicacaoMenu(exercicioDAO, exercicioAplicacaoDAO);
-                                if (exercicioAplicacao != null) {
-                                    exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioDAO, exercicioAplicacao.getId(), exercicioAplicacao.getDescricao());
-                                    System.out.println("Exercício de Aplicação adicionado com sucesso!");
+                                System.out.println("Digite o ID do exercício existente: ");
+                                int idExercicio = Integer.parseInt(scanner.nextLine());
+                                Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idExercicio);
+                                if (exercicioExistente != null) {
+                                    ExercicioAplicacao exercicioAplicacao = Menus.adicionarExercicioAplicacaoMenu(idExercicio);
+                                    exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioAplicacao.getIdExercicio(), exercicioAplicacao.getDescricao());
                                 } else {
-                                    System.out.println("Erro ao adicionar Exercício de Aplicação.");
+                                    System.out.println("Exercício não encontrado.");
                                 }
                             }
                             break;
@@ -245,8 +248,13 @@ public class Gym {
                             break;
                             case 5: {
                                 int idRemocao = Menus.buscarExercicioAplicacaoMenu("remover");
-                                exercicioAplicacaoDAO.removerExercicioAplicacao(idRemocao);
-                                System.out.println("Exercício aplicação removido com sucesso!");
+                                ExercicioAplicacao exercicioAplicacaoBuscado = exercicioAplicacaoDAO.buscarExercicioAplicacao(idRemocao);
+                                if (exercicioAplicacaoBuscado != null) {
+                                    exercicioAplicacaoDAO.removerExercicioAplicacao(idRemocao);
+                                    System.out.println("Exercício aplicação removido com sucesso!");
+                                } else {
+                                    System.out.println("Exercício aplicação não encontrado.");
+                                }
                             }
                             break;
                             case 6:
@@ -257,7 +265,6 @@ public class Gym {
                         }
                     }
                     break;
-                    
                 case 5:
                     break;
                 default:

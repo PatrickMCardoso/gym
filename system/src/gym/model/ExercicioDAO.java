@@ -6,10 +6,12 @@ public class ExercicioDAO {
 
     private Exercicio[] exercicios;
     private int tamanho;
+    private int geradorId;
 
     public ExercicioDAO() {
         this.exercicios = new Exercicio[10];
         this.tamanho = 0;
+        this.geradorId = 0;
     }
 
     public void adicionarExercicioExemplos() {
@@ -67,10 +69,11 @@ public class ExercicioDAO {
     }
 
     public void adicionarExercicio(Exercicio exercicio) {
+        geradorId++;
         if (tamanho == exercicios.length) {
             aumentarCapacidade();
         }
-        int id = tamanho + 1;
+        int id = geradorId;
         exercicio.setId(id);
         LocalDate dataAtual = LocalDate.now();
         exercicio.setDataCriacao(dataAtual);

@@ -6,25 +6,23 @@ public class ExercicioAplicacaoDAO {
 
     private ExercicioAplicacao[] exerciciosAplicacao;
     private int tamanho;
+    private int geradorId;
 
     public ExercicioAplicacaoDAO() {
         this.exerciciosAplicacao = new ExercicioAplicacao[10];
         this.tamanho = 0;
+        this.geradorId = 0;
     }
 
-    public void adicionarExercicioAplicacao(ExercicioDAO exercicioDAO, int idExercicio, String descricao) {
-        Exercicio exercicio = exercicioDAO.buscarExercicio(idExercicio);
-        if (exercicio != null) {
+    public void adicionarExercicioAplicacao(int idExercicio, String descricao) {
+            geradorId++;
             if (tamanho == exerciciosAplicacao.length) {
                 aumentarCapacidade();
             }
-            int id = tamanho + 1;
+            int id = geradorId;
             LocalDate dataAtual = LocalDate.now();
-            ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(id, descricao, dataAtual, dataAtual);
-            exerciciosAplicacao[tamanho++] = exercicioAplicacao;
-        } else {
-            System.out.println("Exercício não encontrado.");
-        }
+            ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(id, idExercicio, descricao, dataAtual, dataAtual);
+            exerciciosAplicacao[tamanho++] = exercicioAplicacao; 
     }
 
     private void aumentarCapacidade() {

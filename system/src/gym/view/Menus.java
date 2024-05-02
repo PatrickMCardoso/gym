@@ -291,24 +291,13 @@ public class Menus {
         return menuOption;
     }
 
-    public static ExercicioAplicacao adicionarExercicioAplicacaoMenu(ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
-        System.out.println("Digite o ID do exercício existente: ");
-        int idExercicio = Integer.parseInt(scanner.nextLine());
-        Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idExercicio);
-
-        if (exercicioExistente != null) {
+    public static ExercicioAplicacao adicionarExercicioAplicacaoMenu(int idExercicio) {
             System.out.println("Digite a descrição do exercício de aplicação: ");
             String descricao = scanner.nextLine();
 
-            exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioDAO, idExercicio, descricao);
-
             LocalDate dataAtual = LocalDate.now();
-            ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(idExercicio, descricao, dataAtual, dataAtual);
+            ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(0, idExercicio, descricao, dataAtual, dataAtual);
             return exercicioAplicacao;
-        } else {
-            System.out.println("Exercício não encontrado.");
-            return null;
-        }
     }
 
 
@@ -318,7 +307,7 @@ public class Menus {
         ExercicioAplicacao[] exerciciosAplicacao = exercicioAplicacaoDAO.mostrarExerciciosAplicacao();
 
         for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
-            Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getId());
+            Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getIdExercicio());
             if (exercicio != null) {
                 System.out.println("Nome do Exercício: " + exercicio.getNome());
                 System.out.println("Descrição do Exercício: " + exercicio.getDescricao());
@@ -342,7 +331,7 @@ public class Menus {
     }
 
     public static int buscarExercicioAplicacaoMenu(String modo) {
-        System.out.println("Digite o ID do exercício de aplicação que deseja " + modo + ": ");
+        System.out.println("Digite o ID do exercício que deseja" + modo + " a aplicação: ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
@@ -351,7 +340,7 @@ public class Menus {
         System.out.println("Digite a nova descrição do exercício de aplicação:");
         String novaDescricao = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
-        ExercicioAplicacao novoExercicioAplicacao = new ExercicioAplicacao(id, novaDescricao, exercicioAplicacao.getDataCriacao(), dataAtualizacao);
+        ExercicioAplicacao novoExercicioAplicacao = new ExercicioAplicacao(id, exercicioAplicacao.getIdExercicio(), novaDescricao, exercicioAplicacao.getDataCriacao(), dataAtualizacao);
         return novoExercicioAplicacao;
     }
 

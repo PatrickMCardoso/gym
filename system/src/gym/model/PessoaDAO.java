@@ -6,6 +6,7 @@ public class PessoaDAO {
 
     private Pessoa[] pessoas;
     private int tamanho;
+    private int geradorId;
 
     public PessoaDAO() {
         this.pessoas = new Pessoa[10];
@@ -25,10 +26,11 @@ public class PessoaDAO {
     }
 
     public void adicionarPessoa(Pessoa pessoa) {
+        geradorId++;
         if (tamanho == pessoas.length) {
             aumentarCapacidade();
         }
-        int id = tamanho + 1;
+        int id = geradorId;
         pessoa.setId(id);
         LocalDate dataAtual = LocalDate.now();
         pessoa.setDataCriacao(dataAtual);
