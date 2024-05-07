@@ -19,7 +19,8 @@ public class Menus {
         System.out.println("2 - Sistema de Pessoas\n");
         System.out.println("3 - Sistema de Exercicios\n");
         System.out.println("4 - Sistema de Aplicação de Exercicios\n");
-        System.out.println("5 - Sair\n");
+        System.out.println("5 - Sistema de Divisão de Exercícios\n");
+        System.out.println("6 - Sair\n");
         System.out.println("\nDigite a opção escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -344,6 +345,71 @@ public class Menus {
         return novoExercicioAplicacao;
     }
 
+    //DIVISÃO DE TREINO
+    public static int divisaoTreinoMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE DIVISÕES DE TREINO======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar divisão de treino\n");
+        System.out.println("2 - Mostrar todas as divisões de treino\n");
+        System.out.println("3 - Alterar divisão de treino\n");
+        System.out.println("4 - Buscar divisão de treino\n");
+        System.out.println("5 - Remover divisão de treino\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static DivisaoTreino adicionarDivisaoTreinoMenu() {
+        System.out.println("Digite o nome da divisão de treino: ");
+        String nome = scanner.nextLine();
+        System.out.println("Digite a descrição da divisão de treino: ");
+        String descricao = scanner.nextLine();
+
+        LocalDate dataAtual = LocalDate.now();
+        DivisaoTreino divisaoTreino = new DivisaoTreino(0, nome, descricao, dataAtual, dataAtual);
+        return divisaoTreino;
+    }
+
+    public static void mostrarTodasDivisoesTreinoMenu(DivisaoTreinoDAO divisaoTreinoDAO) {
+        System.out.println("------------------------");
+
+        DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+
+        for (DivisaoTreino divisaoTreino : divisoesTreino) {
+            System.out.println("ID: " + divisaoTreino.getId());
+            System.out.println("Nome da Divisão: " + divisaoTreino.getNome());
+            System.out.println("Descrição da Divisão: " + divisaoTreino.getDescricao());
+            System.out.println("Data de Criação: " + divisaoTreino.getDataCriacao());
+            System.out.println("Data de Modificação: " + divisaoTreino.getDataModificacao());
+            System.out.println("------------------------");
+        }
+    }
+
+    public static void mostrarDivisaoTreinoMenu(DivisaoTreino divisaoTreino) {
+        System.out.println("ID: " + divisaoTreino.getId());
+        System.out.println("Nome da Divisão: " + divisaoTreino.getNome());
+        System.out.println("Descrição da Divisão: " + divisaoTreino.getDescricao());
+        System.out.println("Data de Criação: " + divisaoTreino.getDataCriacao());
+        System.out.println("Data de Modificação: " + divisaoTreino.getDataModificacao());
+        System.out.println("------------------------");
+    }
+
+    public static int buscarDivisaoTreinoMenu(String modo) {
+        System.out.println("Digite o ID da divisão de treino que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
+    public static DivisaoTreino alterarDivisaoTreinoMenu(int id, DivisaoTreino divisaoTreino) {
+        System.out.println("Digite o novo nome da divisão de treino:");
+        String novoNome = scanner.nextLine();
+        System.out.println("Digite a nova descrição da divisão de treino:");
+        String novaDescricao = scanner.nextLine();
+        LocalDate dataAtualizacao = LocalDate.now();
+        DivisaoTreino novaDivisaoTreino = new DivisaoTreino(id, novoNome, novaDescricao, divisaoTreino.getDataCriacao(), dataAtualizacao);
+        return novaDivisaoTreino;
+    }
 
     
     public static void limparTela() {

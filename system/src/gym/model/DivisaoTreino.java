@@ -56,10 +56,4 @@ public class DivisaoTreino {
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
-
-    @Override
-    public String toString() {
-        return "ID: " + id + ", Nome: " + nome + ", Descrição: " + descricao +
-                ", Data de Criação: " + dataCriacao + ", Data de Modificação: " + dataModificacao;
-    }
 }

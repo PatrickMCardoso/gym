@@ -15,13 +15,14 @@ public class Gym {
         PessoaDAO pessoaDAO = new PessoaDAO();
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
+        DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
 
         int opcao = 0;
-        while (opcao != 5) {
+        while (opcao != 6) {
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 case 1: {
@@ -277,6 +278,59 @@ public class Gym {
                     }
                     break;
                 case 5:
+                    int opcaoDivisao = 0;
+                    while (opcaoDivisao != 6) {
+                        Menus.digitarQualquerTecla();
+                        opcaoDivisao = Menus.divisaoTreinoMenu();
+                        switch (opcaoDivisao) {
+                            case 1: {
+                                DivisaoTreino divisaoTreino = Menus.adicionarDivisaoTreinoMenu();
+                                divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao());
+                                System.out.println("Divisão de Treino adicionada com sucesso!");
+                            }
+                            break;
+                            case 2: {
+                                Menus.mostrarTodasDivisoesTreinoMenu(divisaoTreinoDAO);
+                            }
+                            break;
+                            case 3: {
+                                int idAlteracao = Menus.buscarDivisaoTreinoMenu("alterar");
+                                DivisaoTreino divisaoTreinoExistente = divisaoTreinoDAO.buscarDivisaoTreino(idAlteracao);
+                                if (divisaoTreinoExistente != null) {
+                                    DivisaoTreino novaDivisaoTreino = Menus.alterarDivisaoTreinoMenu(idAlteracao, divisaoTreinoExistente);
+                                    divisaoTreinoDAO.alterarDivisaoTreino(idAlteracao, novaDivisaoTreino.getNome(), novaDivisaoTreino.getDescricao());
+                                    System.out.println("Divisão de Treino alterada com sucesso!");
+                                } else {
+                                    System.out.println("Divisão de Treino não encontrada.");
+                                }
+                            }
+                            break;
+                            case 4: {
+                                int idBusca = Menus.buscarDivisaoTreinoMenu("buscar");
+                                DivisaoTreino divisaoTreinoBuscada = divisaoTreinoDAO.buscarDivisaoTreino(idBusca);
+                                if (divisaoTreinoBuscada != null) {
+                                    Menus.mostrarDivisaoTreinoMenu(divisaoTreinoBuscada);
+                                } else {
+                                    System.out.println("Divisão de Treino não encontrada.");
+                                }
+                            }
+                            break;
+                            case 5: {
+                                int idRemocao = Menus.buscarDivisaoTreinoMenu("remover");
+                                divisaoTreinoDAO.removerDivisaoTreino(idRemocao);
+                                System.out.println("Divisão de Treino removida com sucesso!");
+                            }
+                            break;
+                            case 6:
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
+
+                    break;
+                case 6:
                     break;
                 default:
                     Menus.mostrarOpcaoInvalida();
