@@ -3,6 +3,7 @@ package gym.model;
 import java.time.LocalDate;
 
 public class DivisaoTreinoDAO {
+
     private DivisaoTreino[] divisoes;
     private int tamanho;
 

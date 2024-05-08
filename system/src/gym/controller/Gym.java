@@ -16,13 +16,14 @@ public class Gym {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
         DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
+        MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
 
         int opcao = 0;
-        while (opcao != 6) {
+        while (opcao != 7) {
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 case 1: {
@@ -328,9 +329,60 @@ public class Gym {
                                 break;
                         }
                     }
-
                     break;
                 case 6:
+                    int opcaoMensalidade = 0;
+                    while (opcaoMensalidade != 6) {
+                        Menus.digitarQualquerTecla();
+                        opcaoMensalidade = Menus.mensalidadeMenu(); 
+                        switch (opcaoMensalidade) {
+                            case 1: {
+                                Mensalidade mensalidade = Menus.adicionarMensalidadeMenu();
+                                mensalidadeDAO.adicionarMensalidade(mensalidade.getValor(), mensalidade.getDataInicio(), mensalidade.getDataFim());
+                                System.out.println("Mensalidade adicionada com sucesso!");
+                            }
+                            break;
+                            case 2: {
+                                Menus.mostrarTodasMensalidadesMenu(mensalidadeDAO);
+                            }
+                            break;
+                            case 3: {
+                                int idAlteracao = Menus.buscarMensalidadeMenu("alterar");
+                                Mensalidade mensalidadeExistente = mensalidadeDAO.buscarMensalidade(idAlteracao);
+                                if (mensalidadeExistente != null) {
+                                    Mensalidade novaMensalidade = Menus.alterarMensalidadeMenu(idAlteracao, mensalidadeExistente);
+                                    mensalidadeDAO.alterarMensalidade(idAlteracao, novaMensalidade);
+                                    System.out.println("Mensalidade alterada com sucesso!");
+                                } else {
+                                    System.out.println("Mensalidade não encontrada.");
+                                }
+                            }
+                            break;
+                            case 4: {
+                                int idBusca = Menus.buscarMensalidadeMenu("buscar");
+                                Mensalidade mensalidadeBuscada = mensalidadeDAO.buscarMensalidade(idBusca);
+                                if (mensalidadeBuscada != null) {
+                                    Menus.mostrarMensalidadeMenu(mensalidadeBuscada);
+                                } else {
+                                    System.out.println("Mensalidade não encontrada.");
+                                }
+                            }
+                            break;
+                            case 5: {
+                                int idRemocao = Menus.buscarMensalidadeMenu("remover");
+                                mensalidadeDAO.removerMensalidade(idRemocao);
+                                System.out.println("Mensalidade removida com sucesso!");
+                            }
+                            break;
+                            case 6:
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
+                    break;
+                case 7:
                     break;
                 default:
                     Menus.mostrarOpcaoInvalida();
