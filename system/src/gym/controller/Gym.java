@@ -16,6 +16,7 @@ public class Gym {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
         DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
+        DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO();
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
@@ -202,7 +203,7 @@ public class Gym {
                     }
                 }
                 break;
-                case 4:
+                case 4:{
                     int opcaoExercicioAplicacao = 0;
                     while (opcaoExercicioAplicacao != 6) {
                         Menus.digitarQualquerTecla();
@@ -277,8 +278,9 @@ public class Gym {
                                 break;
                         }
                     }
+                }
                     break;
-                case 5:
+                case 5: {
                     int opcaoDivisao = 0;
                     while (opcaoDivisao != 6) {
                         Menus.digitarQualquerTecla();
@@ -329,9 +331,74 @@ public class Gym {
                                 break;
                         }
                     }
+                }
                     break;
                 case 6:
-                    int opcaoMensalidade = 0;
+                    int opcaoDivisaoMusculo = 0;
+                    while (opcaoDivisaoMusculo != 6) {
+                        Menus.digitarQualquerTecla();
+                        opcaoDivisaoMusculo = Menus.divisaoTreinoMusculoMenu();
+                        switch (opcaoDivisaoMusculo) {
+                            case 1: {
+                                DivisaoTreinoMusculo divisaoTreinoMusculo = Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoDAO);
+                                if (divisaoTreinoMusculo != null) {
+                                    divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(divisaoTreinoMusculo);
+                                    System.out.println("Divisão de Treino-Músculo adicionada com sucesso!");
+                                }
+                            }
+                            break;
+                            case 2: {
+                                Menus.mostrarTodasDivisoesTreinoMusculoMenu(divisaoTreinoMusculoDAO);
+                            }
+                            break;
+                            case 3: {
+                                int idAlteracao = Menus.buscarDivisaoTreinoMusculoMenu("alterar");
+                                DivisaoTreinoMusculo divisaoTreinoMusculoExistente = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(idAlteracao);
+                                if (divisaoTreinoMusculoExistente != null) {
+                                    DivisaoTreinoMusculo novaDivisaoTreinoMusculo = Menus.alterarDivisaoTreinoMusculoMenu(idAlteracao, divisaoTreinoMusculoExistente);
+                                    if (novaDivisaoTreinoMusculo != null) {
+                                        divisaoTreinoMusculoDAO.alterarDivisaoTreinoMusculo(idAlteracao, novaDivisaoTreinoMusculo);
+                                        System.out.println("Divisão de Treino-Músculo alterada com sucesso!");
+                                    }
+                                } else {
+                                    System.out.println("Divisão de Treino-Músculo não encontrada.");
+                                }
+                            }
+                            break;
+                            case 4: {
+                                int idBusca = Menus.buscarDivisaoTreinoMusculoMenu("buscar");
+                                DivisaoTreinoMusculo divisaoTreinoMusculoBuscada = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(idBusca);
+                                if (divisaoTreinoMusculoBuscada != null) {
+                                    Menus.mostrarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoBuscada);
+                                } else {
+                                    System.out.println("Divisão de Treino-Músculo não encontrada.");
+                                }
+                            }
+                            break;
+                            case 5: {
+                                int idRemocao = Menus.buscarDivisaoTreinoMusculoMenu("remover");
+                                divisaoTreinoMusculoDAO.removerDivisaoTreinoMusculo(idRemocao);
+                                System.out.println("Divisão de Treino-Músculo removida com sucesso!");
+                            }
+                            break;
+                            case 6:
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
+
+
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10: {
+                    int opcaoMensalidade = 0; 
                     while (opcaoMensalidade != 6) {
                         Menus.digitarQualquerTecla();
                         opcaoMensalidade = Menus.mensalidadeMenu(); 
@@ -381,8 +448,15 @@ public class Gym {
                                 break;
                         }
                     }
+                }
                     break;
-                case 7:
+                case 11:
+                    break;
+                case 12:
+                    break;
+                case 13:
+                    break;
+                case 14:
                     break;
                 default:
                     Menus.mostrarOpcaoInvalida();

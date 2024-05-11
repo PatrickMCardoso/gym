@@ -14,13 +14,21 @@ public class Menus {
         limparTela();
         System.out.println("====== HealthierLifeGym ======\n");
         System.out.println("Escolha uma opção:\n");
-        System.out.println("1 - Sistema de Academia\n");
-        System.out.println("2 - Sistema de Pessoas\n");
-        System.out.println("3 - Sistema de Exercicios\n");
-        System.out.println("4 - Sistema de Aplicação de Exercicios\n");
-        System.out.println("5 - Sistema de Divisão de Exercícios\n");
-        System.out.println("6 - Sistema de Mensalidades\n");
-        System.out.println("7 - Sair\n");
+        System.out.println("1 - Academias\n");
+        System.out.println("2 - Pessoas\n");
+        System.out.println("3 - Exercicios\n");
+        System.out.println("4 - Aplicação de Exercicios\n");
+        System.out.println("5 - Divisão de Treino\n");
+        System.out.println("6 - Divisão de Treino-Músculo\n");
+        System.out.println("7 - Treino\n");
+        System.out.println("8 - Treino Aplicação\n");
+        System.out.println("9 - Avaliação Física\n");
+        System.out.println("10 - Mensalidades\n");
+        System.out.println("11 - Mensalidade Aluno\n");
+        System.out.println("12 - Pagamento Recorrente\n");
+        System.out.println("13 - Entrada Aluno\n");
+        System.out.println("14 - Movimentação Financeira\n");
+        System.out.println("15 - Fechar\n");
         System.out.println("\nDigite a opção escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -406,7 +414,91 @@ public class Menus {
         return novaDivisaoTreino;
     }
 
-//MENSALIDADE
+    // DIVISÃO TREINO-MUSCULO
+    public static int divisaoTreinoMusculoMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE DIVISÕES DE TREINO-MÚSCULO======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar divisão de treino-músculo\n");
+        System.out.println("2 - Mostrar todas as divisões de treino-músculo\n");
+        System.out.println("3 - Alterar divisão de treino-músculo\n");
+        System.out.println("4 - Buscar divisão de treino-músculo\n");
+        System.out.println("5 - Remover divisão de treino-músculo\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static DivisaoTreinoMusculo adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoDAO divisaoTreinoDAO) {
+        System.out.println("Digite o ID da divisão de treino associada à divisão de treino-músculo: ");
+        int idDivisaoTreino = Integer.parseInt(scanner.nextLine());
+        DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idDivisaoTreino);
+
+        if (divisaoTreino != null) {
+            System.out.println("Divisão de Treino associada encontrada:");
+            System.out.println("ID: " + divisaoTreino.getId());
+            System.out.println("Nome da Divisão: " + divisaoTreino.getNome());
+            System.out.println("Descrição da Divisão: " + divisaoTreino.getDescricao());
+
+            System.out.println("\nDigite a descrição da divisão de treino-músculo: ");
+            String descricao = scanner.nextLine();
+
+            LocalDate dataAtual = LocalDate.now();
+            DivisaoTreinoMusculo divisaoTreinoMusculo = new DivisaoTreinoMusculo(0, descricao, divisaoTreino.getNome(), dataAtual, dataAtual);
+            return divisaoTreinoMusculo;
+        } else {
+            System.out.println("Divisão de Treino associada não encontrada.");
+            return null;
+        }
+    }
+
+    public static void mostrarTodasDivisoesTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
+        System.out.println("------------------------");
+
+        DivisaoTreinoMusculo[] divisoesTreinoMusculo = divisaoTreinoMusculoDAO.mostrarDivisoesTreinoMusculo();
+
+        for (DivisaoTreinoMusculo divisaoTreinoMusculo : divisoesTreinoMusculo) {
+            System.out.println("ID: " + divisaoTreinoMusculo.getId());
+            System.out.println("Descrição da Divisão: " + divisaoTreinoMusculo.getDescricao());
+            System.out.println("Divisão de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
+            System.out.println("Data de Criação: " + divisaoTreinoMusculo.getDataCriacao());
+            System.out.println("Data de Modificação: " + divisaoTreinoMusculo.getDataModificacao());
+            System.out.println("------------------------");
+        }
+    }
+
+    public static void mostrarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculo divisaoTreinoMusculo) {
+        System.out.println("ID: " + divisaoTreinoMusculo.getId());
+        System.out.println("Descrição da Divisão: " + divisaoTreinoMusculo.getDescricao());
+        System.out.println("Divisão de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
+        System.out.println("Data de Criação: " + divisaoTreinoMusculo.getDataCriacao());
+        System.out.println("Data de Modificação: " + divisaoTreinoMusculo.getDataModificacao());
+        System.out.println("------------------------");
+    }
+
+    public static int buscarDivisaoTreinoMusculoMenu(String modo) {
+        System.out.println("Digite o ID da divisão de treino-músculo que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
+    public static DivisaoTreinoMusculo alterarDivisaoTreinoMusculoMenu(int id, DivisaoTreinoMusculo divisaoTreinoMusculo) {
+        System.out.println("Digite a nova descrição da divisão de treino-músculo:");
+        String novaDescricao = scanner.nextLine();
+        System.out.println("Digite a nova divisão de treino da divisão de treino-músculo:");
+        String novaDivisaoTreino = scanner.nextLine();
+        LocalDate dataAtualizacao = LocalDate.now();
+        DivisaoTreinoMusculo novaDivisaoTreinoMusculo = new DivisaoTreinoMusculo(id, novaDescricao, novaDivisaoTreino, divisaoTreinoMusculo.getDataCriacao(), dataAtualizacao);
+        return novaDivisaoTreinoMusculo;
+    }
+    
+    // TREINO
+    
+    
+    // TREINO APLICAÇÃO
+    
+    
+    // MENSALIDADE
     public static int mensalidadeMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES======\n");
         System.out.println("Escolha uma opção:\n");
@@ -448,7 +540,7 @@ public class Menus {
         }
     }
     
-        public static void mostrarMensalidadeMenu(Mensalidade mensalidade) {
+    public static void mostrarMensalidadeMenu(Mensalidade mensalidade) {
             System.out.println("ID: " + mensalidade.getId());
             System.out.println("Valor: R$ " + mensalidade.getValor());
             System.out.println("Data de Início: " + mensalidade.getDataInicio());
@@ -473,6 +565,21 @@ public class Menus {
         return novaMensalidade;
     }
 
+    
+    // ALUNO PAGAMENTO MENSALIDADE
+    
+    
+    // PAGAMENTO RECORRENTE
+    
+    
+    // ENTRADA ALUNO
+    
+    
+    // MOVIMENTAÇÃO FINANCEIRA
+    
+    
+    // RELATÓRIOS
+    
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
@@ -487,4 +594,6 @@ public class Menus {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
     }
+    
+    
 }

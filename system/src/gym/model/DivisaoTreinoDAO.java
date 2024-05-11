@@ -62,6 +62,24 @@ public class DivisaoTreinoDAO {
         System.arraycopy(divisoes, 0, divisoesExistentes, 0, tamanho);
         return divisoesExistentes;
     }
+    
+    public DivisaoTreino buscarDivisaoTreinoPorNome(String nome) {
+        for (DivisaoTreino divisaoTreino : divisoes) {
+            if (divisaoTreino != null && divisaoTreino.getNome().equalsIgnoreCase(nome)) {
+                return divisaoTreino;
+            }
+        }
+        return null;
+    }
+    
+    public void mostrarTodasDivisoesTreinoMenu() {
+        DivisaoTreino[] divisoesTreino = mostrarDivisoesTreino();
+        System.out.println("Divisões de Treino Disponíveis:");
+        for (DivisaoTreino divisaoTreino : divisoesTreino) {
+            System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome());
+        }
+    }
+
 
     private void aumentarCapacidade() {
         int novaCapacidade = divisoes.length * 2;
