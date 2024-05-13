@@ -491,13 +491,9 @@ public class Menus {
         DivisaoTreinoMusculo novaDivisaoTreinoMusculo = new DivisaoTreinoMusculo(id, novaDescricao, novaDivisaoTreino, divisaoTreinoMusculo.getDataCriacao(), dataAtualizacao);
         return novaDivisaoTreinoMusculo;
     }
-    
+
     // TREINO
-    
-    
     // TREINO APLICAÇÃO
-    
-    
     // MENSALIDADE
     public static int mensalidadeMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES======\n");
@@ -514,13 +510,17 @@ public class Menus {
     }
 
     public static Mensalidade adicionarMensalidadeMenu() {
+        System.out.println("Digite a descricao da mensalidade: ");
+        String descricao = scanner.nextLine();
         System.out.println("Digite o valor da mensalidade: ");
         double valor = Double.parseDouble(scanner.nextLine());
+        System.out.println("Digite a duracao da mensalidade: ");
+        int meses = Integer.parseInt(scanner.nextLine());
 
-        LocalDate dataInicio = LocalDate.now(); 
-        LocalDate dataFim = dataInicio.plusMonths(1); 
+        LocalDate dataInicio = LocalDate.now();
+        LocalDate dataFim = dataInicio.plusMonths(meses);
 
-        Mensalidade mensalidade = new Mensalidade(0, valor, dataInicio, dataFim, dataInicio, dataInicio);
+        Mensalidade mensalidade = new Mensalidade(0, descricao, valor, dataInicio, dataFim, dataInicio, dataInicio);
         return mensalidade;
     }
 
@@ -539,15 +539,15 @@ public class Menus {
             System.out.println("------------------------");
         }
     }
-    
+
     public static void mostrarMensalidadeMenu(Mensalidade mensalidade) {
-            System.out.println("ID: " + mensalidade.getId());
-            System.out.println("Valor: R$ " + mensalidade.getValor());
-            System.out.println("Data de Início: " + mensalidade.getDataInicio());
-            System.out.println("Data de Fim: " + mensalidade.getDataFim());
-            System.out.println("Data de Criação: " + mensalidade.getDataCriacao());
-            System.out.println("Data de Modificação: " + mensalidade.getDataModificacao());
-            System.out.println("------------------------");
+        System.out.println("ID: " + mensalidade.getId());
+        System.out.println("Valor: R$ " + mensalidade.getValor());
+        System.out.println("Data de Início: " + mensalidade.getDataInicio());
+        System.out.println("Data de Fim: " + mensalidade.getDataFim());
+        System.out.println("Data de Criação: " + mensalidade.getDataCriacao());
+        System.out.println("Data de Modificação: " + mensalidade.getDataModificacao());
+        System.out.println("------------------------");
     }
 
     public static int buscarMensalidadeMenu(String modo) {
@@ -557,29 +557,88 @@ public class Menus {
     }
 
     public static Mensalidade alterarMensalidadeMenu(int id, Mensalidade mensalidade) {
-        System.out.println("Digite o novo valor da mensalidade:");
+        System.out.println("Digite a nova descricao da mensalidade: ");
+        String novaDescricao = scanner.nextLine();
+        System.out.println("Digite o novo valor da mensalidade: ");
         double novoValor = Double.parseDouble(scanner.nextLine());
+        System.out.println("Digite a nova duracao da mensalidade: ");
+        int novosMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtualizacao = LocalDate.now();
-        Mensalidade novaMensalidade = new Mensalidade(id, novoValor, mensalidade.getDataInicio(), mensalidade.getDataFim(), mensalidade.getDataCriacao(), dataAtualizacao);
+        LocalDate dataFim = mensalidade.getDataInicio().plusMonths(novosMeses);
+        Mensalidade novaMensalidade = new Mensalidade(id, novaDescricao, novoValor, mensalidade.getDataInicio(), dataFim, mensalidade.getDataCriacao(), dataAtualizacao);
         return novaMensalidade;
     }
 
-    
     // ALUNO PAGAMENTO MENSALIDADE
-    
-    
+    public static int mensalidadeAlunoMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES DE ALUNOS======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Associar mensalidade a um aluno\n");
+        System.out.println("2 - Mostrar todas as mensalidades de alunos\n");
+        System.out.println("3 - Alterar associação de mensalidade-aluno\n");
+        System.out.println("4 - Buscar associação de mensalidade-aluno\n");
+        System.out.println("5 - Remover associação de mensalidade-aluno\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static MensalidadeAluno associarMensalidadeAlunoMenu() {
+        System.out.println("Digite o ID do aluno: ");
+        int idAluno = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o ID da mensalidade: ");
+        int idMensalidade = Integer.parseInt(scanner.nextLine());
+
+        LocalDate dataAtual = LocalDate.now();
+
+        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idMensalidade, idAluno, dataAtual, dataAtual);
+        return mensalidadeAluno;
+    }
+
+    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno) {
+        System.out.println("ID Associação: " + mensalidadeAluno.getId());
+        System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
+        System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
+        System.out.println("Data de Criação: " + mensalidadeAluno.getDataCriacao());
+        System.out.println("Data de Modificação: " + mensalidadeAluno.getDataModificacao());
+        System.out.println("------------------------");
+    }
+
+    public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos) {
+        for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
+            System.out.println("ID Associação: " + mensalidadeAluno.getId());
+            System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
+            System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
+            System.out.println("Data de Criação: " + mensalidadeAluno.getDataCriacao());
+            System.out.println("Data de Modificação: " + mensalidadeAluno.getDataModificacao());
+            System.out.println("------------------------");
+        }
+    }
+
+    public static MensalidadeAluno alterarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno) {
+        System.out.println("Digite o novo ID do aluno (atual: " + mensalidadeAluno.getIdAluno() + "): ");
+        int novoIdAluno = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o novo ID da mensalidade (atual: " + mensalidadeAluno.getIdMensalidade() + "): ");
+        int novoIdMensalidade = Integer.parseInt(scanner.nextLine());
+
+        mensalidadeAluno.setIdAluno(novoIdAluno);
+        mensalidadeAluno.setIdMensalidade(novoIdMensalidade);
+
+        return mensalidadeAluno;
+    }
+
+    public static int buscarMensalidadeAlunoMenu(String modo) {
+        System.out.println("Digite o ID da associação de mensalidade-aluno que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
     // PAGAMENTO RECORRENTE
-    
-    
     // ENTRADA ALUNO
-    
-    
     // MOVIMENTAÇÃO FINANCEIRA
-    
-    
     // RELATÓRIOS
-    
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
@@ -594,6 +653,5 @@ public class Menus {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
     }
-    
-    
+
 }

@@ -5,14 +5,16 @@ import java.time.LocalDate;
 public class Mensalidade {
 
     private int id;
+    private String descricao;
     private Double valor;
     private LocalDate dataInicio;
     private LocalDate dataFim;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
-    public Mensalidade(int id, Double valor, LocalDate dataInicio, LocalDate dataFim, LocalDate dataCriacao, LocalDate dataModificacao){
+    public Mensalidade(int id, String descricao, Double valor, LocalDate dataInicio, LocalDate dataFim, LocalDate dataCriacao, LocalDate dataModificacao){
         this.id = id;
+        this.descricao = descricao;
         this.valor = valor;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
@@ -26,6 +28,14 @@ public class Mensalidade {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setId(String descricao) {
+        this.descricao = descricao;
     }
 
     public Double getValor() {

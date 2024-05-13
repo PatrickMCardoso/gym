@@ -14,14 +14,26 @@ public class MensalidadeDAO {
         this.geradorId = 0;
     }
 
-    public void adicionarMensalidade(double valor, LocalDate dataInicio, LocalDate dataFim) {
+    public void adicionarMensalidadesExemplo() {
+        Mensalidade mensalidade1 = new Mensalidade(1, "Mensal", 120.0, LocalDate.now(), LocalDate.now().plusMonths(1), LocalDate.now(), LocalDate.now());
+        Mensalidade mensalidade2 = new Mensalidade(2, "Trimestral", 300.0, LocalDate.now(), LocalDate.now().plusMonths(3), LocalDate.now(), LocalDate.now());
+        Mensalidade mensalidade3 = new Mensalidade(3, "Anual", 1000.0, LocalDate.now(), LocalDate.now().plusMonths(12), LocalDate.now(), LocalDate.now());
+
+        adicionarMensalidade(mensalidade1);
+        adicionarMensalidade(mensalidade2);
+        adicionarMensalidade(mensalidade3);
+    }
+
+    public void adicionarMensalidade(Mensalidade mensalidade) {
         geradorId++;
         if (tamanho == mensalidades.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
+        mensalidade.setId(id);
         LocalDate dataAtual = LocalDate.now();
-        Mensalidade mensalidade = new Mensalidade(id, valor, dataInicio, dataFim, dataAtual, dataAtual);
+        mensalidade.setDataCriacao(dataAtual);
+        mensalidade.setDataModificacao(dataAtual);
         mensalidades[tamanho++] = mensalidade;
     }
 

@@ -18,10 +18,12 @@ public class Gym {
         DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
         DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO();
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
+        MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
+        mensalidadeDAO.adicionarMensalidadesExemplo();
 
         int opcao = 0;
         while (opcao != 7) {
@@ -203,7 +205,7 @@ public class Gym {
                     }
                 }
                 break;
-                case 4:{
+                case 4: {
                     int opcaoExercicioAplicacao = 0;
                     while (opcaoExercicioAplicacao != 6) {
                         Menus.digitarQualquerTecla();
@@ -279,7 +281,7 @@ public class Gym {
                         }
                     }
                 }
-                    break;
+                break;
                 case 5: {
                     int opcaoDivisao = 0;
                     while (opcaoDivisao != 6) {
@@ -332,7 +334,7 @@ public class Gym {
                         }
                     }
                 }
-                    break;
+                break;
                 case 6:
                     int opcaoDivisaoMusculo = 0;
                     while (opcaoDivisaoMusculo != 6) {
@@ -389,7 +391,6 @@ public class Gym {
                         }
                     }
 
-
                     break;
                 case 7:
                     break;
@@ -398,14 +399,14 @@ public class Gym {
                 case 9:
                     break;
                 case 10: {
-                    int opcaoMensalidade = 0; 
+                    int opcaoMensalidade = 0;
                     while (opcaoMensalidade != 6) {
                         Menus.digitarQualquerTecla();
-                        opcaoMensalidade = Menus.mensalidadeMenu(); 
+                        opcaoMensalidade = Menus.mensalidadeMenu();
                         switch (opcaoMensalidade) {
                             case 1: {
                                 Mensalidade mensalidade = Menus.adicionarMensalidadeMenu();
-                                mensalidadeDAO.adicionarMensalidade(mensalidade.getValor(), mensalidade.getDataInicio(), mensalidade.getDataFim());
+                                mensalidadeDAO.adicionarMensalidade(mensalidade);
                                 System.out.println("Mensalidade adicionada com sucesso!");
                             }
                             break;
@@ -449,9 +450,62 @@ public class Gym {
                         }
                     }
                 }
-                    break;
-                case 11:
-                    break;
+                break;
+                case 11: {
+                    int opcaoMensalidadeAluno = 0;
+                    while (opcaoMensalidadeAluno != 6) {
+                        Menus.digitarQualquerTecla();
+                        opcaoMensalidadeAluno = Menus.mensalidadeAlunoMenu();
+                        switch (opcaoMensalidadeAluno) {
+                            case 1: {
+                                MensalidadeAluno mensalidadeAluno = Menus.associarMensalidadeAlunoMenu();
+                                mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
+                                System.out.println("Associação de mensalidade a aluno adicionada com sucesso!");
+                            }
+                            break;
+                            case 2: {
+                                MensalidadeAluno[] mensalidadeAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
+                                Menus.mostrarTodasMensalidadesAlunoMenu(mensalidadeAlunos);
+                            }
+                            break;
+                            case 3: {
+                                int idAlteracao = Menus.buscarMensalidadeAlunoMenu("alterar");
+                                MensalidadeAluno mensalidadeAlunoExistente = mensalidadeAlunoDAO.buscarMensalidadeAluno(idAlteracao);
+                                if (mensalidadeAlunoExistente != null) {
+                                    MensalidadeAluno novaMensalidadeAluno = Menus.alterarMensalidadeAlunoMenu(mensalidadeAlunoExistente);
+                                    mensalidadeAlunoDAO.alterarMensalidadeAluno(idAlteracao, novaMensalidadeAluno);
+                                    System.out.println("Associação de mensalidade a aluno alterada com sucesso!");
+                                } else {
+                                    System.out.println("Associação de mensalidade a aluno não encontrada.");
+                                }
+                            }
+                            break;
+                            case 4: {
+                                int idBusca = Menus.buscarMensalidadeAlunoMenu("buscar");
+                                MensalidadeAluno mensalidadeAlunoBuscada = mensalidadeAlunoDAO.buscarMensalidadeAluno(idBusca);
+                                if (mensalidadeAlunoBuscada != null) {
+                                    Menus.mostrarMensalidadeAlunoMenu(mensalidadeAlunoBuscada);
+                                } else {
+                                    System.out.println("Associação de mensalidade a aluno não encontrada.");
+                                }
+                            }
+                            break;
+                            case 5: {
+                                int idRemocao = Menus.buscarMensalidadeAlunoMenu("remover");
+                                mensalidadeAlunoDAO.removerMensalidadeAluno(idRemocao);
+                                System.out.println("Associação de mensalidade a aluno removida com sucesso!");
+                            }
+                            break;
+                            case 6:
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
+                }
+                break;
+
                 case 12:
                     break;
                 case 13:
