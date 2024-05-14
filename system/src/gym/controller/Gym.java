@@ -335,7 +335,7 @@ public class Gym {
                     }
                 }
                 break;
-                case 6:
+                case 6: {
                     int opcaoDivisaoMusculo = 0;
                     while (opcaoDivisaoMusculo != 6) {
                         Menus.digitarQualquerTecla();
@@ -390,7 +390,7 @@ public class Gym {
                                 break;
                         }
                     }
-
+                }
                     break;
                 case 7:
                     break;
@@ -511,6 +511,9 @@ public class Gym {
                 case 13:
                     break;
                 case 14:
+                    break;
+                case 15:
+                    System.out.println("\nEncerrando programa...\n");
                     break;
                 default:
                     Menus.mostrarOpcaoInvalida();

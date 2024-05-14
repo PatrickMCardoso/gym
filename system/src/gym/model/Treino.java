@@ -11,7 +11,7 @@ public class Treino {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    public Treino(int id, String objetivo, LocalDate dataInicio, LocalDate dataTermino, DivisaoTreino divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public Treino(int id, Pessoa pessoa, String objetivo, LocalDate dataInicio, LocalDate dataTermino, DivisaoTreino divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.objetivo = objetivo;
         this.dataInicio = dataInicio;

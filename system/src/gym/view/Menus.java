@@ -493,6 +493,149 @@ public class Menus {
     }
 
     // TREINO
+    /*
+    public static int treinoMenu() {
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE TREINOS======\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Adicionar treino\n");
+        System.out.println("2 - Mostrar todos os treinos\n");
+        System.out.println("3 - Mostrar treino específico\n");
+        System.out.println("4 - Buscar treino\n");
+        System.out.println("5 - Alterar treino\n");
+        System.out.println("6 - Remover treino\n");
+        System.out.println("7 - Sair\n");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static Treino adicionarTreinoMenu(TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO, PessoaDAO pessoaDAO) {
+        System.out.println("======ADICIONAR TREINO======\n");
+
+        System.out.println("Pessoas existentes com tipo de usuário 'Aluno':");
+        Pessoa[] pessoas = pessoaDAO.buscarPessoasPorTipo("Aluno");
+        for (Pessoa pessoa : pessoas) {
+            System.out.println("ID: " + pessoa.getId() + ", Nome: " + pessoa.getNome() + ", Tipo de Usuário: " + pessoa.getTipoUsuario());
+        }
+
+        System.out.println("Digite o ID do aluno para associar ao treino:");
+        int idAluno = Integer.parseInt(scanner.nextLine());
+        Pessoa aluno = pessoaDAO.buscarPessoaPorId(idAluno);
+
+        if (aluno != null && aluno.getTipoUsuario().equals("Aluno")) {
+            System.out.println("Aluno encontrado:");
+            System.out.println("ID: " + aluno.getId());
+            System.out.println("Nome: " + aluno.getNome());
+            System.out.println("Tipo de Usuário: " + aluno.getTipoUsuario());
+
+            System.out.println("Digite o objetivo do treino:");
+            String objetivo = scanner.nextLine();
+
+            System.out.println("Digite a data de início do treino (no formato yyyy-MM-dd):");
+            LocalDate dataInicio = LocalDate.parse(scanner.nextLine());
+
+            System.out.println("Digite a data de término do treino (no formato yyyy-MM-dd):");
+            LocalDate dataTermino = LocalDate.parse(scanner.nextLine());
+
+            System.out.println("Divisões de treino existentes:");
+            DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+            for (DivisaoTreino divisaoTreino : divisoesTreino) {
+                System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome() + ", Descrição: " + divisaoTreino.getDescricao());
+            }
+
+            System.out.println("Digite o ID da divisão de treino desejada:");
+            int idDivisaoTreino = Integer.parseInt(scanner.nextLine());
+            DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idDivisaoTreino);
+
+            if (divisaoTreino != null) {
+                LocalDate dataAtual = LocalDate.now();
+                Treino treino = new Treino(0, aluno.getId(), aluno.getNome(), aluno.getTipoUsuario(), objetivo, dataInicio, dataTermino, divisaoTreino.getId(), divisaoTreino.getNome(), dataAtual, dataAtual);
+                return treino;
+            } else {
+                System.out.println("Divisão de Treino não encontrada.");
+                return null;
+            }
+        } else {
+            System.out.println("Aluno não encontrado ou não é do tipo 'Aluno'.");
+            return null;
+        }
+    }
+
+    public static void mostrarTodosTreinosMenu(TreinoDAO treinoDAO) {
+        System.out.println("======TODOS OS TREINOS======\n");
+
+        Treino[] treinos = treinoDAO.mostrarTreinos();
+
+        for (Treino treino : treinos) {
+            System.out.println("ID: " + treino.getId());
+            System.out.println("ID do Aluno: " + treino.getIdAluno());
+            System.out.println("Nome do Aluno: " + treino.getNomeAluno());
+            System.out.println("Tipo de Usuário do Aluno: " + treino.getTipoUsuarioAluno());
+            System.out.println("Objetivo do Treino: " + treino.getObjetivo());
+            System.out.println("Data de Início: " + treino.getDataInicio());
+            System.out.println("Data de Término: " + treino.getDataTermino());
+            System.out.println("ID da Divisão de Treino: " + treino.getIdDivisaoTreino());
+            System.out.println("Nome da Divisão de Treino: " + treino.getNomeDivisaoTreino());
+            System.out.println("Data de Criação: " + treino.getDataCriacao());
+            System.out.println("Data de Modificação: " + treino.getDataModificacao());
+            System.out.println("------------------------");
+        }
+    }
+
+    public static void mostrarTreinoMenu(Treino treino) {
+        System.out.println("======TREINO======\n");
+
+        System.out.println("ID: " + treino.getId());
+        System.out.println("ID do Aluno: " + treino.getIdAluno());
+        System.out.println("Nome do Aluno: " + treino.getNomeAluno());
+        System.out.println("Tipo de Usuário do Aluno: " + treino.getTipoUsuarioAluno());
+        System.out.println("Objetivo do Treino: " + treino.getObjetivo());
+        System.out.println("Data de Início: " + treino.getDataInicio());
+        System.out.println("Data de Término: " + treino.getDataTermino());
+        System.out.println("ID da Divisão de Treino: " + treino.getIdDivisaoTreino());
+        System.out.println("Nome da Divisão de Treino: " + treino.getNomeDivisaoTreino());
+        System.out.println("Data de Criação: " + treino.getDataCriacao());
+        System.out.println("Data de Modificação: " + treino.getDataModificacao());
+        System.out.println("------------------------");
+    }
+
+    public static int buscarTreinoMenu(String modo) {
+        System.out.println("======BUSCAR TREINO======\n");
+        System.out.println("Digite o ID do treino que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
+
+    public static Treino alterarTreinoMenu(int id, Treino treino, DivisaoTreinoDAO divisaoTreinoDAO) {
+        System.out.println("Digite o novo objetivo do treino:");
+        String novoObjetivo = scanner.nextLine();
+        System.out.println("Digite a nova data de início do treino (no formato yyyy-MM-dd):");
+        LocalDate novaDataInicio = LocalDate.parse(scanner.nextLine());
+
+        System.out.println("Digite a nova data de término do treino (no formato yyyy-MM-dd):");
+        LocalDate novaDataTermino = LocalDate.parse(scanner.nextLine());
+
+        System.out.println("Divisões de treino existentes:");
+        DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+        for (DivisaoTreino divisaoTreino : divisoesTreino) {
+            System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome() + ", Descrição: " + divisaoTreino.getDescricao());
+        }
+
+        System.out.println("Digite o ID da nova divisão de treino:");
+        int idNovaDivisaoTreino = Integer.parseInt(scanner.nextLine());
+        DivisaoTreino novaDivisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idNovaDivisaoTreino);
+
+        if (novaDivisaoTreino != null) {
+            LocalDate dataAtualizacao = LocalDate.now();
+            Treino novoTreino = new Treino(id, treino.getIdAluno(), treino.getNomeAluno(), treino.getTipoUsuarioAluno(), novoObjetivo, novaDataInicio, novaDataTermino, novaDivisaoTreino.getId(), novaDivisaoTreino.getNome(), treino.getDataCriacao(), dataAtualizacao);
+            return novoTreino;
+        } else {
+            System.out.println("Divisão de Treino não encontrada.");
+            return null;
+        }
+*/
+
+    
     // TREINO APLICAÇÃO
     // MENSALIDADE
     public static int mensalidadeMenu() {
