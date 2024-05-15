@@ -733,10 +733,14 @@ public class Menus {
         int idAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o ID da mensalidade: ");
         int idMensalidade = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o valor pago: ");
+        double valorPago = Double.parseDouble(scanner.nextLine());
+        System.out.println("Digite a modalidade (pix, cartão de credito, dinheiro, etc): ");
+        String modalidade = scanner.nextLine();
 
         LocalDate dataAtual = LocalDate.now();
 
-        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idMensalidade, idAluno, dataAtual, dataAtual);
+        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idMensalidade, idAluno, dataAtual, valorPago, modalidade, dataAtual, dataAtual);
         return mensalidadeAluno;
     }
 

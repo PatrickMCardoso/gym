@@ -3,16 +3,23 @@ package gym.model;
 import java.time.LocalDate;
 
 public class MensalidadeAluno {
+
     private int id;
     private int idAluno;
     private int idMensalidade;
+    private LocalDate dataPagamento;
+    private double valorPago;
+    private String modalidade;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    public MensalidadeAluno(int id, int idAluno, int idMensalidade, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public MensalidadeAluno(int id, int idAluno, int idMensalidade, LocalDate dataPagamento, double valorPago, String modalidade, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.idAluno = idAluno;
         this.idMensalidade = idMensalidade;
+        this.dataPagamento = dataPagamento;
+        this.valorPago = valorPago;
+        this.modalidade = modalidade;
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
     }
@@ -39,6 +46,30 @@ public class MensalidadeAluno {
 
     public void setIdMensalidade(int idMensalidade) {
         this.idMensalidade = idMensalidade;
+    }
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public String getModalidade() {
+        return modalidade;
+    }
+
+    public void setModalidade(String modalidade) {
+        this.modalidade = modalidade;
     }
 
     public LocalDate getDataCriacao() {
