@@ -46,7 +46,7 @@ public class Gym {
                             break;
                             case 3: {
                                 if (academiaDAO.mostrarAcademias().length == 0) {
-                                    System.out.println("Nenhuma academia cadastrada. Impossível alterar.");
+                                    System.out.println("Nenhuma academia cadastrada. Impossivel alterar.");
                                 } else {
                                     int id = Menus.buscarAcademiaMenu("alterar");
                                     Academia academiaExistente = academiaDAO.buscarAcademia(id);
@@ -55,7 +55,7 @@ public class Gym {
                                         academiaDAO.alterarAcademia(id, novaAcademia);
                                         System.out.println("Academia alterada com sucesso.");
                                     } else {
-                                        System.out.println("Academia não encontrada.");
+                                        System.out.println("Academia nao encontrada.");
                                     }
                                 }
                             }
@@ -66,13 +66,13 @@ public class Gym {
                                 if (academiaBuscada != null) {
                                     Menus.mostrarAcademiaMenu(academiaBuscada);
                                 } else {
-                                    System.out.println("Academia não encontrada.");
+                                    System.out.println("Academia nao encontrada.");
                                 }
                             }
                             break;
                             case 5: {
                                 if (academiaDAO.mostrarAcademias().length == 0) {
-                                    System.out.println("Nenhuma academia cadastrada. Impossível remover.");
+                                    System.out.println("Nenhuma academia cadastrada. Impossivel remover.");
                                 } else {
                                     int id = Menus.buscarAcademiaMenu("remover");
                                     academiaDAO.removerAcademia(id);
@@ -108,7 +108,7 @@ public class Gym {
                             break;
                             case 3: {
                                 if (pessoaDAO.mostrarPessoas().length == 0) {
-                                    System.out.println("Nenhuma pessoa cadastrada. Impossível alterar.");
+                                    System.out.println("Nenhuma pessoa cadastrada. Impossivel alterar.");
                                 } else {
                                     int id = Menus.buscarPessoaMenu("alterar");
                                     Pessoa pessoaExistente = pessoaDAO.buscarPessoa(id);
@@ -117,7 +117,7 @@ public class Gym {
                                         pessoaDAO.alterarPessoa(id, novaPessoa);
                                         System.out.println("Pessoa alterada com sucesso.");
                                     } else {
-                                        System.out.println("Pessoa não encontrada.");
+                                        System.out.println("Pessoa nao encontrada.");
                                     }
                                 }
                             }
@@ -128,13 +128,13 @@ public class Gym {
                                 if (pessoaBuscada != null) {
                                     Menus.mostrarPessoaMenu(pessoaBuscada);
                                 } else {
-                                    System.out.println("Pessoa não encontrada.");
+                                    System.out.println("Pessoa nao encontrada.");
                                 }
                             }
                             break;
                             case 5: {
                                 if (pessoaDAO.mostrarPessoas().length == 0) {
-                                    System.out.println("Nenhuma pessoa cadastrada. Impossível remover.");
+                                    System.out.println("Nenhuma pessoa cadastrada. Impossivel remover.");
                                 } else {
                                     int idRemocao = Menus.buscarPessoaMenu("remover");
                                     pessoaDAO.removerPessoa(idRemocao);
@@ -173,9 +173,9 @@ public class Gym {
                                 if (exercicioExistente != null) {
                                     Exercicio novoExercicio = Menus.alterarExercicioMenu(idAlteracao, exercicioExistente);
                                     exercicioDAO.alterarExercicio(idAlteracao, novoExercicio);
-                                    System.out.println("Exercício alterado com sucesso!");
+                                    System.out.println("Exercicio alterado com sucesso!");
                                 } else {
-                                    System.out.println("Exercicio não encontrado.");
+                                    System.out.println("Exercicio nao encontrado.");
                                 }
 
                             }
@@ -186,14 +186,14 @@ public class Gym {
                                 if (exercicioBuscado != null) {
                                     Menus.mostrarExercicioMenu(exercicioBuscado);
                                 } else {
-                                    System.out.println("Exercício não encontrado.");
+                                    System.out.println("Exercicio nao encontrado.");
                                 }
                             }
                             break;
                             case 5: {
                                 int idRemocao = Menus.buscarExercicioMenu("remover");
                                 exercicioDAO.removerExercicio(idRemocao);
-                                System.out.println("Exercício removido com sucesso!");
+                                System.out.println("Exercicio removido com sucesso!");
                             }
                             break;
                             case 6:
@@ -212,14 +212,14 @@ public class Gym {
                         opcaoExercicioAplicacao = Menus.exercicioAplicacaoMenu();
                         switch (opcaoExercicioAplicacao) {
                             case 1: {
-                                System.out.println("Digite o ID do exercício existente: ");
+                                System.out.println("Digite o ID do exercicio existente: ");
                                 int idExercicio = Integer.parseInt(scanner.nextLine());
                                 Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idExercicio);
                                 if (exercicioExistente != null) {
                                     ExercicioAplicacao exercicioAplicacao = Menus.adicionarExercicioAplicacaoMenu(idExercicio);
                                     exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioAplicacao.getIdExercicio(), exercicioAplicacao.getDescricao());
                                 } else {
-                                    System.out.println("Exercício não encontrado.");
+                                    System.out.println("Exercicio nao encontrado.");
                                 }
                             }
                             break;
@@ -235,12 +235,12 @@ public class Gym {
                                     if (exercicioDAO.buscarExercicio(exercicioAplicacaoExistente.getIdExercicio()) != null) {
                                         ExercicioAplicacao novoExercicioAplicacao = Menus.alterarExercicioAplicacaoMenu(idAlteracao, exercicioAplicacaoExistente);
                                         exercicioAplicacaoDAO.alterarExercicioAplicacao(idAlteracao, novoExercicioAplicacao);
-                                        System.out.println("Exercício aplicação alterado com sucesso!");
+                                        System.out.println("Exercicio aplicacao alterado com sucesso!");
                                     } else {
-                                        System.out.println("Exercício aplicação alterado com sucesso!");
+                                        System.out.println("Exercicio aplicacao alterado com sucesso!");
                                     }
                                 } else {
-                                    System.out.println("Exercício aplicação não encontrado.");
+                                    System.out.println("Exercicio aplicacao nao encontrado.");
                                 }
                             }
                             break;
@@ -251,10 +251,10 @@ public class Gym {
                                     if (exercicioDAO.buscarExercicio(exercicioAplicacaoBuscado.getIdExercicio()) != null) {
                                         Menus.mostrarExercicioAplicacaoMenu(exercicioAplicacaoBuscado);
                                     } else {
-                                        System.out.println("Exercício aplicação não encontrado.");
+                                        System.out.println("Exercicio aplicacao nao encontrado.");
                                     }
                                 } else {
-                                    System.out.println("Exercício aplicação não encontrado.");
+                                    System.out.println("Exercicio aplicacao nao encontrado.");
                                 }
                             }
                             break;
@@ -264,12 +264,12 @@ public class Gym {
                                 if (exercicioAplicacaoBuscado != null) {
                                     if (exercicioDAO.buscarExercicio(exercicioAplicacaoBuscado.getIdExercicio()) != null) {
                                         exercicioAplicacaoDAO.removerExercicioAplicacao(idRemocao);
-                                        System.out.println("Exercício aplicação removido com sucesso!");
+                                        System.out.println("Exercicio aplicacao removido com sucesso!");
                                     } else {
-                                        System.out.println("Exercício aplicação não encontrado.");
+                                        System.out.println("Exercicio aplicacao nao encontrado.");
                                     }
                                 } else {
-                                    System.out.println("Exercício aplicação não encontrado.");
+                                    System.out.println("Exercicio aplicacao nao encontrado.");
                                 }
                             }
                             break;
@@ -291,7 +291,7 @@ public class Gym {
                             case 1: {
                                 DivisaoTreino divisaoTreino = Menus.adicionarDivisaoTreinoMenu();
                                 divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao());
-                                System.out.println("Divisão de Treino adicionada com sucesso!");
+                                System.out.println("Divisao de Treino adicionada com sucesso!");
                             }
                             break;
                             case 2: {
@@ -304,9 +304,9 @@ public class Gym {
                                 if (divisaoTreinoExistente != null) {
                                     DivisaoTreino novaDivisaoTreino = Menus.alterarDivisaoTreinoMenu(idAlteracao, divisaoTreinoExistente);
                                     divisaoTreinoDAO.alterarDivisaoTreino(idAlteracao, novaDivisaoTreino.getNome(), novaDivisaoTreino.getDescricao());
-                                    System.out.println("Divisão de Treino alterada com sucesso!");
+                                    System.out.println("Divisao de Treino alterada com sucesso!");
                                 } else {
-                                    System.out.println("Divisão de Treino não encontrada.");
+                                    System.out.println("Divisao de Treino nao encontrada.");
                                 }
                             }
                             break;
@@ -316,14 +316,14 @@ public class Gym {
                                 if (divisaoTreinoBuscada != null) {
                                     Menus.mostrarDivisaoTreinoMenu(divisaoTreinoBuscada);
                                 } else {
-                                    System.out.println("Divisão de Treino não encontrada.");
+                                    System.out.println("Divisao de Treino nao encontrada.");
                                 }
                             }
                             break;
                             case 5: {
                                 int idRemocao = Menus.buscarDivisaoTreinoMenu("remover");
                                 divisaoTreinoDAO.removerDivisaoTreino(idRemocao);
-                                System.out.println("Divisão de Treino removida com sucesso!");
+                                System.out.println("Divisao de Treino removida com sucesso!");
                             }
                             break;
                             case 6:
@@ -345,7 +345,7 @@ public class Gym {
                                 DivisaoTreinoMusculo divisaoTreinoMusculo = Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoDAO);
                                 if (divisaoTreinoMusculo != null) {
                                     divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(divisaoTreinoMusculo);
-                                    System.out.println("Divisão de Treino-Músculo adicionada com sucesso!");
+                                    System.out.println("Divisao de Treino-Músculo adicionada com sucesso!");
                                 }
                             }
                             break;
@@ -360,10 +360,10 @@ public class Gym {
                                     DivisaoTreinoMusculo novaDivisaoTreinoMusculo = Menus.alterarDivisaoTreinoMusculoMenu(idAlteracao, divisaoTreinoMusculoExistente);
                                     if (novaDivisaoTreinoMusculo != null) {
                                         divisaoTreinoMusculoDAO.alterarDivisaoTreinoMusculo(idAlteracao, novaDivisaoTreinoMusculo);
-                                        System.out.println("Divisão de Treino-Músculo alterada com sucesso!");
+                                        System.out.println("Divisao de Treino-Músculo alterada com sucesso!");
                                     }
                                 } else {
-                                    System.out.println("Divisão de Treino-Músculo não encontrada.");
+                                    System.out.println("Divisao de Treino-Músculo nao encontrada.");
                                 }
                             }
                             break;
@@ -373,14 +373,14 @@ public class Gym {
                                 if (divisaoTreinoMusculoBuscada != null) {
                                     Menus.mostrarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoBuscada);
                                 } else {
-                                    System.out.println("Divisão de Treino-Músculo não encontrada.");
+                                    System.out.println("Divisao de Treino-Músculo nao encontrada.");
                                 }
                             }
                             break;
                             case 5: {
                                 int idRemocao = Menus.buscarDivisaoTreinoMusculoMenu("remover");
                                 divisaoTreinoMusculoDAO.removerDivisaoTreinoMusculo(idRemocao);
-                                System.out.println("Divisão de Treino-Músculo removida com sucesso!");
+                                System.out.println("Divisao de Treino-Músculo removida com sucesso!");
                             }
                             break;
                             case 6:
@@ -422,7 +422,7 @@ public class Gym {
                                     mensalidadeDAO.alterarMensalidade(idAlteracao, novaMensalidade);
                                     System.out.println("Mensalidade alterada com sucesso!");
                                 } else {
-                                    System.out.println("Mensalidade não encontrada.");
+                                    System.out.println("Mensalidade nao encontrada.");
                                 }
                             }
                             break;
@@ -432,7 +432,7 @@ public class Gym {
                                 if (mensalidadeBuscada != null) {
                                     Menus.mostrarMensalidadeMenu(mensalidadeBuscada);
                                 } else {
-                                    System.out.println("Mensalidade não encontrada.");
+                                    System.out.println("Mensalidade nao encontrada.");
                                 }
                             }
                             break;
@@ -460,7 +460,7 @@ public class Gym {
                             case 1: {
                                 MensalidadeAluno mensalidadeAluno = Menus.associarMensalidadeAlunoMenu();
                                 mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
-                                System.out.println("Associação de mensalidade a aluno adicionada com sucesso!");
+                                System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");
                             }
                             break;
                             case 2: {
@@ -474,9 +474,9 @@ public class Gym {
                                 if (mensalidadeAlunoExistente != null) {
                                     MensalidadeAluno novaMensalidadeAluno = Menus.alterarMensalidadeAlunoMenu(mensalidadeAlunoExistente);
                                     mensalidadeAlunoDAO.alterarMensalidadeAluno(idAlteracao, novaMensalidadeAluno);
-                                    System.out.println("Associação de mensalidade a aluno alterada com sucesso!");
+                                    System.out.println("Associacao de mensalidade a aluno alterada com sucesso!");
                                 } else {
-                                    System.out.println("Associação de mensalidade a aluno não encontrada.");
+                                    System.out.println("Associacao de mensalidade a aluno nao encontrada.");
                                 }
                             }
                             break;
@@ -486,14 +486,14 @@ public class Gym {
                                 if (mensalidadeAlunoBuscada != null) {
                                     Menus.mostrarMensalidadeAlunoMenu(mensalidadeAlunoBuscada);
                                 } else {
-                                    System.out.println("Associação de mensalidade a aluno não encontrada.");
+                                    System.out.println("Associacao de mensalidade a aluno nao encontrada.");
                                 }
                             }
                             break;
                             case 5: {
                                 int idRemocao = Menus.buscarMensalidadeAlunoMenu("remover");
                                 mensalidadeAlunoDAO.removerMensalidadeAluno(idRemocao);
-                                System.out.println("Associação de mensalidade a aluno removida com sucesso!");
+                                System.out.println("Associacao de mensalidade a aluno removida com sucesso!");
                             }
                             break;
                             case 6:

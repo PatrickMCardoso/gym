@@ -5,14 +5,14 @@ import java.time.LocalDate;
 public class Academia {
     private int id;
     private String nome;
-    private String endereço;
+    private String endereco;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    public Academia(int id, String nome, String endereço, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public Academia(int id, String nome, String endereco, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.nome = nome;
-        this.endereço = endereço;
+        this.endereco = endereco;
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
     }
@@ -33,12 +33,12 @@ public class Academia {
         this.nome = nome;
     }
 
-    public String getEndereço() {
-        return endereço;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public LocalDate getDataCriacao() {

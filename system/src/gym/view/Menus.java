@@ -13,23 +13,23 @@ public class Menus {
     public static int mostrarMenuPrincipal() {
         limparTela();
         System.out.println("====== HealthierLifeGym ======\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Academias\n");
         System.out.println("2 - Pessoas\n");
         System.out.println("3 - Exercicios\n");
-        System.out.println("4 - Aplicação de Exercicios\n");
-        System.out.println("5 - Divisão de Treino\n");
-        System.out.println("6 - Divisão de Treino-Músculo\n");
+        System.out.println("4 - Aplicacao de Exercicios\n");
+        System.out.println("5 - Divisao de Treino\n");
+        System.out.println("6 - Divisao de Treino-Músculo\n");
         System.out.println("7 - Treino\n");
-        System.out.println("8 - Treino Aplicação\n");
-        System.out.println("9 - Avaliação Física\n");
+        System.out.println("8 - Treino Aplicacao\n");
+        System.out.println("9 - Avaliacao Fisica\n");
         System.out.println("10 - Mensalidades\n");
         System.out.println("11 - Mensalidade Aluno\n");
         System.out.println("12 - Pagamento Recorrente\n");
         System.out.println("13 - Entrada Aluno\n");
-        System.out.println("14 - Movimentação Financeira\n");
+        System.out.println("14 - Movimentacao Financeira\n");
         System.out.println("15 - Fechar\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
@@ -37,14 +37,14 @@ public class Menus {
     // ACADEMIA
     public static int academiaMenu() {
         System.out.println("======SISTEMA DE ACADEMIAS======\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar academia\n");
         System.out.println("2 - Mostrar academias\n");
         System.out.println("3 - Alterar academia\n");
         System.out.println("4 - Buscar academia\n");
         System.out.println("5 - Remover academia\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
@@ -52,7 +52,7 @@ public class Menus {
     public static Academia adicionarAcademiaMenu() {
         System.out.println("Digite o nome da academia: ");
         String nome = scanner.nextLine();
-        System.out.println("Digite o endereço da academia: ");
+        System.out.println("Digite o endereco da academia: ");
         String endereco = scanner.nextLine();
         LocalDate dataAtual = LocalDate.now();
         Academia academia = new Academia(0, nome, endereco, dataAtual, dataAtual);
@@ -67,9 +67,9 @@ public class Menus {
             for (Academia academia : academias) {
                 System.out.println("ID: " + academia.getId());
                 System.out.println("Nome: " + academia.getNome());
-                System.out.println("Endereço: " + academia.getEndereço());
-                System.out.println("Data de Criação: " + academia.getDataCriacao());
-                System.out.println("Data de Modificação: " + academia.getDataModificacao());
+                System.out.println("Endereco: " + academia.getEndereco());
+                System.out.println("Data de Criacao: " + academia.getDataCriacao());
+                System.out.println("Data de Modificacao: " + academia.getDataModificacao());
                 System.out.println("------------------------");
             }
         }
@@ -78,9 +78,9 @@ public class Menus {
     public static void mostrarAcademiaMenu(Academia academia) {
         System.out.println("ID: " + academia.getId());
         System.out.println("Nome: " + academia.getNome());
-        System.out.println("Endereço: " + academia.getEndereço());
-        System.out.println("Data de Criação: " + academia.getDataCriacao());
-        System.out.println("Data de Modificação: " + academia.getDataModificacao());
+        System.out.println("Endereco: " + academia.getEndereco());
+        System.out.println("Data de Criacao: " + academia.getDataCriacao());
+        System.out.println("Data de Modificacao: " + academia.getDataModificacao());
         System.out.println("------------------------");
     }
 
@@ -93,7 +93,7 @@ public class Menus {
     public static Academia alterarAcademiaMenu(int id, Academia academiaExistente) {
         System.out.println("Digite o novo nome da academia:");
         String novoNome = scanner.nextLine();
-        System.out.println("Digite o novo endereço da academia:");
+        System.out.println("Digite o novo endereco da academia:");
         String novoEndereco = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
         Academia novaAcademia = new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
@@ -103,14 +103,14 @@ public class Menus {
     // PESSOA
     public static int pessoaMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE PESSOAS======\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar pessoa\n");
         System.out.println("2 - Mostrar todas as pessoas\n");
         System.out.println("3 - Alterar pessoa\n");
         System.out.println("4 - Buscar pessoa\n");
         System.out.println("5 - Remover pessoa\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
@@ -126,7 +126,7 @@ public class Menus {
         String login = scanner.nextLine();
         System.out.println("Digite a senha da pessoa: ");
         String senha = scanner.nextLine();
-        System.out.println("Digite o tipo de usuário (1-Admin, 2-Professor, 3-Aluno):");
+        System.out.println("Digite o tipo de usuario (1-Admin, 2-Professor, 3-Aluno):");
         int numeroTipoUsuario = Integer.parseInt(scanner.nextLine());
         String tipoUsuario = "";
 
@@ -159,9 +159,9 @@ public class Menus {
                 System.out.println("Data de Nascimento: " + pessoa.getNascimento());
                 System.out.println("Login: " + pessoa.getLogin());
                 System.out.println("Senha: " + pessoa.getSenha());
-                System.out.println("Tipo de Usuário: " + pessoa.getTipoUsuario());
-                System.out.println("Data de Criação: " + pessoa.getDataCriacao());
-                System.out.println("Data de Modificação: " + pessoa.getDataModificacao());
+                System.out.println("Tipo de Usuario: " + pessoa.getTipoUsuario());
+                System.out.println("Data de Criacao: " + pessoa.getDataCriacao());
+                System.out.println("Data de Modificacao: " + pessoa.getDataModificacao());
                 System.out.println("------------------------");
             }
         }
@@ -174,9 +174,9 @@ public class Menus {
         System.out.println("Data de Nascimento: " + pessoa.getNascimento());
         System.out.println("Login: " + pessoa.getLogin());
         System.out.println("Senha: " + pessoa.getSenha());
-        System.out.println("Tipo de Usuário: " + pessoa.getTipoUsuario());
-        System.out.println("Data de Criação: " + pessoa.getDataCriacao());
-        System.out.println("Data de Modificação: " + pessoa.getDataModificacao());
+        System.out.println("Tipo de Usuario: " + pessoa.getTipoUsuario());
+        System.out.println("Data de Criacao: " + pessoa.getDataCriacao());
+        System.out.println("Data de Modificacao: " + pessoa.getDataModificacao());
         System.out.println("------------------------");
     }
 
@@ -197,7 +197,7 @@ public class Menus {
         String novoLogin = scanner.nextLine();
         System.out.println("Digite a nova senha da pessoa:");
         String novaSenha = scanner.nextLine();
-        System.out.println("Digite o novo tipo de usuário (1-Admin, 2-Professor, 3-Aluno):");
+        System.out.println("Digite o novo tipo de usuario (1-Admin, 2-Professor, 3-Aluno):");
         int numeroNovoTipoUsuario = Integer.parseInt(scanner.nextLine());
         String novoTipoUsuario = "";
 
@@ -218,25 +218,25 @@ public class Menus {
         return novaPessoa;
     }
 
-    // EXERCÍCIO
+    // EXERCiCIO
     public static int exercicioMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS======\n");
-        System.out.println("Escolha uma opção:\n");
-        System.out.println("1 - Adicionar exercício\n");
-        System.out.println("2 - Mostrar todos os exercícios\n");
-        System.out.println("3 - Alterar exercício\n");
-        System.out.println("4 - Buscar exercício\n");
-        System.out.println("5 - Remover exercício\n");
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCiCIOS======\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Adicionar exercicio\n");
+        System.out.println("2 - Mostrar todos os exercicios\n");
+        System.out.println("3 - Alterar exercicio\n");
+        System.out.println("4 - Buscar exercicio\n");
+        System.out.println("5 - Remover exercicio\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
 
     public static Exercicio adicionarExerciciosMenu() {
-        System.out.println("Digite o nome do exercício: ");
+        System.out.println("Digite o nome do exercicio: ");
         String nome = scanner.nextLine();
-        System.out.println("Digite a descrição do exercício: ");
+        System.out.println("Digite a descricao do exercicio: ");
         String descricao = scanner.nextLine();
 
         LocalDate dataAtual = LocalDate.now();
@@ -250,9 +250,9 @@ public class Menus {
         for (Exercicio exercicio : exercicios) {
             System.out.println("ID: " + exercicio.getId());
             System.out.println("Nome: " + exercicio.getNome());
-            System.out.println("Descrição: " + exercicio.getDescricao());
-            System.out.println("Data de Criação: " + exercicio.getDataCriacao());
-            System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
+            System.out.println("Descricao: " + exercicio.getDescricao());
+            System.out.println("Data de Criacao: " + exercicio.getDataCriacao());
+            System.out.println("Data de Modificacao: " + exercicio.getDataModificacao());
             System.out.println("------------------------");
         }
     }
@@ -260,9 +260,9 @@ public class Menus {
     public static void mostrarExercicioMenu(Exercicio exercicio) {
         System.out.println("ID: " + exercicio.getId());
         System.out.println("Nome: " + exercicio.getNome());
-        System.out.println("Descrição: " + exercicio.getDescricao());
-        System.out.println("Data de Criação: " + exercicio.getDataCriacao());
-        System.out.println("Data de Modificação: " + exercicio.getDataModificacao());
+        System.out.println("Descricao: " + exercicio.getDescricao());
+        System.out.println("Data de Criacao: " + exercicio.getDataCriacao());
+        System.out.println("Data de Modificacao: " + exercicio.getDataModificacao());
         System.out.println("------------------------");
     }
 
@@ -273,32 +273,32 @@ public class Menus {
     }
 
     public static Exercicio alterarExercicioMenu(int id, Exercicio exercicio) {
-        System.out.println("Digite o novo nome do exercício:");
+        System.out.println("Digite o novo nome do exercicio:");
         String novoNome = scanner.nextLine();
-        System.out.println("Digite a nova descrição do exercício:");
+        System.out.println("Digite a nova descricao do exercicio:");
         String novaDescricao = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
         Exercicio novoExercicio = new Exercicio(id, novoNome, novaDescricao, exercicio.getDataCriacao(), dataAtualizacao);
         return novoExercicio;
     }
 
-    // EXERCÍCIO APLICAÇÃO
+    // EXERCiCIO APLICAcaO
     public static int exercicioAplicacaoMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCÍCIOS DE APLICAÇÃO======\n");
-        System.out.println("Escolha uma opção:\n");
-        System.out.println("1 - Adicionar exercício de aplicação\n");
-        System.out.println("2 - Mostrar todos os exercícios de aplicação\n");
-        System.out.println("3 - Alterar exercício de aplicação\n");
-        System.out.println("4 - Buscar exercício de aplicação\n");
-        System.out.println("5 - Remover exercício de aplicação\n");
+        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCiCIOS DE APLICAcaO======\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Adicionar exercicio de aplicacao\n");
+        System.out.println("2 - Mostrar todos os exercicios de aplicacao\n");
+        System.out.println("3 - Alterar exercicio de aplicacao\n");
+        System.out.println("4 - Buscar exercicio de aplicacao\n");
+        System.out.println("5 - Remover exercicio de aplicacao\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
 
     public static ExercicioAplicacao adicionarExercicioAplicacaoMenu(int idExercicio) {
-        System.out.println("Digite a descrição do exercício de aplicação: ");
+        System.out.println("Digite a descricao do exercicio de aplicacao: ");
         String descricao = scanner.nextLine();
 
         LocalDate dataAtual = LocalDate.now();
@@ -314,59 +314,59 @@ public class Menus {
         for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
             Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getIdExercicio());
             if (exercicio != null) {
-                System.out.println("Nome do Exercício: " + exercicio.getNome());
-                System.out.println("Descrição do Exercício: " + exercicio.getDescricao());
-                System.out.println("Descrição do Exercício de Aplicação: " + exercicioAplicacao.getDescricao());
-                System.out.println("Data de Criação: " + exercicioAplicacao.getDataCriacao());
-                System.out.println("Data de Modificação: " + exercicioAplicacao.getDataModificacao());
+                System.out.println("Nome do Exercicio: " + exercicio.getNome());
+                System.out.println("Descricao do Exercicio: " + exercicio.getDescricao());
+                System.out.println("Descricao do Exercicio de Aplicacao: " + exercicioAplicacao.getDescricao());
+                System.out.println("Data de Criacao: " + exercicioAplicacao.getDataCriacao());
+                System.out.println("Data de Modificacao: " + exercicioAplicacao.getDataModificacao());
                 System.out.println("------------------------");
             } else {
-                System.out.println("Exercício não encontrado.");
+                System.out.println("Exercicio nao encontrado.");
             }
         }
     }
 
     public static void mostrarExercicioAplicacaoMenu(ExercicioAplicacao exercicioAplicacao) {
         System.out.println("ID: " + exercicioAplicacao.getId());
-        System.out.println("Descrição: " + exercicioAplicacao.getDescricao());
-        System.out.println("Data de Criação: " + exercicioAplicacao.getDataCriacao());
-        System.out.println("Data de Modificação: " + exercicioAplicacao.getDataModificacao());
+        System.out.println("Descricao: " + exercicioAplicacao.getDescricao());
+        System.out.println("Data de Criacao: " + exercicioAplicacao.getDataCriacao());
+        System.out.println("Data de Modificacao: " + exercicioAplicacao.getDataModificacao());
         System.out.println("------------------------");
     }
 
     public static int buscarExercicioAplicacaoMenu(String modo) {
-        System.out.println("Digite o ID do exercício aplicação que deseja " + modo + ": ");
+        System.out.println("Digite o ID do exercicio aplicacao que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     public static ExercicioAplicacao alterarExercicioAplicacaoMenu(int id, ExercicioAplicacao exercicioAplicacao) {
-        System.out.println("Digite a nova descrição do exercício de aplicação:");
+        System.out.println("Digite a nova descricao do exercicio de aplicacao:");
         String novaDescricao = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
         ExercicioAplicacao novoExercicioAplicacao = new ExercicioAplicacao(id, exercicioAplicacao.getIdExercicio(), novaDescricao, exercicioAplicacao.getDataCriacao(), dataAtualizacao);
         return novoExercicioAplicacao;
     }
 
-    //DIVISÃO DE TREINO
+    //DIVISaO DE TREINO
     public static int divisaoTreinoMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE DIVISÕES DE TREINO======\n");
-        System.out.println("Escolha uma opção:\n");
-        System.out.println("1 - Adicionar divisão de treino\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Adicionar divisao de treino\n");
         System.out.println("2 - Mostrar todas as divisões de treino\n");
-        System.out.println("3 - Alterar divisão de treino\n");
-        System.out.println("4 - Buscar divisão de treino\n");
-        System.out.println("5 - Remover divisão de treino\n");
+        System.out.println("3 - Alterar divisao de treino\n");
+        System.out.println("4 - Buscar divisao de treino\n");
+        System.out.println("5 - Remover divisao de treino\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
 
     public static DivisaoTreino adicionarDivisaoTreinoMenu() {
-        System.out.println("Digite o nome da divisão de treino: ");
+        System.out.println("Digite o nome da divisao de treino: ");
         String nome = scanner.nextLine();
-        System.out.println("Digite a descrição da divisão de treino: ");
+        System.out.println("Digite a descricao da divisao de treino: ");
         String descricao = scanner.nextLine();
 
         LocalDate dataAtual = LocalDate.now();
@@ -381,73 +381,73 @@ public class Menus {
 
         for (DivisaoTreino divisaoTreino : divisoesTreino) {
             System.out.println("ID: " + divisaoTreino.getId());
-            System.out.println("Nome da Divisão: " + divisaoTreino.getNome());
-            System.out.println("Descrição da Divisão: " + divisaoTreino.getDescricao());
-            System.out.println("Data de Criação: " + divisaoTreino.getDataCriacao());
-            System.out.println("Data de Modificação: " + divisaoTreino.getDataModificacao());
+            System.out.println("Nome da Divisao: " + divisaoTreino.getNome());
+            System.out.println("Descricao da Divisao: " + divisaoTreino.getDescricao());
+            System.out.println("Data de Criacao: " + divisaoTreino.getDataCriacao());
+            System.out.println("Data de Modificacao: " + divisaoTreino.getDataModificacao());
             System.out.println("------------------------");
         }
     }
 
     public static void mostrarDivisaoTreinoMenu(DivisaoTreino divisaoTreino) {
         System.out.println("ID: " + divisaoTreino.getId());
-        System.out.println("Nome da Divisão: " + divisaoTreino.getNome());
-        System.out.println("Descrição da Divisão: " + divisaoTreino.getDescricao());
-        System.out.println("Data de Criação: " + divisaoTreino.getDataCriacao());
-        System.out.println("Data de Modificação: " + divisaoTreino.getDataModificacao());
+        System.out.println("Nome da Divisao: " + divisaoTreino.getNome());
+        System.out.println("Descricao da Divisao: " + divisaoTreino.getDescricao());
+        System.out.println("Data de Criacao: " + divisaoTreino.getDataCriacao());
+        System.out.println("Data de Modificacao: " + divisaoTreino.getDataModificacao());
         System.out.println("------------------------");
     }
 
     public static int buscarDivisaoTreinoMenu(String modo) {
-        System.out.println("Digite o ID da divisão de treino que deseja " + modo + ": ");
+        System.out.println("Digite o ID da divisao de treino que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     public static DivisaoTreino alterarDivisaoTreinoMenu(int id, DivisaoTreino divisaoTreino) {
-        System.out.println("Digite o novo nome da divisão de treino:");
+        System.out.println("Digite o novo nome da divisao de treino:");
         String novoNome = scanner.nextLine();
-        System.out.println("Digite a nova descrição da divisão de treino:");
+        System.out.println("Digite a nova descricao da divisao de treino:");
         String novaDescricao = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
         DivisaoTreino novaDivisaoTreino = new DivisaoTreino(id, novoNome, novaDescricao, divisaoTreino.getDataCriacao(), dataAtualizacao);
         return novaDivisaoTreino;
     }
 
-    // DIVISÃO TREINO-MUSCULO
+    // DIVISaO TREINO-MUSCULO
     public static int divisaoTreinoMusculoMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE DIVISÕES DE TREINO-MÚSCULO======\n");
-        System.out.println("Escolha uma opção:\n");
-        System.out.println("1 - Adicionar divisão de treino-músculo\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Adicionar divisao de treino-músculo\n");
         System.out.println("2 - Mostrar todas as divisões de treino-músculo\n");
-        System.out.println("3 - Alterar divisão de treino-músculo\n");
-        System.out.println("4 - Buscar divisão de treino-músculo\n");
-        System.out.println("5 - Remover divisão de treino-músculo\n");
+        System.out.println("3 - Alterar divisao de treino-músculo\n");
+        System.out.println("4 - Buscar divisao de treino-músculo\n");
+        System.out.println("5 - Remover divisao de treino-músculo\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
 
     public static DivisaoTreinoMusculo adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoDAO divisaoTreinoDAO) {
-        System.out.println("Digite o ID da divisão de treino associada à divisão de treino-músculo: ");
+        System.out.println("Digite o ID da divisao de treino associada à divisao de treino-músculo: ");
         int idDivisaoTreino = Integer.parseInt(scanner.nextLine());
         DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idDivisaoTreino);
 
         if (divisaoTreino != null) {
-            System.out.println("Divisão de Treino associada encontrada:");
+            System.out.println("Divisao de Treino associada encontrada:");
             System.out.println("ID: " + divisaoTreino.getId());
-            System.out.println("Nome da Divisão: " + divisaoTreino.getNome());
-            System.out.println("Descrição da Divisão: " + divisaoTreino.getDescricao());
+            System.out.println("Nome da Divisao: " + divisaoTreino.getNome());
+            System.out.println("Descricao da Divisao: " + divisaoTreino.getDescricao());
 
-            System.out.println("\nDigite a descrição da divisão de treino-músculo: ");
+            System.out.println("\nDigite a descricao da divisao de treino-músculo: ");
             String descricao = scanner.nextLine();
 
             LocalDate dataAtual = LocalDate.now();
             DivisaoTreinoMusculo divisaoTreinoMusculo = new DivisaoTreinoMusculo(0, descricao, divisaoTreino.getNome(), dataAtual, dataAtual);
             return divisaoTreinoMusculo;
         } else {
-            System.out.println("Divisão de Treino associada não encontrada.");
+            System.out.println("Divisao de Treino associada nao encontrada.");
             return null;
         }
     }
@@ -459,33 +459,33 @@ public class Menus {
 
         for (DivisaoTreinoMusculo divisaoTreinoMusculo : divisoesTreinoMusculo) {
             System.out.println("ID: " + divisaoTreinoMusculo.getId());
-            System.out.println("Descrição da Divisão: " + divisaoTreinoMusculo.getDescricao());
-            System.out.println("Divisão de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
-            System.out.println("Data de Criação: " + divisaoTreinoMusculo.getDataCriacao());
-            System.out.println("Data de Modificação: " + divisaoTreinoMusculo.getDataModificacao());
+            System.out.println("Descricao da Divisao: " + divisaoTreinoMusculo.getDescricao());
+            System.out.println("Divisao de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
+            System.out.println("Data de Criacao: " + divisaoTreinoMusculo.getDataCriacao());
+            System.out.println("Data de Modificacao: " + divisaoTreinoMusculo.getDataModificacao());
             System.out.println("------------------------");
         }
     }
 
     public static void mostrarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculo divisaoTreinoMusculo) {
         System.out.println("ID: " + divisaoTreinoMusculo.getId());
-        System.out.println("Descrição da Divisão: " + divisaoTreinoMusculo.getDescricao());
-        System.out.println("Divisão de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
-        System.out.println("Data de Criação: " + divisaoTreinoMusculo.getDataCriacao());
-        System.out.println("Data de Modificação: " + divisaoTreinoMusculo.getDataModificacao());
+        System.out.println("Descricao da Divisao: " + divisaoTreinoMusculo.getDescricao());
+        System.out.println("Divisao de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
+        System.out.println("Data de Criacao: " + divisaoTreinoMusculo.getDataCriacao());
+        System.out.println("Data de Modificacao: " + divisaoTreinoMusculo.getDataModificacao());
         System.out.println("------------------------");
     }
 
     public static int buscarDivisaoTreinoMusculoMenu(String modo) {
-        System.out.println("Digite o ID da divisão de treino-músculo que deseja " + modo + ": ");
+        System.out.println("Digite o ID da divisao de treino-músculo que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     public static DivisaoTreinoMusculo alterarDivisaoTreinoMusculoMenu(int id, DivisaoTreinoMusculo divisaoTreinoMusculo) {
-        System.out.println("Digite a nova descrição da divisão de treino-músculo:");
+        System.out.println("Digite a nova descricao da divisao de treino-músculo:");
         String novaDescricao = scanner.nextLine();
-        System.out.println("Digite a nova divisão de treino da divisão de treino-músculo:");
+        System.out.println("Digite a nova divisao de treino da divisao de treino-músculo:");
         String novaDivisaoTreino = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
         DivisaoTreinoMusculo novaDivisaoTreinoMusculo = new DivisaoTreinoMusculo(id, novaDescricao, novaDivisaoTreino, divisaoTreinoMusculo.getDataCriacao(), dataAtualizacao);
@@ -496,15 +496,15 @@ public class Menus {
     /*
     public static int treinoMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE TREINOS======\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar treino\n");
         System.out.println("2 - Mostrar todos os treinos\n");
-        System.out.println("3 - Mostrar treino específico\n");
+        System.out.println("3 - Mostrar treino especifico\n");
         System.out.println("4 - Buscar treino\n");
         System.out.println("5 - Alterar treino\n");
         System.out.println("6 - Remover treino\n");
         System.out.println("7 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
@@ -512,10 +512,10 @@ public class Menus {
     public static Treino adicionarTreinoMenu(TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO, PessoaDAO pessoaDAO) {
         System.out.println("======ADICIONAR TREINO======\n");
 
-        System.out.println("Pessoas existentes com tipo de usuário 'Aluno':");
+        System.out.println("Pessoas existentes com tipo de usuario 'Aluno':");
         Pessoa[] pessoas = pessoaDAO.buscarPessoasPorTipo("Aluno");
         for (Pessoa pessoa : pessoas) {
-            System.out.println("ID: " + pessoa.getId() + ", Nome: " + pessoa.getNome() + ", Tipo de Usuário: " + pessoa.getTipoUsuario());
+            System.out.println("ID: " + pessoa.getId() + ", Nome: " + pessoa.getNome() + ", Tipo de Usuario: " + pessoa.getTipoUsuario());
         }
 
         System.out.println("Digite o ID do aluno para associar ao treino:");
@@ -526,24 +526,24 @@ public class Menus {
             System.out.println("Aluno encontrado:");
             System.out.println("ID: " + aluno.getId());
             System.out.println("Nome: " + aluno.getNome());
-            System.out.println("Tipo de Usuário: " + aluno.getTipoUsuario());
+            System.out.println("Tipo de Usuario: " + aluno.getTipoUsuario());
 
             System.out.println("Digite o objetivo do treino:");
             String objetivo = scanner.nextLine();
 
-            System.out.println("Digite a data de início do treino (no formato yyyy-MM-dd):");
+            System.out.println("Digite a data de inicio do treino (no formato yyyy-MM-dd):");
             LocalDate dataInicio = LocalDate.parse(scanner.nextLine());
 
-            System.out.println("Digite a data de término do treino (no formato yyyy-MM-dd):");
+            System.out.println("Digite a data de termino do treino (no formato yyyy-MM-dd):");
             LocalDate dataTermino = LocalDate.parse(scanner.nextLine());
 
             System.out.println("Divisões de treino existentes:");
             DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
             for (DivisaoTreino divisaoTreino : divisoesTreino) {
-                System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome() + ", Descrição: " + divisaoTreino.getDescricao());
+                System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome() + ", Descricao: " + divisaoTreino.getDescricao());
             }
 
-            System.out.println("Digite o ID da divisão de treino desejada:");
+            System.out.println("Digite o ID da divisao de treino desejada:");
             int idDivisaoTreino = Integer.parseInt(scanner.nextLine());
             DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idDivisaoTreino);
 
@@ -552,11 +552,11 @@ public class Menus {
                 Treino treino = new Treino(0, aluno.getId(), aluno.getNome(), aluno.getTipoUsuario(), objetivo, dataInicio, dataTermino, divisaoTreino.getId(), divisaoTreino.getNome(), dataAtual, dataAtual);
                 return treino;
             } else {
-                System.out.println("Divisão de Treino não encontrada.");
+                System.out.println("Divisao de Treino nao encontrada.");
                 return null;
             }
         } else {
-            System.out.println("Aluno não encontrado ou não é do tipo 'Aluno'.");
+            System.out.println("Aluno nao encontrado ou nao e do tipo 'Aluno'.");
             return null;
         }
     }
@@ -570,14 +570,14 @@ public class Menus {
             System.out.println("ID: " + treino.getId());
             System.out.println("ID do Aluno: " + treino.getIdAluno());
             System.out.println("Nome do Aluno: " + treino.getNomeAluno());
-            System.out.println("Tipo de Usuário do Aluno: " + treino.getTipoUsuarioAluno());
+            System.out.println("Tipo de Usuario do Aluno: " + treino.getTipoUsuarioAluno());
             System.out.println("Objetivo do Treino: " + treino.getObjetivo());
-            System.out.println("Data de Início: " + treino.getDataInicio());
-            System.out.println("Data de Término: " + treino.getDataTermino());
-            System.out.println("ID da Divisão de Treino: " + treino.getIdDivisaoTreino());
-            System.out.println("Nome da Divisão de Treino: " + treino.getNomeDivisaoTreino());
-            System.out.println("Data de Criação: " + treino.getDataCriacao());
-            System.out.println("Data de Modificação: " + treino.getDataModificacao());
+            System.out.println("Data de Inicio: " + treino.getDataInicio());
+            System.out.println("Data de Termino: " + treino.getDataTermino());
+            System.out.println("ID da Divisao de Treino: " + treino.getIdDivisaoTreino());
+            System.out.println("Nome da Divisao de Treino: " + treino.getNomeDivisaoTreino());
+            System.out.println("Data de Criacao: " + treino.getDataCriacao());
+            System.out.println("Data de Modificacao: " + treino.getDataModificacao());
             System.out.println("------------------------");
         }
     }
@@ -588,14 +588,14 @@ public class Menus {
         System.out.println("ID: " + treino.getId());
         System.out.println("ID do Aluno: " + treino.getIdAluno());
         System.out.println("Nome do Aluno: " + treino.getNomeAluno());
-        System.out.println("Tipo de Usuário do Aluno: " + treino.getTipoUsuarioAluno());
+        System.out.println("Tipo de Usuario do Aluno: " + treino.getTipoUsuarioAluno());
         System.out.println("Objetivo do Treino: " + treino.getObjetivo());
-        System.out.println("Data de Início: " + treino.getDataInicio());
-        System.out.println("Data de Término: " + treino.getDataTermino());
-        System.out.println("ID da Divisão de Treino: " + treino.getIdDivisaoTreino());
-        System.out.println("Nome da Divisão de Treino: " + treino.getNomeDivisaoTreino());
-        System.out.println("Data de Criação: " + treino.getDataCriacao());
-        System.out.println("Data de Modificação: " + treino.getDataModificacao());
+        System.out.println("Data de Inicio: " + treino.getDataInicio());
+        System.out.println("Data de Termino: " + treino.getDataTermino());
+        System.out.println("ID da Divisao de Treino: " + treino.getIdDivisaoTreino());
+        System.out.println("Nome da Divisao de Treino: " + treino.getNomeDivisaoTreino());
+        System.out.println("Data de Criacao: " + treino.getDataCriacao());
+        System.out.println("Data de Modificacao: " + treino.getDataModificacao());
         System.out.println("------------------------");
     }
 
@@ -609,19 +609,19 @@ public class Menus {
     public static Treino alterarTreinoMenu(int id, Treino treino, DivisaoTreinoDAO divisaoTreinoDAO) {
         System.out.println("Digite o novo objetivo do treino:");
         String novoObjetivo = scanner.nextLine();
-        System.out.println("Digite a nova data de início do treino (no formato yyyy-MM-dd):");
+        System.out.println("Digite a nova data de inicio do treino (no formato yyyy-MM-dd):");
         LocalDate novaDataInicio = LocalDate.parse(scanner.nextLine());
 
-        System.out.println("Digite a nova data de término do treino (no formato yyyy-MM-dd):");
+        System.out.println("Digite a nova data de termino do treino (no formato yyyy-MM-dd):");
         LocalDate novaDataTermino = LocalDate.parse(scanner.nextLine());
 
         System.out.println("Divisões de treino existentes:");
         DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
         for (DivisaoTreino divisaoTreino : divisoesTreino) {
-            System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome() + ", Descrição: " + divisaoTreino.getDescricao());
+            System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome() + ", Descricao: " + divisaoTreino.getDescricao());
         }
 
-        System.out.println("Digite o ID da nova divisão de treino:");
+        System.out.println("Digite o ID da nova divisao de treino:");
         int idNovaDivisaoTreino = Integer.parseInt(scanner.nextLine());
         DivisaoTreino novaDivisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idNovaDivisaoTreino);
 
@@ -630,24 +630,24 @@ public class Menus {
             Treino novoTreino = new Treino(id, treino.getIdAluno(), treino.getNomeAluno(), treino.getTipoUsuarioAluno(), novoObjetivo, novaDataInicio, novaDataTermino, novaDivisaoTreino.getId(), novaDivisaoTreino.getNome(), treino.getDataCriacao(), dataAtualizacao);
             return novoTreino;
         } else {
-            System.out.println("Divisão de Treino não encontrada.");
+            System.out.println("Divisao de Treino nao encontrada.");
             return null;
         }
 */
 
     
-    // TREINO APLICAÇÃO
+    // TREINO APLICAcaO
     // MENSALIDADE
     public static int mensalidadeMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES======\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar mensalidade\n");
         System.out.println("2 - Mostrar todas as mensalidades\n");
         System.out.println("3 - Alterar mensalidade\n");
         System.out.println("4 - Buscar mensalidade\n");
         System.out.println("5 - Remover mensalidade\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
@@ -675,10 +675,10 @@ public class Menus {
         for (Mensalidade mensalidade : mensalidades) {
             System.out.println("ID: " + mensalidade.getId());
             System.out.println("Valor: R$ " + mensalidade.getValor());
-            System.out.println("Data de Início: " + mensalidade.getDataInicio());
+            System.out.println("Data de Inicio: " + mensalidade.getDataInicio());
             System.out.println("Data de Fim: " + mensalidade.getDataFim());
-            System.out.println("Data de Criação: " + mensalidade.getDataCriacao());
-            System.out.println("Data de Modificação: " + mensalidade.getDataModificacao());
+            System.out.println("Data de Criacao: " + mensalidade.getDataCriacao());
+            System.out.println("Data de Modificacao: " + mensalidade.getDataModificacao());
             System.out.println("------------------------");
         }
     }
@@ -686,10 +686,10 @@ public class Menus {
     public static void mostrarMensalidadeMenu(Mensalidade mensalidade) {
         System.out.println("ID: " + mensalidade.getId());
         System.out.println("Valor: R$ " + mensalidade.getValor());
-        System.out.println("Data de Início: " + mensalidade.getDataInicio());
+        System.out.println("Data de Inicio: " + mensalidade.getDataInicio());
         System.out.println("Data de Fim: " + mensalidade.getDataFim());
-        System.out.println("Data de Criação: " + mensalidade.getDataCriacao());
-        System.out.println("Data de Modificação: " + mensalidade.getDataModificacao());
+        System.out.println("Data de Criacao: " + mensalidade.getDataCriacao());
+        System.out.println("Data de Modificacao: " + mensalidade.getDataModificacao());
         System.out.println("------------------------");
     }
 
@@ -716,14 +716,14 @@ public class Menus {
     // ALUNO PAGAMENTO MENSALIDADE
     public static int mensalidadeAlunoMenu() {
         System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES DE ALUNOS======\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Associar mensalidade a um aluno\n");
         System.out.println("2 - Mostrar todas as mensalidades de alunos\n");
-        System.out.println("3 - Alterar associação de mensalidade-aluno\n");
-        System.out.println("4 - Buscar associação de mensalidade-aluno\n");
-        System.out.println("5 - Remover associação de mensalidade-aluno\n");
+        System.out.println("3 - Alterar associacao de mensalidade-aluno\n");
+        System.out.println("4 - Buscar associacao de mensalidade-aluno\n");
+        System.out.println("5 - Remover associacao de mensalidade-aluno\n");
         System.out.println("6 - Sair\n");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
@@ -735,7 +735,7 @@ public class Menus {
         int idMensalidade = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o valor pago: ");
         double valorPago = Double.parseDouble(scanner.nextLine());
-        System.out.println("Digite a modalidade (pix, cartão de credito, dinheiro, etc): ");
+        System.out.println("Digite a modalidade (pix, cartao de credito, dinheiro, etc): ");
         String modalidade = scanner.nextLine();
 
         LocalDate dataAtual = LocalDate.now();
@@ -745,21 +745,21 @@ public class Menus {
     }
 
     public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno) {
-        System.out.println("ID Associação: " + mensalidadeAluno.getId());
+        System.out.println("ID Associacao: " + mensalidadeAluno.getId());
         System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
         System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
-        System.out.println("Data de Criação: " + mensalidadeAluno.getDataCriacao());
-        System.out.println("Data de Modificação: " + mensalidadeAluno.getDataModificacao());
+        System.out.println("Data de Criacao: " + mensalidadeAluno.getDataCriacao());
+        System.out.println("Data de Modificacao: " + mensalidadeAluno.getDataModificacao());
         System.out.println("------------------------");
     }
 
     public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos) {
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
-            System.out.println("ID Associação: " + mensalidadeAluno.getId());
+            System.out.println("ID Associacao: " + mensalidadeAluno.getId());
             System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
             System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
-            System.out.println("Data de Criação: " + mensalidadeAluno.getDataCriacao());
-            System.out.println("Data de Modificação: " + mensalidadeAluno.getDataModificacao());
+            System.out.println("Data de Criacao: " + mensalidadeAluno.getDataCriacao());
+            System.out.println("Data de Modificacao: " + mensalidadeAluno.getDataModificacao());
             System.out.println("------------------------");
         }
     }
@@ -777,15 +777,15 @@ public class Menus {
     }
 
     public static int buscarMensalidadeAlunoMenu(String modo) {
-        System.out.println("Digite o ID da associação de mensalidade-aluno que deseja " + modo + ": ");
+        System.out.println("Digite o ID da associacao de mensalidade-aluno que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     // PAGAMENTO RECORRENTE
     // ENTRADA ALUNO
-    // MOVIMENTAÇÃO FINANCEIRA
-    // RELATÓRIOS
+    // MOVIMENTAcaO FINANCEIRA
+    // RELAToRIOS
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
@@ -793,7 +793,7 @@ public class Menus {
     }
 
     public static void mostrarOpcaoInvalida() {
-        System.out.println("Opção inválida. Por favor, tente novamente.");
+        System.out.println("Opcao invalida. Por favor, tente novamente.");
     }
 
     public static void digitarQualquerTecla() {
