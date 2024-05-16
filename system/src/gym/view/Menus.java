@@ -12,7 +12,9 @@ public class Menus {
     // MENU PRINCIPAL
     public static int mostrarMenuPrincipal() {
         limparTela();
-        System.out.println("====== HealthierLifeGym ======\n");
+        System.out.println("*********************************");
+        System.out.println("*   SISTEMAS DE GERENCIAMENTO   *");
+        System.out.println("*********************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Academias\n");
         System.out.println("2 - Pessoas\n");
@@ -36,7 +38,9 @@ public class Menus {
 
     // ACADEMIA
     public static int academiaMenu() {
-        System.out.println("======SISTEMA DE ACADEMIAS======\n");
+        System.out.println("****************************");
+        System.out.println("*   SISTEMA DE ACADEMIAS    *");
+        System.out.println("****************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar academia\n");
         System.out.println("2 - Mostrar academias\n");
@@ -50,6 +54,7 @@ public class Menus {
     }
 
     public static Academia adicionarAcademiaMenu() {
+        System.out.println("\n*****  ADICIONAR ACADEMIA  ******\n");
         System.out.println("Digite o nome da academia: ");
         String nome = scanner.nextLine();
         System.out.println("Digite o endereco da academia: ");
@@ -60,6 +65,7 @@ public class Menus {
     }
 
     public static void mostrarTodasAcademiasMenu(Academia[] academias) {
+        System.out.println("\n*****  TODAS AS ACADEMIAS  *****\n");
         if (academias.length == 0) {
             System.out.println("Nenhuma academia cadastrada.");
         } else {
@@ -76,6 +82,7 @@ public class Menus {
     }
 
     public static void mostrarAcademiaMenu(Academia academia) {
+        System.out.println("\n*****  ACADEMIA  *****\n");
         System.out.println("ID: " + academia.getId());
         System.out.println("Nome: " + academia.getNome());
         System.out.println("Endereco: " + academia.getEndereco());
@@ -84,13 +91,14 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarAcademiaMenu(String modo) {
+    public static int buscarAcademiaMenu(String modo) {        
         System.out.println("Digite o ID da academia que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     public static Academia alterarAcademiaMenu(int id, Academia academiaExistente) {
+        System.out.println("\n*****  ALTERAR ACADEMIA  *****\n");
         System.out.println("Digite o novo nome da academia:");
         String novoNome = scanner.nextLine();
         System.out.println("Digite o novo endereco da academia:");
@@ -102,7 +110,9 @@ public class Menus {
 
     // PESSOA
     public static int pessoaMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE PESSOAS======\n");
+        System.out.println("**************************");
+        System.out.println("*   SISTEMA DE PESSOAS   *");
+        System.out.println("**************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar pessoa\n");
         System.out.println("2 - Mostrar todas as pessoas\n");
@@ -116,6 +126,7 @@ public class Menus {
     }
 
     public static Pessoa adicionarPessoaMenu() {
+        System.out.println("\n*****  ADICIONAR PESSOA  ******\n");
         System.out.println("Digite o nome da pessoa: ");
         String nome = scanner.nextLine();
         System.out.println("Digite o sexo da pessoa (M/F): ");
@@ -148,6 +159,7 @@ public class Menus {
     }
 
     public static void mostrarTodasPessoasMenu(Pessoa[] pessoas) {
+        System.out.println("\n*****  TODAS AS PESSOAS  *****\n");
         if (pessoas.length == 0) {
             System.out.println("Nenhuma pessoa cadastrada.");
         } else {
@@ -168,6 +180,7 @@ public class Menus {
     }
 
     public static void mostrarPessoaMenu(Pessoa pessoa) {
+        System.out.println("\n*****  PESSOA  *****\n");
         System.out.println("ID: " + pessoa.getId());
         System.out.println("Nome: " + pessoa.getNome());
         System.out.println("Sexo: " + pessoa.getSexo());
@@ -180,13 +193,14 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarPessoaMenu(String modo) {
+    public static int buscarPessoaMenu(String modo) {        
         System.out.println("Digite o ID da pessoa que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     public static Pessoa alterarPessoaMenu(int id, Pessoa pessoaExistente) {
+        System.out.println("\n*****  ALTERAR PESSOA  *****\n");
         System.out.println("Digite o novo nome da pessoa:");
         String novoNome = scanner.nextLine();
         System.out.println("Digite o novo sexo da pessoa (M/F):");
@@ -220,7 +234,9 @@ public class Menus {
 
     // EXERCiCIO
     public static int exercicioMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCiCIOS======\n");
+        System.out.println("*****************************");
+        System.out.println("*   SISTEMA DE EXERCICIOS   *");
+        System.out.println("*****************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar exercicio\n");
         System.out.println("2 - Mostrar todos os exercicios\n");
@@ -234,6 +250,7 @@ public class Menus {
     }
 
     public static Exercicio adicionarExerciciosMenu() {
+        System.out.println("\n*****  ADICIONAR EXERCICIO  ******\n");
         System.out.println("Digite o nome do exercicio: ");
         String nome = scanner.nextLine();
         System.out.println("Digite a descricao do exercicio: ");
@@ -245,6 +262,7 @@ public class Menus {
     }
 
     public static void mostrarTodosExerciciosMenu(Exercicio[] exercicios) {
+        System.out.println("\n*****  TODOS OS EXERCICIOS  *****\n");
         System.out.println("------------------------");
 
         for (Exercicio exercicio : exercicios) {
@@ -258,6 +276,7 @@ public class Menus {
     }
 
     public static void mostrarExercicioMenu(Exercicio exercicio) {
+        System.out.println("\n*****  EXERCICIO  *****\n");
         System.out.println("ID: " + exercicio.getId());
         System.out.println("Nome: " + exercicio.getNome());
         System.out.println("Descricao: " + exercicio.getDescricao());
@@ -266,13 +285,14 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarExercicioMenu(String modo) {
+    public static int buscarExercicioMenu(String modo) {        
         System.out.println("Digite o ID do exercicio que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
 
     public static Exercicio alterarExercicioMenu(int id, Exercicio exercicio) {
+        System.out.println("\n*****  ALTERAR EXERCICIO  *****\n");
         System.out.println("Digite o novo nome do exercicio:");
         String novoNome = scanner.nextLine();
         System.out.println("Digite a nova descricao do exercicio:");
@@ -282,15 +302,17 @@ public class Menus {
         return novoExercicio;
     }
 
-    // EXERCiCIO APLICAcaO
+    // EXERCICIO APLICACAO
     public static int exercicioAplicacaoMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE EXERCiCIOS DE APLICAcaO======\n");
+        System.out.println("******************************************");
+        System.out.println("*   SISTEMA DE APLICACAO DE EXERCICIOS   *");
+        System.out.println("******************************************\n");
         System.out.println("Escolha uma opcao:\n");
-        System.out.println("1 - Adicionar exercicio de aplicacao\n");
-        System.out.println("2 - Mostrar todos os exercicios de aplicacao\n");
-        System.out.println("3 - Alterar exercicio de aplicacao\n");
-        System.out.println("4 - Buscar exercicio de aplicacao\n");
-        System.out.println("5 - Remover exercicio de aplicacao\n");
+        System.out.println("1 - Adicionar aplicacao de exercicio\n");
+        System.out.println("2 - Mostrar todas aplicacoes de exercicios\n");
+        System.out.println("3 - Alterar aplicacao de exercicio\n");
+        System.out.println("4 - Buscar aplicacao de exercicio\n");
+        System.out.println("5 - Remover aplicacao de exercicio\n");
         System.out.println("6 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
@@ -298,6 +320,7 @@ public class Menus {
     }
 
     public static ExercicioAplicacao adicionarExercicioAplicacaoMenu(int idExercicio) {
+        System.out.println("\n*****  ADICIONAR EXERCICIO APLICACAO  ******\n");
         System.out.println("Digite a descricao do exercicio de aplicacao: ");
         String descricao = scanner.nextLine();
 
@@ -307,6 +330,7 @@ public class Menus {
     }
 
     public static void mostrarTodosExerciciosAplicacaoMenu(ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
+        System.out.println("\n*****  TODOS OS EXERCICIOS APLICACAO  *****\n");
         System.out.println("------------------------");
 
         ExercicioAplicacao[] exerciciosAplicacao = exercicioAplicacaoDAO.mostrarExerciciosAplicacao();
@@ -327,6 +351,7 @@ public class Menus {
     }
 
     public static void mostrarExercicioAplicacaoMenu(ExercicioAplicacao exercicioAplicacao) {
+        System.out.println("\n*****  EXERCICIO APLICACAO  *****\n");
         System.out.println("ID: " + exercicioAplicacao.getId());
         System.out.println("Descricao: " + exercicioAplicacao.getDescricao());
         System.out.println("Data de Criacao: " + exercicioAplicacao.getDataCriacao());
@@ -341,6 +366,7 @@ public class Menus {
     }
 
     public static ExercicioAplicacao alterarExercicioAplicacaoMenu(int id, ExercicioAplicacao exercicioAplicacao) {
+        System.out.println("\n*****  ALTERAR EXERCICIO APLICACAO  *****\n");
         System.out.println("Digite a nova descricao do exercicio de aplicacao:");
         String novaDescricao = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
@@ -348,9 +374,11 @@ public class Menus {
         return novoExercicioAplicacao;
     }
 
-    //DIVISaO DE TREINO
-    public static int divisaoTreinoMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE DIVISoES DE TREINO======\n");
+    //DIVISAO DE TREINO
+    public static int divisaoTreinoMenu() {        
+        System.out.println("************************************");
+        System.out.println("*   SISTEMA DE DIVISAO DE TREINOS   *");
+        System.out.println("************************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar divisao de treino\n");
         System.out.println("2 - Mostrar todas as divisoes de treino\n");
@@ -364,6 +392,7 @@ public class Menus {
     }
 
     public static DivisaoTreino adicionarDivisaoTreinoMenu() {
+        System.out.println("\n*****  ADICIONAR DIVISAO DE TREINO  ******\n");
         System.out.println("Digite o nome da divisao de treino: ");
         String nome = scanner.nextLine();
         System.out.println("Digite a descricao da divisao de treino: ");
@@ -375,6 +404,7 @@ public class Menus {
     }
 
     public static void mostrarTodasDivisoesTreinoMenu(DivisaoTreinoDAO divisaoTreinoDAO) {
+        System.out.println("\n*****  TODOAS DIVISOES DE TREINO  *****\n");
         System.out.println("------------------------");
 
         DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
@@ -390,6 +420,7 @@ public class Menus {
     }
 
     public static void mostrarDivisaoTreinoMenu(DivisaoTreino divisaoTreino) {
+        System.out.println("\n*****  DIVISAO DE TREINO  *****\n");
         System.out.println("ID: " + divisaoTreino.getId());
         System.out.println("Nome da Divisao: " + divisaoTreino.getNome());
         System.out.println("Descricao da Divisao: " + divisaoTreino.getDescricao());
@@ -405,6 +436,7 @@ public class Menus {
     }
 
     public static DivisaoTreino alterarDivisaoTreinoMenu(int id, DivisaoTreino divisaoTreino) {
+        System.out.println("\n*****  ALTERAR DIVISAO DE TREINO  *****\n");
         System.out.println("Digite o novo nome da divisao de treino:");
         String novoNome = scanner.nextLine();
         System.out.println("Digite a nova descricao da divisao de treino:");
@@ -414,9 +446,11 @@ public class Menus {
         return novaDivisaoTreino;
     }
 
-    // DIVISaO TREINO-MUSCULO
+    // DIVISAO TREINO-MUSCULO
     public static int divisaoTreinoMusculoMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE DIVISOES DE TREINO-MUSCULO======\n");
+        System.out.println("*****************************************");
+        System.out.println("*   SISTEMA DE DIVISAO TREINO-MUSCULO   *");
+        System.out.println("*****************************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar divisao de treino-musculo\n");
         System.out.println("2 - Mostrar todas as divisoes de treino-musculo\n");
@@ -430,6 +464,7 @@ public class Menus {
     }
 
     public static DivisaoTreinoMusculo adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoDAO divisaoTreinoDAO) {
+        System.out.println("\n*****  ADICIONAR DIVISAO TREINO-MUSCULO  ******\n");
         System.out.println("Digite o ID da divisao de treino associada à divisao de treino-musculo: ");
         int idDivisaoTreino = Integer.parseInt(scanner.nextLine());
         DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(idDivisaoTreino);
@@ -453,6 +488,7 @@ public class Menus {
     }
 
     public static void mostrarTodasDivisoesTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
+        System.out.println("\n*****  TODAS DIVISOES TREINO-MUSCULO  *****\n");
         System.out.println("------------------------");
 
         DivisaoTreinoMusculo[] divisoesTreinoMusculo = divisaoTreinoMusculoDAO.mostrarDivisoesTreinoMusculo();
@@ -468,6 +504,7 @@ public class Menus {
     }
 
     public static void mostrarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculo divisaoTreinoMusculo) {
+        System.out.println("\n*****  DIVISAO TREINO-MUSCULO  *****\n");
         System.out.println("ID: " + divisaoTreinoMusculo.getId());
         System.out.println("Descricao da Divisao: " + divisaoTreinoMusculo.getDescricao());
         System.out.println("Divisao de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
@@ -483,6 +520,7 @@ public class Menus {
     }
 
     public static DivisaoTreinoMusculo alterarDivisaoTreinoMusculoMenu(int id, DivisaoTreinoMusculo divisaoTreinoMusculo) {
+        System.out.println("\n*****  ALTERAR DIVISAO TREINO-MUSCULO  *****\n");
         System.out.println("Digite a nova descricao da divisao de treino-musculo:");
         String novaDescricao = scanner.nextLine();
         System.out.println("Digite a nova divisao de treino da divisao de treino-musculo:");
@@ -494,7 +532,9 @@ public class Menus {
 
     // TREINO
     public static int treinoMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE TREINOS======\n");
+        System.out.println("**************************");
+        System.out.println("*   SISTEMA DE TREINOS   *");
+        System.out.println("**************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar treino\n");
         System.out.println("2 - Mostrar todos os treinos\n");
@@ -509,7 +549,7 @@ public class Menus {
     }
 
     public static Treino adicionarTreinoMenu(TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO, PessoaDAO pessoaDAO) {
-        System.out.println("======ADICIONAR TREINO======\n");
+        System.out.println("\n*****  ADICIONAR TREINO  *****\n");
 
         System.out.println("Digite o ID do aluno para associar ao treino:");
         int idAluno = Integer.parseInt(scanner.nextLine());
@@ -555,7 +595,7 @@ public class Menus {
     }
 
     public static void mostrarTodosTreinosMenu(TreinoDAO treinoDAO) {
-        System.out.println("======TODOS OS TREINOS======\n");
+        System.out.println("\n*****  TODOS OS TREINOS  *****\n");
 
         Treino[] treinos = treinoDAO.mostrarTreinos();
 
@@ -576,7 +616,7 @@ public class Menus {
     }
     
     public static void mostrarTreinoMenu(Treino treino) {
-        System.out.println("======TREINO======\n");
+        System.out.println("\n***** TREINO *****\n");
 
         System.out.println("ID: " + treino.getId());
         System.out.println("ID do Aluno: " + treino.getIdAluno());
@@ -592,14 +632,14 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarTreinoMenu(String modo) {
-        System.out.println("======BUSCAR TREINO======\n");
+    public static int buscarTreinoMenu(String modo) {        
         System.out.println("Digite o ID do treino que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
     
     public static Treino alterarTreinoMenu(int id, Treino treino, DivisaoTreinoDAO divisaoTreinoDAO, PessoaDAO pessoaDAO) {
+        System.out.println("\n*****  ALTERAR TREINO  *****\n");
         System.out.println("Digite o novo objetivo do treino:");
         String novoObjetivo = scanner.nextLine();
         System.out.println("Digite a nova data de inicio do treino (no formato dd/MM/aaaa):");
@@ -634,7 +674,9 @@ public class Menus {
     
     // MENSALIDADE
     public static int mensalidadeMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES======\n");
+        System.out.println("*******************************");
+        System.out.println("*   SISTEMA DE MENSALIDADES   *");
+        System.out.println("*******************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar mensalidade\n");
         System.out.println("2 - Mostrar todas as mensalidades\n");
@@ -648,6 +690,7 @@ public class Menus {
     }
 
     public static Mensalidade adicionarMensalidadeMenu() {
+        System.out.println("\n*****  ADICIONAR MENSALIDADE  ******\n");
         System.out.println("Digite a descricao da mensalidade: ");
         String descricao = scanner.nextLine();
         System.out.println("Digite o valor da mensalidade: ");
@@ -663,6 +706,7 @@ public class Menus {
     }
 
     public static void mostrarTodasMensalidadesMenu(MensalidadeDAO mensalidadeDAO) {
+        System.out.println("\n*****  TODAS AS MENSALIDADES  *****\n");
         System.out.println("------------------------");
 
         Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
@@ -679,6 +723,7 @@ public class Menus {
     }
 
     public static void mostrarMensalidadeMenu(Mensalidade mensalidade) {
+        System.out.println("\n*****  MENSALIDADE  *****\n");
         System.out.println("ID: " + mensalidade.getId());
         System.out.println("Valor: R$ " + mensalidade.getValor());
         System.out.println("Data de Inicio: " + mensalidade.getDataInicio());
@@ -695,6 +740,7 @@ public class Menus {
     }
 
     public static Mensalidade alterarMensalidadeMenu(int id, Mensalidade mensalidade) {
+        System.out.println("\n*****  ALTERAR MENSALIDADE  *****\n");
         System.out.println("Digite a nova descricao da mensalidade: ");
         String novaDescricao = scanner.nextLine();
         System.out.println("Digite o novo valor da mensalidade: ");
@@ -710,7 +756,9 @@ public class Menus {
 
     // ALUNO PAGAMENTO MENSALIDADE
     public static int mensalidadeAlunoMenu() {
-        System.out.println("======SISTEMA DE GERENCIAMENTO DE MENSALIDADES DE ALUNOS======\n");
+        System.out.println("*****************************************");
+        System.out.println("*   SISTEMA DE MENSALIDADE DOS ALUNOS   *");
+        System.out.println("*****************************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Associar mensalidade a um aluno\n");
         System.out.println("2 - Mostrar todas as mensalidades de alunos\n");
@@ -724,6 +772,7 @@ public class Menus {
     }
 
     public static MensalidadeAluno associarMensalidadeAlunoMenu() {
+        System.out.println("\n*****  ADICIONAR MENSALIDADE PARA ALUNO  ******\n");
         System.out.println("Digite o ID do aluno: ");
         int idAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o ID da mensalidade: ");
@@ -740,6 +789,7 @@ public class Menus {
     }
 
     public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno) {
+        System.out.println("\n*****  MENSALIDADE ALUNO  *****\n");
         System.out.println("ID Associacao: " + mensalidadeAluno.getId());
         System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
         System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
@@ -749,6 +799,7 @@ public class Menus {
     }
 
     public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos) {
+        System.out.println("\n*****  TODAS AS MENSALIDADES DOS ALUNOS  *****\n");
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
             System.out.println("ID Associacao: " + mensalidadeAluno.getId());
             System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
@@ -760,6 +811,7 @@ public class Menus {
     }
 
     public static MensalidadeAluno alterarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno) {
+        System.out.println("\n*****  ALTERAR MENSALIDADE DO ALUNO  *****\n");
         System.out.println("Digite o novo ID do aluno (atual: " + mensalidadeAluno.getIdAluno() + "): ");
         int novoIdAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o novo ID da mensalidade (atual: " + mensalidadeAluno.getIdMensalidade() + "): ");
