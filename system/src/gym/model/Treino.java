@@ -8,11 +8,13 @@ public class Treino {
     private LocalDate dataInicio;
     private LocalDate dataTermino;
     private DivisaoTreino divisaoTreino;
+    private Pessoa pessoa;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
     public Treino(int id, Pessoa pessoa, String objetivo, LocalDate dataInicio, LocalDate dataTermino, DivisaoTreino divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
+        this.pessoa = pessoa;
         this.objetivo = objetivo;
         this.dataInicio = dataInicio;
         this.dataTermino = dataTermino;
@@ -27,6 +29,14 @@ public class Treino {
 
     public void setId(int id) {
         this.id = id;
+    }
+    
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 
     public String getObjetivo() {
@@ -75,5 +85,25 @@ public class Treino {
 
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
+    }
+    
+    public int getIdAluno() {
+        return pessoa.getId();
+    }
+
+    public String getNomeAluno() {
+        return pessoa.getNome();
+    }
+
+    public String getTipoUsuarioAluno() {
+        return pessoa.getTipoUsuario();
+    }
+
+    public int getIdDivisaoTreino() {
+        return divisaoTreino.getId();
+    }
+
+    public String getNomeDivisaoTreino() {
+        return divisaoTreino.getNome();
     }
 }

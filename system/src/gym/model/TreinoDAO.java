@@ -13,23 +13,20 @@ public class TreinoDAO {
         this.geradorId = 0;
     }
 
-    public void adicionarTreino(Pessoa pessoa, String objetivo, LocalDate dataInicio, LocalDate dataTermino, DivisaoTreino divisaoTreino) {
+    public void adicionarTreino(Treino treino) {
         if (tamanho == treinos.length) {
             aumentarCapacidade();
         }
-        int id = ++geradorId;
-        LocalDate dataAtual = LocalDate.now();
-        Treino treino = new Treino(id, pessoa, objetivo, dataInicio, dataTermino, divisaoTreino, dataAtual, dataAtual);
+        treino.setId(++geradorId);
+        treino.setDataCriacao(LocalDate.now());
+        treino.setDataModificacao(LocalDate.now());
         treinos[tamanho++] = treino;
     }
 
-    public void alterarTreino(int id, String objetivo, LocalDate dataInicio, LocalDate dataTermino, DivisaoTreino divisaoTreino) {
+    public void alterarTreino(int id, Treino novoTreino) {
         for (int i = 0; i < tamanho; i++) {
             if (treinos[i].getId() == id) {
-                treinos[i].setObjetivo(objetivo);
-                treinos[i].setDataInicio(dataInicio);
-                treinos[i].setDataTermino(dataTermino);
-                treinos[i].setDivisaoTreino(divisaoTreino);
+                treinos[i] = novoTreino; 
                 treinos[i].setDataModificacao(LocalDate.now());
                 break;
             }

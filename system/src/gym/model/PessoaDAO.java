@@ -86,4 +86,31 @@ public class PessoaDAO {
         System.arraycopy(pessoas, 0, pessoasExistentes, 0, tamanho);
         return pessoasExistentes;
     }
+    
+    public Pessoa[] buscarPessoasPorTipo(String tipoUsuario) {
+        int count = 0;
+        for (int i = 0; i < tamanho; i++) {
+            if (pessoas[i].getTipoUsuario().equals(tipoUsuario)) {
+                count++;
+            }
+        }
+
+        Pessoa[] pessoasPorTipo = new Pessoa[count];
+        int index = 0;
+        for (int i = 0; i < tamanho; i++) {
+            if (pessoas[i].getTipoUsuario().equals(tipoUsuario)) {
+                pessoasPorTipo[index++] = pessoas[i];
+            }
+        }
+        return pessoasPorTipo;
+    }
+
+    public Pessoa buscarPessoaPorId(int id) {
+        for (int i = 0; i < tamanho; i++) {
+            if (pessoas[i].getId() == id) {
+                return pessoas[i];
+            }
+        }
+        return null;
+    }
 }
