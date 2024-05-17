@@ -74,8 +74,8 @@ public class Menus {
                 System.out.println("ID: " + academia.getId());
                 System.out.println("Nome: " + academia.getNome());
                 System.out.println("Endereco: " + academia.getEndereco());
-                System.out.println("Data de Criacao: " + academia.getDataCriacao());
-                System.out.println("Data de Modificacao: " + academia.getDataModificacao());
+                System.out.println("Data de Criacao: " + formataData(academia.getDataCriacao()));
+                System.out.println("Data de Modificacao: " + formataData(academia.getDataModificacao()));
                 System.out.println("------------------------");
             }
         }
@@ -86,8 +86,8 @@ public class Menus {
         System.out.println("ID: " + academia.getId());
         System.out.println("Nome: " + academia.getNome());
         System.out.println("Endereco: " + academia.getEndereco());
-        System.out.println("Data de Criacao: " + academia.getDataCriacao());
-        System.out.println("Data de Modificacao: " + academia.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(academia.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(academia.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -131,8 +131,8 @@ public class Menus {
         String nome = scanner.nextLine();
         System.out.println("Digite o sexo da pessoa (M/F): ");
         char sexo = scanner.nextLine().charAt(0);
-        System.out.println("Digite a data de nascimento (DD-MM-YYYY): ");
-        LocalDate nascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.println("Digite a data de nascimento (dd/MM/aaaa): ");
+        LocalDate nascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.println("Digite o login da pessoa: ");
         String login = scanner.nextLine();
         System.out.println("Digite a senha da pessoa: ");
@@ -168,12 +168,12 @@ public class Menus {
                 System.out.println("ID: " + pessoa.getId());
                 System.out.println("Nome: " + pessoa.getNome());
                 System.out.println("Sexo: " + pessoa.getSexo());
-                System.out.println("Data de Nascimento: " + pessoa.getNascimento());
+                System.out.println("Data de Nascimento: " + formataData(pessoa.getNascimento()));
                 System.out.println("Login: " + pessoa.getLogin());
                 System.out.println("Senha: " + pessoa.getSenha());
                 System.out.println("Tipo de Usuario: " + pessoa.getTipoUsuario());
-                System.out.println("Data de Criacao: " + pessoa.getDataCriacao());
-                System.out.println("Data de Modificacao: " + pessoa.getDataModificacao());
+                System.out.println("Data de Criacao: " + formataData(pessoa.getDataCriacao()));
+                System.out.println("Data de Modificacao: " + formataData(pessoa.getDataModificacao()));
                 System.out.println("------------------------");
             }
         }
@@ -184,12 +184,12 @@ public class Menus {
         System.out.println("ID: " + pessoa.getId());
         System.out.println("Nome: " + pessoa.getNome());
         System.out.println("Sexo: " + pessoa.getSexo());
-        System.out.println("Data de Nascimento: " + pessoa.getNascimento());
+        System.out.println("Data de Nascimento: " + formataData(pessoa.getNascimento()));
         System.out.println("Login: " + pessoa.getLogin());
         System.out.println("Senha: " + pessoa.getSenha());
         System.out.println("Tipo de Usuario: " + pessoa.getTipoUsuario());
-        System.out.println("Data de Criacao: " + pessoa.getDataCriacao());
-        System.out.println("Data de Modificacao: " + pessoa.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(pessoa.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(pessoa.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -205,8 +205,8 @@ public class Menus {
         String novoNome = scanner.nextLine();
         System.out.println("Digite o novo sexo da pessoa (M/F):");
         char novoSexo = scanner.nextLine().charAt(0);
-        System.out.println("Digite a nova data de nascimento (DD-MM-YYYY):");
-        LocalDate novaDataNascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        System.out.println("Digite a nova data de nascimento (dd/MM/aaaa):");
+        LocalDate novaDataNascimento = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.println("Digite o novo login da pessoa:");
         String novoLogin = scanner.nextLine();
         System.out.println("Digite a nova senha da pessoa:");
@@ -232,7 +232,7 @@ public class Menus {
         return novaPessoa;
     }
 
-    // EXERCiCIO
+    // EXERCICIO
     public static int exercicioMenu() {
         System.out.println("*****************************");
         System.out.println("*   SISTEMA DE EXERCICIOS   *");
@@ -269,8 +269,8 @@ public class Menus {
             System.out.println("ID: " + exercicio.getId());
             System.out.println("Nome: " + exercicio.getNome());
             System.out.println("Descricao: " + exercicio.getDescricao());
-            System.out.println("Data de Criacao: " + exercicio.getDataCriacao());
-            System.out.println("Data de Modificacao: " + exercicio.getDataModificacao());
+            System.out.println("Data de Criacao: " + formataData(exercicio.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(exercicio.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -280,8 +280,8 @@ public class Menus {
         System.out.println("ID: " + exercicio.getId());
         System.out.println("Nome: " + exercicio.getNome());
         System.out.println("Descricao: " + exercicio.getDescricao());
-        System.out.println("Data de Criacao: " + exercicio.getDataCriacao());
-        System.out.println("Data de Modificacao: " + exercicio.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(exercicio.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(exercicio.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -341,8 +341,8 @@ public class Menus {
                 System.out.println("Nome do Exercicio: " + exercicio.getNome());
                 System.out.println("Descricao do Exercicio: " + exercicio.getDescricao());
                 System.out.println("Descricao do Exercicio de Aplicacao: " + exercicioAplicacao.getDescricao());
-                System.out.println("Data de Criacao: " + exercicioAplicacao.getDataCriacao());
-                System.out.println("Data de Modificacao: " + exercicioAplicacao.getDataModificacao());
+                System.out.println("Data de Criacao: " + formataData(exercicioAplicacao.getDataCriacao()));
+                System.out.println("Data de Modificacao: " + formataData(exercicioAplicacao.getDataModificacao()));
                 System.out.println("------------------------");
             } else {
                 System.out.println("Exercicio nao encontrado.");
@@ -354,8 +354,8 @@ public class Menus {
         System.out.println("\n*****  EXERCICIO APLICACAO  *****\n");
         System.out.println("ID: " + exercicioAplicacao.getId());
         System.out.println("Descricao: " + exercicioAplicacao.getDescricao());
-        System.out.println("Data de Criacao: " + exercicioAplicacao.getDataCriacao());
-        System.out.println("Data de Modificacao: " + exercicioAplicacao.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(exercicioAplicacao.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(exercicioAplicacao.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -413,8 +413,8 @@ public class Menus {
             System.out.println("ID: " + divisaoTreino.getId());
             System.out.println("Nome da Divisao: " + divisaoTreino.getNome());
             System.out.println("Descricao da Divisao: " + divisaoTreino.getDescricao());
-            System.out.println("Data de Criacao: " + divisaoTreino.getDataCriacao());
-            System.out.println("Data de Modificacao: " + divisaoTreino.getDataModificacao());
+            System.out.println("Data de Criacao: " + formataData(divisaoTreino.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(divisaoTreino.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -424,8 +424,8 @@ public class Menus {
         System.out.println("ID: " + divisaoTreino.getId());
         System.out.println("Nome da Divisao: " + divisaoTreino.getNome());
         System.out.println("Descricao da Divisao: " + divisaoTreino.getDescricao());
-        System.out.println("Data de Criacao: " + divisaoTreino.getDataCriacao());
-        System.out.println("Data de Modificacao: " + divisaoTreino.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(divisaoTreino.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(divisaoTreino.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -497,8 +497,8 @@ public class Menus {
             System.out.println("ID: " + divisaoTreinoMusculo.getId());
             System.out.println("Descricao da Divisao: " + divisaoTreinoMusculo.getDescricao());
             System.out.println("Divisao de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
-            System.out.println("Data de Criacao: " + divisaoTreinoMusculo.getDataCriacao());
-            System.out.println("Data de Modificacao: " + divisaoTreinoMusculo.getDataModificacao());
+            System.out.println("Data de Criacao: " + formataData(divisaoTreinoMusculo.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(divisaoTreinoMusculo.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -508,8 +508,8 @@ public class Menus {
         System.out.println("ID: " + divisaoTreinoMusculo.getId());
         System.out.println("Descricao da Divisao: " + divisaoTreinoMusculo.getDescricao());
         System.out.println("Divisao de Treino: " + divisaoTreinoMusculo.getDivisaoTreino());
-        System.out.println("Data de Criacao: " + divisaoTreinoMusculo.getDataCriacao());
-        System.out.println("Data de Modificacao: " + divisaoTreinoMusculo.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(divisaoTreinoMusculo.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(divisaoTreinoMusculo.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -553,7 +553,7 @@ public class Menus {
 
         System.out.println("Digite o ID do aluno para associar ao treino:");
         int idAluno = Integer.parseInt(scanner.nextLine());
-        Pessoa aluno = pessoaDAO.buscarPessoaPorId(idAluno);
+        Pessoa aluno = pessoaDAO.buscarPessoa(idAluno);
 
         if (aluno != null && aluno.getTipoUsuario().equals("Aluno")) {
             System.out.println("Aluno encontrado:");
@@ -565,7 +565,7 @@ public class Menus {
             String objetivo = scanner.nextLine();
 
             System.out.println("Digite a data de inicio do treino (no formato dd/MM/aaaa):");
-            LocalDate dataInicio = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate dataInicio = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));            
 
             System.out.println("Digite a data de termino do treino (no formato dd/MM/aaaa):");
             LocalDate dataTermino = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -605,12 +605,12 @@ public class Menus {
             System.out.println("Nome do Aluno: " + treino.getNomeAluno());
             System.out.println("Tipo de Usuario do Aluno: " + treino.getTipoUsuarioAluno());
             System.out.println("Objetivo do Treino: " + treino.getObjetivo());
-            System.out.println("Data de Inicio: " + treino.getDataInicio());
-            System.out.println("Data de Termino: " + treino.getDataTermino());
+            System.out.println("Data de Inicio: " + formataData(treino.getDataInicio()));
+            System.out.println("Data de Termino: " + formataData(treino.getDataTermino()));
             System.out.println("ID da Divisao de Treino: " + treino.getIdDivisaoTreino());
             System.out.println("Nome da Divisao de Treino: " + treino.getNomeDivisaoTreino());
-            System.out.println("Data de Criacao: " + treino.getDataCriacao());
-            System.out.println("Data de Modificacao: " + treino.getDataModificacao());
+            System.out.println("Data de Criacao: " + formataData(treino.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(treino.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -623,12 +623,12 @@ public class Menus {
         System.out.println("Nome do Aluno: " + treino.getNomeAluno());
         System.out.println("Tipo de Usuario do Aluno: " + treino.getTipoUsuarioAluno());
         System.out.println("Objetivo do Treino: " + treino.getObjetivo());
-        System.out.println("Data de Inicio: " + treino.getDataInicio());
-        System.out.println("Data de Termino: " + treino.getDataTermino());
+        System.out.println("Data de Inicio: " + formataData(treino.getDataInicio()));
+        System.out.println("Data de Termino: " + formataData(treino.getDataTermino()));
         System.out.println("ID da Divisao de Treino: " + treino.getIdDivisaoTreino());
         System.out.println("Nome da Divisao de Treino: " + treino.getNomeDivisaoTreino());
-        System.out.println("Data de Criacao: " + treino.getDataCriacao());
-        System.out.println("Data de Modificacao: " + treino.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(treino.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(treino.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -670,6 +670,19 @@ public class Menus {
 
     // TREINO APLICACAO
     // AVALIACAO FISICA
+    public static int avaliacaoFisicaMenu() {
+        System.out.println("***********************************");
+        System.out.println("*   SISTEMA DE AVALIACAO FISICA   *");
+        System.out.println("***********************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Realizar avaliacao fisica\n");
+        System.out.println("2 - Sair\n");
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+     
+    
     // MENSALIDADE
     public static int mensalidadeMenu() {
         System.out.println("*******************************");
@@ -712,10 +725,10 @@ public class Menus {
         for (Mensalidade mensalidade : mensalidades) {
             System.out.println("ID: " + mensalidade.getId());
             System.out.println("Valor: R$ " + mensalidade.getValor());
-            System.out.println("Data de Inicio: " + mensalidade.getDataInicio());
-            System.out.println("Data de Fim: " + mensalidade.getDataFim());
-            System.out.println("Data de Criacao: " + mensalidade.getDataCriacao());
-            System.out.println("Data de Modificacao: " + mensalidade.getDataModificacao());
+            System.out.println("Data de Inicio: " + formataData(mensalidade.getDataInicio()));
+            System.out.println("Data de Fim: " + formataData(mensalidade.getDataFim()));
+            System.out.println("Data de Criacao: " + formataData(mensalidade.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(mensalidade.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -724,10 +737,10 @@ public class Menus {
         System.out.println("\n*****  MENSALIDADE  *****\n");
         System.out.println("ID: " + mensalidade.getId());
         System.out.println("Valor: R$ " + mensalidade.getValor());
-        System.out.println("Data de Inicio: " + mensalidade.getDataInicio());
-        System.out.println("Data de Fim: " + mensalidade.getDataFim());
-        System.out.println("Data de Criacao: " + mensalidade.getDataCriacao());
-        System.out.println("Data de Modificacao: " + mensalidade.getDataModificacao());
+        System.out.println("Data de Inicio: " + formataData(mensalidade.getDataInicio()));
+        System.out.println("Data de Fim: " + formataData(mensalidade.getDataFim()));
+        System.out.println("Data de Criacao: " + formataData(mensalidade.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(mensalidade.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -791,8 +804,8 @@ public class Menus {
         System.out.println("ID Associacao: " + mensalidadeAluno.getId());
         System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
         System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
-        System.out.println("Data de Criacao: " + mensalidadeAluno.getDataCriacao());
-        System.out.println("Data de Modificacao: " + mensalidadeAluno.getDataModificacao());
+        System.out.println("Data de Criacao: " + formataData(mensalidadeAluno.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(mensalidadeAluno.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -806,9 +819,9 @@ public class Menus {
             System.out.println("Descricao da Mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
             System.out.println("Valor Pago: " + mensalidadeAluno.getValorPago());
             System.out.println("Modalidade: " + mensalidadeAluno.getModalidade());
-            System.out.println("Data de pagamento: " + mensalidadeAluno.getDataPagamento());
-            System.out.println("Data de Criacao: " + mensalidadeAluno.getDataCriacao());
-            System.out.println("Data de Modificacao: " + mensalidadeAluno.getDataModificacao());
+            System.out.println("Data de pagamento: " + formataData(mensalidadeAluno.getDataPagamento()));
+            System.out.println("Data de Criacao: " + formataData(mensalidadeAluno.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(mensalidadeAluno.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -836,6 +849,7 @@ public class Menus {
     // ENTRADA ALUNO
     // MOVIMENTAcaO FINANCEIRA
     // RELATORIOS
+    
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
@@ -849,6 +863,12 @@ public class Menus {
     public static void digitarQualquerTecla() {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
+    }
+    
+    public static String formataData(LocalDate data) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        return data.format(dtf);
     }
 
 }

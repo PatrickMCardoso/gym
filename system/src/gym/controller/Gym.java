@@ -393,7 +393,7 @@ public class Gym {
                     }
                 }
                 break;
-                case 7:
+                case 7: {
                     int opcaoTreino = 0;
                     while (opcaoTreino != 7) {
                         Menus.digitarQualquerTecla();
@@ -461,10 +461,13 @@ public class Gym {
                                 break;
                         }
                     }
+                }
                     break;
                 case 8:
                     break;
-                case 9:
+                case 9: {
+                    // AVALIACAO FISICA
+                }
                     break;
                 case 10: {
                     int opcaoMensalidade = 0;

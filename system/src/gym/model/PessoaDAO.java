@@ -103,16 +103,7 @@ public class PessoaDAO {
             }
         }
         return pessoasPorTipo;
-    }
-
-    public Pessoa buscarPessoaPorId(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (pessoas[i].getId() == id) {
-                return pessoas[i];
-            }
-        }
-        return null;
-    }
+    }    
     
     public boolean checarTipoPessoa (String tipoUsuario, Pessoa pessoa){
         return pessoa.getTipoUsuario().equals(tipoUsuario);
