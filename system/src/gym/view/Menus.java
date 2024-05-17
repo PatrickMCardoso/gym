@@ -4,6 +4,7 @@ import java.util.Scanner;
 import gym.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.text.DecimalFormat;
 
 public class Menus {
 
@@ -600,7 +601,7 @@ public class Menus {
         Treino[] treinos = treinoDAO.mostrarTreinos();
 
         for (Treino treino : treinos) {
-            System.out.println("ID: " + treino.getId());
+            System.out.println("ID do Treino: " + treino.getId());
             System.out.println("ID do Aluno: " + treino.getIdAluno());
             System.out.println("Nome do Aluno: " + treino.getNomeAluno());
             System.out.println("Tipo de Usuario do Aluno: " + treino.getTipoUsuarioAluno());
@@ -618,7 +619,7 @@ public class Menus {
     public static void mostrarTreinoMenu(Treino treino) {
         System.out.println("\n***** TREINO *****\n");
 
-        System.out.println("ID: " + treino.getId());
+        System.out.println("ID do Treino: " + treino.getId());
         System.out.println("ID do Aluno: " + treino.getIdAluno());
         System.out.println("Nome do Aluno: " + treino.getNomeAluno());
         System.out.println("Tipo de Usuario do Aluno: " + treino.getTipoUsuarioAluno());
@@ -669,19 +670,111 @@ public class Menus {
     }
 
     // TREINO APLICACAO
+    
     // AVALIACAO FISICA
     public static int avaliacaoFisicaMenu() {
         System.out.println("***********************************");
         System.out.println("*   SISTEMA DE AVALIACAO FISICA   *");
         System.out.println("***********************************\n");
         System.out.println("Escolha uma opcao:\n");
-        System.out.println("1 - Realizar avaliacao fisica\n");
+        System.out.println("1 - Realizar avaliacao fisica\n");        
         System.out.println("2 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
+    
+    public static AvaliacaoFisica calcularIMC(PessoaDAO pessoaDAO, TreinoDAO treinoDAO) {
+        System.out.println("\n*****  REALIZAR AVALIACAO FISICA  *****\n");
+
+        System.out.println("Digite seu nome para buscar seus dados:");
+        String nomePessoa = scanner.nextLine();
+        Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+
+        Pessoa pessoaEncontrada = null;
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getNome().equalsIgnoreCase(nomePessoa)) {
+                pessoaEncontrada = pessoa;
+                break;
+            }
+        }
+
+        if (pessoaEncontrada != null) {
+            System.out.println("Pessoa encontrada:");
+            System.out.println("ID: " + pessoaEncontrada.getId());
+            System.out.println("Nome: " + pessoaEncontrada.getNome());
+            System.out.println("Tipo de Usuario: " + pessoaEncontrada.getTipoUsuario());
+
+            Treino ultimoTreino = null;
+            Treino[] treinos = treinoDAO.mostrarTreinos();
+            for (Treino treino : treinos) {
+                if (treino.getPessoa().getId() == pessoaEncontrada.getId()) {
+                    ultimoTreino = treino;
+                    break;
+                }
+            }
+
+            if (ultimoTreino != null) {
+                System.out.println("Ultimo treino encontrado:");
+                System.out.println("Data de Inicio: " + formataData(ultimoTreino.getDataInicio()));
+                System.out.println("Data de Termino: " + formataData(ultimoTreino.getDataTermino()));
+
+                System.out.println("Digite o peso (kg):");
+                double peso = Double.parseDouble(scanner.nextLine());
+
+                System.out.println("Digite a altura (m):");
+                double altura = Double.parseDouble(scanner.nextLine());
+
+                System.out.println("Digite o indice de satisfacao com o seu resultado (0 a 10):");
+                int indiceSatisfacao = Integer.parseInt(scanner.nextLine());
+
+                LocalDate dataAtual = LocalDate.now();
+                AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica(0, pessoaEncontrada, ultimoTreino, peso, altura, indiceSatisfacao);
+                avaliacaoFisica.setDataCriacao(dataAtual);
+                avaliacaoFisica.setDataModificacao(dataAtual);
+                                
+                DecimalFormat df = new DecimalFormat("#.00");
+                String imcFormatado = df.format(avaliacaoFisica.getImc());
+                System.out.println("\nIndice de Massa Coporal(IMC): " + imcFormatado);
+                
+                System.out.println("\nInforme sua idade para visualizar Tabela do IMC: ");
+                int idade = Integer.parseInt(scanner.nextLine());
+                mostrarTabelaIMC(idade);
+                
+                return avaliacaoFisica;
+            } else {
+                System.out.println("Nenhum treino foi encontrado para voce.");
+                return null;
+            }
+        } else {
+            System.out.println("Pessoa não encontrada.");
+            return null;
+        }
+    }
      
+    private static void mostrarTabelaIMC(int idade) {
+        System.out.println("\n*****  TABELA DE IMC  *****\n");
+        if (idade < 18) {
+            System.out.println("Para menores de 18 anos:");
+            System.out.println("Baixo peso: IMC < 18.5");
+            System.out.println("Peso normal: IMC entre 18.5 e 24.9");
+            System.out.println("Sobrepeso: IMC entre 25 e 29.9");
+            System.out.println("Obesidade: IMC >= 30");
+        } else if (idade <= 64) {
+            System.out.println("Para adultos entre 18 e 64 anos:");
+            System.out.println("Baixo peso: IMC < 18.5");
+            System.out.println("Peso normal: IMC entre 18.5 e 24.9");
+            System.out.println("Sobrepeso: IMC entre 25 e 29.9");
+            System.out.println("Obesidade Grau I: IMC entre 30 e 34.9");
+            System.out.println("Obesidade Grau II: IMC entre 35 e 39.9");
+            System.out.println("Obesidade Grau III: IMC >= 40");
+        } else {
+            System.out.println("Para idosos com 65 anos ou mais:");
+            System.out.println("Baixo peso: IMC < 22");
+            System.out.println("Peso normal: IMC entre 22 e 27");
+            System.out.println("Sobrepeso: IMC > 27");
+        }
+    }
     
     // MENSALIDADE
     public static int mensalidadeMenu() {

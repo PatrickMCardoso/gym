@@ -467,6 +467,25 @@ public class Gym {
                     break;
                 case 9: {
                     // AVALIACAO FISICA
+                    int opcaoAvaliacaoFisica = 0;
+                    while (opcaoAvaliacaoFisica != 2) {
+                        Menus.digitarQualquerTecla();
+                        opcaoAvaliacaoFisica = Menus.avaliacaoFisicaMenu();
+                        switch (opcaoAvaliacaoFisica) {
+                            case 1: {
+                                AvaliacaoFisica avaliacaoFisica = Menus.calcularIMC(pessoaDAO, treinoDAO);
+                                if (avaliacaoFisica != null) {
+                                    System.out.println("\nAvaliacao fisica realizada com sucesso.\n");
+                                }
+                            }
+                            break;
+                            case 2:
+                                break;                            
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
                 }
                     break;
                 case 10: {
