@@ -113,4 +113,8 @@ public class PessoaDAO {
         }
         return null;
     }
+    
+    public boolean checarTipoPessoa (String tipoUsuario, Pessoa pessoa){
+        return pessoa.getTipoUsuario().equals(tipoUsuario);
+    }
 }

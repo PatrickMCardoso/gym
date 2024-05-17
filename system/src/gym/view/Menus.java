@@ -91,7 +91,7 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarAcademiaMenu(String modo) {        
+    public static int buscarAcademiaMenu(String modo) {
         System.out.println("Digite o ID da academia que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
@@ -193,7 +193,7 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarPessoaMenu(String modo) {        
+    public static int buscarPessoaMenu(String modo) {
         System.out.println("Digite o ID da pessoa que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
@@ -285,7 +285,7 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarExercicioMenu(String modo) {        
+    public static int buscarExercicioMenu(String modo) {
         System.out.println("Digite o ID do exercicio que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
@@ -375,7 +375,7 @@ public class Menus {
     }
 
     //DIVISAO DE TREINO
-    public static int divisaoTreinoMenu() {        
+    public static int divisaoTreinoMenu() {
         System.out.println("************************************");
         System.out.println("*   SISTEMA DE DIVISAO DE TREINOS   *");
         System.out.println("************************************\n");
@@ -614,7 +614,7 @@ public class Menus {
             System.out.println("------------------------");
         }
     }
-    
+
     public static void mostrarTreinoMenu(Treino treino) {
         System.out.println("\n***** TREINO *****\n");
 
@@ -632,12 +632,12 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static int buscarTreinoMenu(String modo) {        
+    public static int buscarTreinoMenu(String modo) {
         System.out.println("Digite o ID do treino que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
-    
+
     public static Treino alterarTreinoMenu(int id, Treino treino, DivisaoTreinoDAO divisaoTreinoDAO, PessoaDAO pessoaDAO) {
         System.out.println("\n*****  ALTERAR TREINO  *****\n");
         System.out.println("Digite o novo objetivo do treino:");
@@ -668,10 +668,8 @@ public class Menus {
         }
     }
 
-    
     // TREINO APLICACAO
     // AVALIACAO FISICA
-    
     // MENSALIDADE
     public static int mensalidadeMenu() {
         System.out.println("*******************************");
@@ -773,10 +771,10 @@ public class Menus {
 
     public static MensalidadeAluno associarMensalidadeAlunoMenu() {
         System.out.println("\n*****  ADICIONAR MENSALIDADE PARA ALUNO  ******\n");
-        System.out.println("Digite o ID do aluno: ");
-        int idAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o ID da mensalidade: ");
         int idMensalidade = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o ID do aluno: ");
+        int idAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o valor pago: ");
         double valorPago = Double.parseDouble(scanner.nextLine());
         System.out.println("Digite a modalidade (pix, cartao de credito, dinheiro, etc): ");
@@ -784,7 +782,7 @@ public class Menus {
 
         LocalDate dataAtual = LocalDate.now();
 
-        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idMensalidade, idAluno, dataAtual, valorPago, modalidade, dataAtual, dataAtual);
+        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idAluno, idMensalidade, dataAtual, valorPago, modalidade, dataAtual, dataAtual);
         return mensalidadeAluno;
     }
 
@@ -798,12 +796,17 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos) {
+    public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos, Pessoa[] alunos, Mensalidade[] mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES DOS ALUNOS  *****\n");
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
             System.out.println("ID Associacao: " + mensalidadeAluno.getId());
             System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
+            System.out.println("Nome do Aluno: " + alunos[mensalidadeAluno.getIdAluno() - 1].getNome());
             System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
+            System.out.println("Descricao da Mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
+            System.out.println("Valor Pago: " + mensalidadeAluno.getValorPago());
+            System.out.println("Modalidade: " + mensalidadeAluno.getModalidade());
+            System.out.println("Data de pagamento: " + mensalidadeAluno.getDataPagamento());
             System.out.println("Data de Criacao: " + mensalidadeAluno.getDataCriacao());
             System.out.println("Data de Modificacao: " + mensalidadeAluno.getDataModificacao());
             System.out.println("------------------------");

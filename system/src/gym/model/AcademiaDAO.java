@@ -48,7 +48,7 @@ public class AcademiaDAO {
         for (int i = 0; i < tamanho; i++) {
             if (academias[i].getId() == id) {
                 academias[i].setNome(novaAcademia.getNome());
-                academias[i].setEndereço(novaAcademia.getEndereço());
+                academias[i].setEndereco(novaAcademia.getEndereco());
                 academias[i].setDataModificacao(LocalDate.now());
                 break;
             }

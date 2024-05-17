@@ -419,7 +419,7 @@ public class Gym {
                                 } else {
                                     System.out.println("Treino não encontrado.");
                                 }
-                                        
+
                             }
                             break;
                             case 4: {
@@ -460,7 +460,7 @@ public class Gym {
                                 Menus.mostrarOpcaoInvalida();
                                 break;
                         }
-                    }                    
+                    }
                     break;
                 case 8:
                     break;
@@ -527,13 +527,20 @@ public class Gym {
                         switch (opcaoMensalidadeAluno) {
                             case 1: {
                                 MensalidadeAluno mensalidadeAluno = Menus.associarMensalidadeAlunoMenu();
-                                mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
-                                System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");
+                                Pessoa aluno = pessoaDAO.buscarPessoa(mensalidadeAluno.getIdAluno());
+                                if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
+                                    mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
+                                    System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");
+                                } else {
+                                    System.out.println("ID digitado nao eh aluno!");
+                                }
                             }
                             break;
                             case 2: {
                                 MensalidadeAluno[] mensalidadeAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
-                                Menus.mostrarTodasMensalidadesAlunoMenu(mensalidadeAlunos);
+                                Pessoa[] alunos = pessoaDAO.mostrarPessoas();
+                                Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                                Menus.mostrarTodasMensalidadesAlunoMenu(mensalidadeAlunos, alunos, mensalidades);
                             }
                             break;
                             case 3: {
