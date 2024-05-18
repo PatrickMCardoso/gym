@@ -20,9 +20,10 @@ public class Gym {
         TreinoDAO treinoDAO = new TreinoDAO(pessoaDAO, divisaoTreinoDAO);
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
+        PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
-        pessoaDAO.adicionarPessoasExemplo();                
+        pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
         mensalidadeDAO.adicionarMensalidadesExemplo();
         exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
@@ -465,7 +466,7 @@ public class Gym {
                         }
                     }
                 }
-                    break;
+                break;
                 case 8:
                     break;
                 case 9: {
@@ -483,14 +484,15 @@ public class Gym {
                             }
                             break;
                             case 2:
-                                break;                            
+                                break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
                                 break;
                         }
                     }
                 }
-                    break;
+                break;
+                //MENSALIDADE
                 case 10: {
                     int opcaoMensalidade = 0;
                     while (opcaoMensalidade != 6) {
@@ -544,6 +546,7 @@ public class Gym {
                     }
                 }
                 break;
+                //MENSALIDADE ALUNO
                 case 11: {
                     int opcaoMensalidadeAluno = 0;
                     while (opcaoMensalidadeAluno != 6) {
@@ -605,8 +608,58 @@ public class Gym {
                     }
                 }
                 break;
-
+                //PAGAMENTO RECORRENTE
                 case 12:
+                    int opcaoPagamento = 0;
+                    while (opcaoPagamento != 6) {
+                        Menus.digitarQualquerTecla();
+                        opcaoPagamento = Menus.pagamentoRecorrenteMenu();
+                        switch (opcaoPagamento) {
+                            case 1: {
+                                PagamentoRecorrente pagamentoRecorrente = Menus.adicionarPagamentoRecorrenteMenu();
+                                pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente);
+                                System.out.println("Pagamento recorrente adicionado com sucesso!");
+                            }
+                            break;
+                            case 2: {
+                                Menus.mostrarTodosPagamentosRecorrentesMenu(pagamentoRecorrenteDAO);
+                            }
+                            break;
+                            case 3: {
+                                int idAlteracao = Menus.buscarPagamentoRecorrenteMenu("alterar");
+                                PagamentoRecorrente pagamentoExistente = pagamentoRecorrenteDAO.buscarPagamento(idAlteracao);
+                                if (pagamentoExistente != null) {
+                                    PagamentoRecorrente novoPagamento = Menus.alterarPagamentoRecorrenteMenu(idAlteracao, pagamentoExistente);
+                                    pagamentoRecorrenteDAO.alterarPagamento(idAlteracao, novoPagamento);
+                                    System.out.println("Pagamento recorrente alterado com sucesso!");
+                                } else {
+                                    System.out.println("Pagamento recorrente nao encontrado.");
+                                }
+                            }
+                            break;
+                            case 4: {
+                                int idBusca = Menus.buscarPagamentoRecorrenteMenu("buscar");
+                                PagamentoRecorrente pagamentoBuscado = pagamentoRecorrenteDAO.buscarPagamento(idBusca);
+                                if (pagamentoBuscado != null) {
+                                    Menus.mostrarPagamentoRecorrenteMenu(pagamentoBuscado);
+                                } else {
+                                    System.out.println("Pagamento recorrente nao encontrado.");
+                                }
+                            }
+                            break;
+                            case 5: {
+                                int idRemocao = Menus.buscarPagamentoRecorrenteMenu("remover");
+                                pagamentoRecorrenteDAO.removerPagamento(idRemocao);
+                                System.out.println("Pagamento recorrente removido com sucesso!");
+                            }
+                            break;
+                            case 6:
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
                     break;
                 case 13:
                     break;

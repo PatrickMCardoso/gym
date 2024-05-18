@@ -939,6 +939,94 @@ public class Menus {
     }
 
     // PAGAMENTO RECORRENTE
+        public static int pagamentoRecorrenteMenu() {
+        System.out.println("*******************************");
+        System.out.println("*   SISTEMA DE PAGAMENTOS     *");
+        System.out.println("*     RECORRENTES             *");
+        System.out.println("*******************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Adicionar pagamento recorrente\n");
+        System.out.println("2 - Mostrar todos os pagamentos recorrentes\n");
+        System.out.println("3 - Alterar pagamento recorrente\n");
+        System.out.println("4 - Buscar pagamento recorrente\n");
+        System.out.println("5 - Remover pagamento recorrente\n");
+        System.out.println("6 - Sair\n");
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    public static PagamentoRecorrente adicionarPagamentoRecorrenteMenu() {
+        System.out.println("\n*****  ADICIONAR PAGAMENTO RECORRENTE  ******\n");
+        System.out.println("Digite o ID da pessoa: ");
+        int idPessoa = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o token do cartão de crédito: ");
+        String cartaoDeCredito = scanner.nextLine();
+        System.out.println("Digite o valor do pagamento: ");
+        double valor = Double.parseDouble(scanner.nextLine());
+        System.out.println("Digite o número de meses autorizados: ");
+        int numeroDeMeses = Integer.parseInt(scanner.nextLine());
+
+        LocalDate dataAtual = LocalDate.now();
+        LocalDate dataDeInicio = dataAtual;
+        PagamentoRecorrente pagamentoRecorrente = new PagamentoRecorrente(0, idPessoa, dataAtual, cartaoDeCredito, valor, dataDeInicio, numeroDeMeses, dataAtual, dataAtual);
+        return pagamentoRecorrente;
+    }
+
+    public static void mostrarTodosPagamentosRecorrentesMenu(PagamentoRecorrenteDAO pagamentoRecorrenteDAO) {
+        System.out.println("\n*****  TODOS OS PAGAMENTOS RECORRENTES  *****\n");
+        System.out.println("------------------------");
+
+        PagamentoRecorrente[] pagamentos = pagamentoRecorrenteDAO.mostrarPagamentos();
+
+        for (PagamentoRecorrente pagamento : pagamentos) {
+            System.out.println("ID: " + pagamento.getId());
+            System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
+            System.out.println("Cartão de Crédito: " + pagamento.getCartaoDeCredito());
+            System.out.println("Valor: R$ " + pagamento.getValor());
+            System.out.println("Data de Início: " + formataData(pagamento.getDataDeInicio()));
+            System.out.println("Número de Meses Autorizados: " + pagamento.getNumeroDeMeses());
+            System.out.println("Data de Criação: " + formataData(pagamento.getDataCriacao()));
+            System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
+            System.out.println("------------------------");
+        }
+    }
+
+    public static void mostrarPagamentoRecorrenteMenu(PagamentoRecorrente pagamento) {
+        System.out.println("\n*****  PAGAMENTO RECORRENTE  *****\n");
+        System.out.println("ID: " + pagamento.getId());
+        System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
+        System.out.println("Cartão de Crédito: " + pagamento.getCartaoDeCredito());
+        System.out.println("Valor: R$ " + pagamento.getValor());
+        System.out.println("Data de Início: " + formataData(pagamento.getDataDeInicio()));
+        System.out.println("Número de Meses Autorizados: " + pagamento.getNumeroDeMeses());
+        System.out.println("Data de Criação: " + formataData(pagamento.getDataCriacao()));
+        System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
+        System.out.println("------------------------");
+    }
+
+    public static PagamentoRecorrente alterarPagamentoRecorrenteMenu(int id, PagamentoRecorrente pagamentoRecorrente) {
+        System.out.println("\n*****  ALTERAR PAGAMENTO RECORRENTE  *****\n");
+        System.out.println("Digite o novo ID da pessoa: ");
+        int novoIdPessoa = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o novo token do cartão de crédito: ");
+        String novoCartaoDeCredito = scanner.nextLine();
+        System.out.println("Digite o novo valor do pagamento: ");
+        double novoValor = Double.parseDouble(scanner.nextLine());
+        System.out.println("Digite o novo número de meses autorizados: ");
+        int novoNumeroDeMeses = Integer.parseInt(scanner.nextLine());
+
+        LocalDate dataAtual = LocalDate.now();
+        LocalDate novaDataDeInicio = dataAtual;
+        PagamentoRecorrente novoPagamentoRecorrente = new PagamentoRecorrente(id, novoIdPessoa, dataAtual, novoCartaoDeCredito, novoValor, novaDataDeInicio, novoNumeroDeMeses, pagamentoRecorrente.getDataCriacao(), dataAtual);
+        return novoPagamentoRecorrente;
+    }
+    
+        public static int buscarPagamentoRecorrenteMenu(String modo) {
+        System.out.println("Digite o ID do pagamento recorrente que deseja " + modo + ": ");
+        int id = Integer.parseInt(scanner.nextLine());
+        return id;
+    }
     // ENTRADA ALUNOS
     // MOVIMENTAcaO FINANCEIRA
     // RELATORIOS
