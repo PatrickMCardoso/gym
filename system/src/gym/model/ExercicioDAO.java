@@ -36,7 +36,7 @@ public class ExercicioDAO {
             new Exercicio(14, "Rosca Martelo (BICEPS/ANTEBRACO)", "Com halteres, levante os pesos mantendo os punhos neutros, estimulando os biceps e antebracos.", LocalDate.now(), LocalDate.now()),
             new Exercicio(15, "Rosca Concentrada (BICEPS/ANTEBRACO)", "Sentado, dobre o braco em um banco e levante o peso, isolando o biceps.", LocalDate.now(), LocalDate.now()),
             new Exercicio(16, "Flexao de Punhos (BICEPS/ANTEBRACO)", "Com halteres, flexione os pulsos para cima e para baixo, fortalecendo os antebracos.", LocalDate.now(), LocalDate.now()),
-            // TRiCEPS
+            // TRICEPS
             new Exercicio(17, "Triceps Pulley (TRICEPS)", "Em uma maquina, puxe uma corda para baixo, estendendo os bracos e trabalhando os triceps.", LocalDate.now(), LocalDate.now()),
             new Exercicio(18, "Triceps Frances (TRICEPS)", "Com halteres ou barra, abaixe o peso atras da cabeca, estendendo os bracos para cima.", LocalDate.now(), LocalDate.now()),
             new Exercicio(19, "Fundos (TRICEPS)", "Com as maos em um banco e os pes no chao, abaixe o corpo flexionando os bracos, trabalhando os triceps.", LocalDate.now(), LocalDate.now()),
@@ -46,7 +46,7 @@ public class ExercicioDAO {
             new Exercicio(22, "Elevacao de Panturrilha Sentado (PANTURRILHA)", "Sentado em uma maquina, levante os calcanhares, fortalecendo as panturrilhas.", LocalDate.now(), LocalDate.now()),
             new Exercicio(23, "Elevacao de Panturrilha Unilateral (PANTURRILHA)", "Em pe, levante uma perna e eleve o calcanhar, trabalhando uma panturrilha de cada vez.", LocalDate.now(), LocalDate.now()),
             new Exercicio(24, "Salto na Panturrilha (PANTURRILHA)", "Pule e levante os calcanhares ao mesmo tempo, fortalecendo as panturrilhas com o impacto.", LocalDate.now(), LocalDate.now()),
-            // GLuTEO
+            // GLUTEO
             new Exercicio(25, "Agachamento (GLUTEO)", "Com ou sem pesos, flexione os joelhos como se fosse sentar, trabalhando os gluteos e pernas.", LocalDate.now(), LocalDate.now()),
             new Exercicio(26, "Elevacao Pelvica (GLUTEO)", "Deitado no chao, levante os quadris, contraindo os gluteos.", LocalDate.now(), LocalDate.now()),
             new Exercicio(27, "Afundo (GLUTEO)", "De passos largos para frente e flexione os joelhos, alternando as pernas para trabalhar os gluteos.", LocalDate.now(), LocalDate.now()),

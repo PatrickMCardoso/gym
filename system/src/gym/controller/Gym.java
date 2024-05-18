@@ -16,20 +16,22 @@ public class Gym {
         ExercicioDAO exercicioDAO = new ExercicioDAO();
         ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
         DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
-        DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO();
+        DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO(divisaoTreinoDAO);
         TreinoDAO treinoDAO = new TreinoDAO(pessoaDAO, divisaoTreinoDAO);
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
         PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
-
+        
+        
+        divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         exercicioDAO.adicionarExercicioExemplos();
         mensalidadeDAO.adicionarMensalidadesExemplo();
         exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
-        divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         treinoDAO.adicionarTreinoExemplos();
-
+        
+        
         int opcao = 0;
         while (opcao != 15) {
             opcao = Menus.mostrarMenuPrincipal();
@@ -293,7 +295,7 @@ public class Gym {
                         Menus.digitarQualquerTecla();
                         opcaoDivisao = Menus.divisaoTreinoMenu();
                         switch (opcaoDivisao) {
-                            case 1: {
+                            case 1: { 
                                 DivisaoTreino divisaoTreino = Menus.adicionarDivisaoTreinoMenu();
                                 divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao());
                                 System.out.println("Divisao de Treino adicionada com sucesso!");
@@ -341,54 +343,35 @@ public class Gym {
                 }
                 break;
                 case 6: {
-                    int opcaoDivisaoMusculo = 0;
-                    while (opcaoDivisaoMusculo != 6) {
+                    int opcaoDivisaoTreinoMusculo = 0;
+                    while (opcaoDivisaoTreinoMusculo != 6) {
                         Menus.digitarQualquerTecla();
-                        opcaoDivisaoMusculo = Menus.divisaoTreinoMusculoMenu();
-                        switch (opcaoDivisaoMusculo) {
-                            case 1: {
-                                DivisaoTreinoMusculo divisaoTreinoMusculo = Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoDAO);
-                                if (divisaoTreinoMusculo != null) {
-                                    divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(divisaoTreinoMusculo);
-                                    System.out.println("Divisao de Treino-Musculo adicionada com sucesso!");
-                                }
-                            }
-                            break;
-                            case 2: {
+                        opcaoDivisaoTreinoMusculo = Menus.divisaoTreinoMusculoMenu();
+                        switch (opcaoDivisaoTreinoMusculo) {
+                            case 1:
+                                Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, divisaoTreinoDAO);
+                                break;
+                            case 2:
                                 Menus.mostrarTodasDivisoesTreinoMusculoMenu(divisaoTreinoMusculoDAO);
-                            }
-                            break;
-                            case 3: {
-                                int idAlteracao = Menus.buscarDivisaoTreinoMusculoMenu("alterar");
-                                DivisaoTreinoMusculo divisaoTreinoMusculoExistente = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(idAlteracao);
-                                if (divisaoTreinoMusculoExistente != null) {
-                                    DivisaoTreinoMusculo novaDivisaoTreinoMusculo = Menus.alterarDivisaoTreinoMusculoMenu(idAlteracao, divisaoTreinoMusculoExistente);
-                                    if (novaDivisaoTreinoMusculo != null) {
-                                        divisaoTreinoMusculoDAO.alterarDivisaoTreinoMusculo(idAlteracao, novaDivisaoTreinoMusculo);
-                                        System.out.println("Divisao de Treino-Musculo alterada com sucesso!");
-                                    }
+                                break;
+                            case 3:
+                                int idParaAlterar = Menus.buscarDivisaoTreinoMusculoMenu("alterar");
+                                Menus.alterarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, idParaAlterar);
+                                break;
+                            case 4:
+                                int idParaBuscar = Menus.buscarDivisaoTreinoMusculoMenu("buscar");
+                                DivisaoTreinoMusculo divisaoTreinoMusculo = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(idParaBuscar);
+                                if (divisaoTreinoMusculo != null) {
+                                    Menus.mostrarDivisaoTreinoMusculoMenu(divisaoTreinoMusculo);
                                 } else {
-                                    System.out.println("Divisao de Treino-Musculo nao encontrada.");
+                                    System.out.println("Divisao de treino muscular nao encontrada.");
                                 }
-                            }
-                            break;
-                            case 4: {
-                                int idBusca = Menus.buscarDivisaoTreinoMusculoMenu("buscar");
-                                DivisaoTreinoMusculo divisaoTreinoMusculoBuscada = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(idBusca);
-                                if (divisaoTreinoMusculoBuscada != null) {
-                                    Menus.mostrarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoBuscada);
-                                } else {
-                                    System.out.println("Divisao de Treino-Musculo nao encontrada.");
-                                }
-                            }
-                            break;
-                            case 5: {
-                                int idRemocao = Menus.buscarDivisaoTreinoMusculoMenu("remover");
-                                divisaoTreinoMusculoDAO.removerDivisaoTreinoMusculo(idRemocao);
-                                System.out.println("Divisao de Treino-Musculo removida com sucesso!");
-                            }
-                            break;
-                            case 6:
+                                break;
+                            case 5:
+                                int idParaRemover = Menus.buscarDivisaoTreinoMusculoMenu("remover");
+                                Menus.removerDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, idParaRemover);
+                                break;
+                            case 6:                                
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -421,7 +404,7 @@ public class Gym {
                                 if (treinoBuscado != null) {
                                     Menus.mostrarTreinoMenu(treinoBuscado);
                                 } else {
-                                    System.out.println("Treino não encontrado.");
+                                    System.out.println("Treino nao encontrado.");
                                 }
 
                             }
@@ -432,7 +415,7 @@ public class Gym {
                                 if (treinoBuscado != null) {
                                     Menus.mostrarTreinoMenu(treinoBuscado);
                                 } else {
-                                    System.out.println("Treino não encontrado.");
+                                    System.out.println("Treino nao encontrado.");
                                 }
                             }
                             break;
@@ -446,7 +429,7 @@ public class Gym {
                                         System.out.println("Treino alterado com sucesso!");
                                     }
                                 } else {
-                                    System.out.println("Treino não encontrado.");
+                                    System.out.println("Treino nao encontrado.");
                                 }
                             }
                             break;

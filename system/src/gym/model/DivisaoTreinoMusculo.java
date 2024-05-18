@@ -1,20 +1,21 @@
 package gym.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class DivisaoTreinoMusculo {
-    private int id;
-    private String descricao;
-    private String divisaoTreino;
+    private int id;    
+    private DivisaoTreino divisaoTreino;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
+    private String[] tiposExercicios;
 
-    public DivisaoTreinoMusculo(int id, String descricao, String divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao) {
-        this.id = id;
-        this.descricao = descricao;
+    public DivisaoTreinoMusculo(int id, DivisaoTreino divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao, String[] tiposExercicios) {
+        this.id = id;        
         this.divisaoTreino = divisaoTreino;
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
+        this.tiposExercicios = tiposExercicios;
     }
 
     public int getId() {
@@ -25,19 +26,11 @@ public class DivisaoTreinoMusculo {
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getDivisaoTreino() {
+    public DivisaoTreino getDivisaoTreino() {
         return divisaoTreino;
     }
 
-    public void setDivisaoTreino(String divisaoTreino) {
+    public void setDivisaoTreino(DivisaoTreino divisaoTreino) {
         this.divisaoTreino = divisaoTreino;
     }
 
@@ -55,5 +48,13 @@ public class DivisaoTreinoMusculo {
 
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
+    }
+
+    public String[] getTiposExercicios() {
+        return tiposExercicios;
+    }
+
+    public void setTiposExercicios(String[] tiposExercicios) {
+        this.tiposExercicios = tiposExercicios;
     }
 }

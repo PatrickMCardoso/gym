@@ -1,54 +1,42 @@
 package gym.model;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class DivisaoTreinoMusculoDAO {
 
-    private DivisaoTreinoMusculo[] divisoesTreinoMusculo;
+    private DivisaoTreinoMusculo[] divisoes;
     private int tamanho;
+    private DivisaoTreinoDAO divisaoTreinoDAO;
 
-    public DivisaoTreinoMusculoDAO() {
-        this.divisoesTreinoMusculo = new DivisaoTreinoMusculo[10];
+    public DivisaoTreinoMusculoDAO(DivisaoTreinoDAO divisaoTreinoDAO) {
+        this.divisoes = new DivisaoTreinoMusculo[10];
         this.tamanho = 0;
+        this.divisaoTreinoDAO = divisaoTreinoDAO;
     }
 
-    public void adicionarDivisaoTreinoMusculo(DivisaoTreinoMusculo divisaoTreinoMusculo) {
-        if (tamanho == divisoesTreinoMusculo.length) {
+    public void adicionarDivisaoTreinoMusculo(DivisaoTreino divisaoTreino, String[] tiposExercicios) {
+        if (tamanho == divisoes.length) {
             aumentarCapacidade();
         }
-        divisaoTreinoMusculo.setId(tamanho + 1);
-        divisoesTreinoMusculo[tamanho++] = divisaoTreinoMusculo;
+        int id = tamanho + 1;
+        DivisaoTreinoMusculo divisaoTreinoMusculo = new DivisaoTreinoMusculo(id, divisaoTreino, LocalDate.now(), LocalDate.now(), tiposExercicios);
+        divisoes[tamanho++] = divisaoTreinoMusculo;
     }
 
-    public void alterarDivisaoTreinoMusculo(int id, DivisaoTreinoMusculo novaDivisaoTreinoMusculo) {
-        for (int i = 0; i < tamanho; i++) {
-            if (divisoesTreinoMusculo[i].getId() == id) {
-                divisoesTreinoMusculo[i] = novaDivisaoTreinoMusculo;
-                break;
-            }
-        }
-    }
 
-    public void removerDivisaoTreinoMusculo(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (divisoesTreinoMusculo[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    divisoesTreinoMusculo[j] = divisoesTreinoMusculo[j + 1];
-                }
-                tamanho--;
-                break;
-            }
-        }
-
-        for (int i = 0; i < tamanho; i++) {
-            divisoesTreinoMusculo[i].setId(i + 1);
-        }
+    private void aumentarCapacidade() {
+        int novaCapacidade = divisoes.length * 2;
+        DivisaoTreinoMusculo[] novoArray = new DivisaoTreinoMusculo[novaCapacidade];
+        System.arraycopy(divisoes, 0, novoArray, 0, tamanho);
+        divisoes = novoArray;
     }
 
     public DivisaoTreinoMusculo buscarDivisaoTreinoMusculo(int id) {
         for (int i = 0; i < tamanho; i++) {
-            if (divisoesTreinoMusculo[i].getId() == id) {
-                return divisoesTreinoMusculo[i];
+            if (divisoes[i].getId() == id) {
+                return divisoes[i];
             }
         }
         return null;
@@ -56,14 +44,23 @@ public class DivisaoTreinoMusculoDAO {
 
     public DivisaoTreinoMusculo[] mostrarDivisoesTreinoMusculo() {
         DivisaoTreinoMusculo[] divisoesExistentes = new DivisaoTreinoMusculo[tamanho];
-        System.arraycopy(divisoesTreinoMusculo, 0, divisoesExistentes, 0, tamanho);
+        System.arraycopy(divisoes, 0, divisoesExistentes, 0, tamanho);
         return divisoesExistentes;
     }
+    
+    public void removerDivisaoTreinoMusculo(int id) {
+        for (int i = 0; i < tamanho; i++) {
+            if (divisoes[i].getId() == id) {
+                for (int j = i; j < tamanho - 1; j++) {
+                    divisoes[j] = divisoes[j + 1];
+                }
+                tamanho--;
+                break;
+            }
+        }
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = divisoesTreinoMusculo.length * 2;
-        DivisaoTreinoMusculo[] novoArray = new DivisaoTreinoMusculo[novaCapacidade];
-        System.arraycopy(divisoesTreinoMusculo, 0, novoArray, 0, tamanho);
-        divisoesTreinoMusculo = novoArray;
+        for (int i = 0; i < tamanho; i++) {
+            divisoes[i].setId(i + 1);
+        }
     }
 }

@@ -88,7 +88,7 @@ public class DivisaoTreinoDAO {
     
     public void mostrarTodasDivisoesTreinoMenu() {
         DivisaoTreino[] divisoesTreino = mostrarDivisoesTreino();
-        System.out.println("Divisões de Treino Disponíveis:");
+        System.out.println("Divisoes de Treino Disponiveis:");
         for (DivisaoTreino divisaoTreino : divisoesTreino) {
             System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome());
         }
