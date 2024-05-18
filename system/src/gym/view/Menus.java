@@ -850,11 +850,9 @@ public class Menus {
         return mensalidade;
     }
 
-    public static void mostrarTodasMensalidadesMenu(MensalidadeDAO mensalidadeDAO) {
+    public static void mostrarTodasMensalidadesMenu(Mensalidade[] mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES  *****\n");
         System.out.println("------------------------");
-
-        Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
 
         for (Mensalidade mensalidade : mensalidades) {
             System.out.println("ID: " + mensalidade.getId());
@@ -933,16 +931,17 @@ public class Menus {
         return mensalidadeAluno;
     }
 
-    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno) {
+    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno, Pessoa[] alunos, Mensalidade[] mensalidades) {
         System.out.println("\n*****  MENSALIDADE ALUNO  *****\n");
         System.out.println("ID Associacao: " + mensalidadeAluno.getId());
         System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
+        System.out.println("Nome do Aluno: " + alunos[mensalidadeAluno.getIdAluno() - 1].getNome());
         System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
+        System.out.println("Descricao da mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
         System.out.println("Data de Criacao: " + formataData(mensalidadeAluno.getDataCriacao()));
         System.out.println("Data de Modificacao: " + formataData(mensalidadeAluno.getDataModificacao()));
         System.out.println("------------------------");
     }
-
     public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos, Pessoa[] alunos, Mensalidade[] mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES DOS ALUNOS  *****\n");
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
@@ -1014,15 +1013,14 @@ public class Menus {
         return pagamentoRecorrente;
     }
 
-    public static void mostrarTodosPagamentosRecorrentesMenu(PagamentoRecorrenteDAO pagamentoRecorrenteDAO) {
+    public static void mostrarTodosPagamentosRecorrentesMenu(PagamentoRecorrente[] pagamentos, Pessoa[] pessoas) {
         System.out.println("\n*****  TODOS OS PAGAMENTOS RECORRENTES  *****\n");
         System.out.println("------------------------");
-
-        PagamentoRecorrente[] pagamentos = pagamentoRecorrenteDAO.mostrarPagamentos();
 
         for (PagamentoRecorrente pagamento : pagamentos) {
             System.out.println("ID: " + pagamento.getId());
             System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
+            System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
             System.out.println("Cartão de Crédito: " + pagamento.getCartaoDeCredito());
             System.out.println("Valor: R$ " + pagamento.getValor());
             System.out.println("Data de Início: " + formataData(pagamento.getDataDeInicio()));
@@ -1033,10 +1031,11 @@ public class Menus {
         }
     }
 
-    public static void mostrarPagamentoRecorrenteMenu(PagamentoRecorrente pagamento) {
+    public static void mostrarPagamentoRecorrenteMenu(PagamentoRecorrente pagamento, Pessoa[] pessoas) {
         System.out.println("\n*****  PAGAMENTO RECORRENTE  *****\n");
         System.out.println("ID: " + pagamento.getId());
         System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
+        System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
         System.out.println("Cartão de Crédito: " + pagamento.getCartaoDeCredito());
         System.out.println("Valor: R$ " + pagamento.getValor());
         System.out.println("Data de Início: " + formataData(pagamento.getDataDeInicio()));
@@ -1045,6 +1044,7 @@ public class Menus {
         System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
         System.out.println("------------------------");
     }
+
 
     public static PagamentoRecorrente alterarPagamentoRecorrenteMenu(int id, PagamentoRecorrente pagamentoRecorrente) {
         System.out.println("\n*****  ALTERAR PAGAMENTO RECORRENTE  *****\n");

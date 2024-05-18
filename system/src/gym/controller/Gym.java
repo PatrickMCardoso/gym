@@ -21,8 +21,7 @@ public class Gym {
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
         PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
-        
-        
+
         divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
@@ -30,8 +29,7 @@ public class Gym {
         mensalidadeDAO.adicionarMensalidadesExemplo();
         exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
         treinoDAO.adicionarTreinoExemplos();
-        
-        
+
         int opcao = 0;
         while (opcao != 15) {
             opcao = Menus.mostrarMenuPrincipal();
@@ -304,7 +302,7 @@ public class Gym {
                         Menus.digitarQualquerTecla();
                         opcaoDivisao = Menus.divisaoTreinoMenu();
                         switch (opcaoDivisao) {
-                            case 1: { 
+                            case 1: {
                                 DivisaoTreino divisaoTreino = Menus.adicionarDivisaoTreinoMenu();
                                 divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao());
                                 System.out.println("Divisao de Treino adicionada com sucesso!");
@@ -382,7 +380,7 @@ public class Gym {
                                 int idParaRemover = Menus.buscarDivisaoTreinoMusculoMenu("remover");
                                 Menus.removerDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, idParaRemover);
                                 break;
-                            case 6:    
+                            case 6:
                                 System.out.println("Saindo...");
                                 break;
                             default:
@@ -465,9 +463,9 @@ public class Gym {
                 break;
                 //TREINO APLICACAO
                 case 8:
-                break;
+                    break;
                 //AVALIACAO FISICA
-                case 9: {        
+                case 9: {
                     int opcaoAvaliacaoFisica = 0;
                     while (opcaoAvaliacaoFisica != 2) {
                         Menus.digitarQualquerTecla();
@@ -504,7 +502,8 @@ public class Gym {
                             }
                             break;
                             case 2: {
-                                Menus.mostrarTodasMensalidadesMenu(mensalidadeDAO);
+                                Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                                Menus.mostrarTodasMensalidadesMenu(mensalidades);
                             }
                             break;
                             case 3: {
@@ -586,7 +585,9 @@ public class Gym {
                                 int idBusca = Menus.buscarMensalidadeAlunoMenu("buscar");
                                 MensalidadeAluno mensalidadeAlunoBuscada = mensalidadeAlunoDAO.buscarMensalidadeAluno(idBusca);
                                 if (mensalidadeAlunoBuscada != null) {
-                                    Menus.mostrarMensalidadeAlunoMenu(mensalidadeAlunoBuscada);
+                                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                                    Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                                    Menus.mostrarMensalidadeAlunoMenu(mensalidadeAlunoBuscada, pessoas, mensalidades);
                                 } else {
                                     System.out.println("Associacao de mensalidade a aluno nao encontrada.");
                                 }
@@ -622,7 +623,9 @@ public class Gym {
                             }
                             break;
                             case 2: {
-                                Menus.mostrarTodosPagamentosRecorrentesMenu(pagamentoRecorrenteDAO);
+                                PagamentoRecorrente[] pagamentos = pagamentoRecorrenteDAO.mostrarPagamentos();
+                                Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                                Menus.mostrarTodosPagamentosRecorrentesMenu(pagamentos, pessoas);
                             }
                             break;
                             case 3: {
@@ -641,7 +644,8 @@ public class Gym {
                                 int idBusca = Menus.buscarPagamentoRecorrenteMenu("buscar");
                                 PagamentoRecorrente pagamentoBuscado = pagamentoRecorrenteDAO.buscarPagamento(idBusca);
                                 if (pagamentoBuscado != null) {
-                                    Menus.mostrarPagamentoRecorrenteMenu(pagamentoBuscado);
+                                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                                    Menus.mostrarPagamentoRecorrenteMenu(pagamentoBuscado, pessoas);
                                 } else {
                                     System.out.println("Pagamento recorrente nao encontrado.");
                                 }
@@ -662,7 +666,7 @@ public class Gym {
                         }
                     }
                 }
-                    break;
+                break;
                 case 13:
                     break;
                 case 14:
