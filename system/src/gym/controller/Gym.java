@@ -36,6 +36,7 @@ public class Gym {
         while (opcao != 15) {
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
+                //ACADEMIA
                 case 1: {
                     int opcaoAcademia = 0;
                     while (opcaoAcademia != 6) {
@@ -88,6 +89,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -96,6 +98,7 @@ public class Gym {
                     }
                 }
                 break;
+                //PESSOA
                 case 2: {
                     int opcaoPessoa = 0;
                     while (opcaoPessoa != 6) {
@@ -150,6 +153,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -158,6 +162,7 @@ public class Gym {
                     }
                 }
                 break;
+                //EXERCICIO
                 case 3: {
                     int opcaoExercicio = 0;
                     while (opcaoExercicio != 6) {
@@ -204,6 +209,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -212,6 +218,7 @@ public class Gym {
                     }
                 }
                 break;
+                //APLICACAO EXERCICIO
                 case 4: {
                     int opcaoExercicioAplicacao = 0;
                     while (opcaoExercicioAplicacao != 6) {
@@ -281,6 +288,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -289,6 +297,7 @@ public class Gym {
                     }
                 }
                 break;
+                //DIVISAO TREINO
                 case 5: {
                     int opcaoDivisao = 0;
                     while (opcaoDivisao != 6) {
@@ -334,6 +343,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -342,6 +352,7 @@ public class Gym {
                     }
                 }
                 break;
+                //DIVISAO TREINO-MUSCULO
                 case 6: {
                     int opcaoDivisaoTreinoMusculo = 0;
                     while (opcaoDivisaoTreinoMusculo != 6) {
@@ -371,7 +382,8 @@ public class Gym {
                                 int idParaRemover = Menus.buscarDivisaoTreinoMusculoMenu("remover");
                                 Menus.removerDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, idParaRemover);
                                 break;
-                            case 6:                                
+                            case 6:    
+                                System.out.println("Saindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -380,6 +392,7 @@ public class Gym {
                     }
                 }
                 break;
+                //TREINO
                 case 7: {
                     int opcaoTreino = 0;
                     while (opcaoTreino != 7) {
@@ -441,7 +454,7 @@ public class Gym {
                             }
                             break;
                             case 7:
-                                // Sair do loop e finalizar o menu de treinos
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -450,10 +463,11 @@ public class Gym {
                     }
                 }
                 break;
+                //TREINO APLICACAO
                 case 8:
-                    break;
-                case 9: {
-                    // AVALIACAO FISICA
+                break;
+                //AVALIACAO FISICA
+                case 9: {        
                     int opcaoAvaliacaoFisica = 0;
                     while (opcaoAvaliacaoFisica != 2) {
                         Menus.digitarQualquerTecla();
@@ -467,6 +481,7 @@ public class Gym {
                             }
                             break;
                             case 2:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -521,6 +536,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -583,6 +599,7 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
@@ -592,7 +609,7 @@ public class Gym {
                 }
                 break;
                 //PAGAMENTO RECORRENTE
-                case 12:
+                case 12: {
                     int opcaoPagamento = 0;
                     while (opcaoPagamento != 6) {
                         Menus.digitarQualquerTecla();
@@ -637,12 +654,14 @@ public class Gym {
                             }
                             break;
                             case 6:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
                                 break;
                         }
                     }
+                }
                     break;
                 case 13:
                     break;
