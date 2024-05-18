@@ -18,49 +18,49 @@ public class ExercicioDAO {
         Exercicio[] exercicios = {
             // PEITO
             new Exercicio(1, "Supino Reto (PEITO)", "Deitado em um banco, empurre uma barra para cima, trabalhando o peitoral maior.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(2, "Crucifixo com Halteres (PEITO)", "Deitado em um banco, abra os braços com halteres, estimulando os músculos do peito.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(3, "Flexões (PEITO)", "No chão, empurre o corpo para cima, fortalecendo o peito e os tríceps.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(4, "Cross Over (PEITO)", "Na máquina, puxe as alças cruzadas para frente do peito.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(2, "Crucifixo com Halteres (PEITO)", "Deitado em um banco, abra os bracos com halteres, estimulando os musculos do peito.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(3, "Flexoes (PEITO)", "No chao, empurre o corpo para cima, fortalecendo o peito e os triceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(4, "Cross Over (PEITO)", "Na maquina, puxe as alcas cruzadas para frente do peito.", LocalDate.now(), LocalDate.now()),
             // COSTAS / LOMBAR
-            new Exercicio(5, "Barra Fixa (COSTAS/LOMBAR)", "Pendurado em uma barra, puxe o corpo para cima, fortalecendo as costas e os braços.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(6, "Remada Curvada (COSTAS/LOMBAR)", "Com halteres ou barra, incline o tronco para frente e puxe os pesos em direção ao abdômen.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(7, "Hiperextensão (COSTAS/LOMBAR)", "Deitado de bruços em um banco inclinado, levante o tronco, fortalecendo a região lombar.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(8, "Pulldown (COSTAS/LOMBAR)", "Sentado em uma máquina, puxe a barra para baixo em direção ao peito, trabalhando as costas e os braços.", LocalDate.now(), LocalDate.now()),
-            // OMBRO / TRAPÉZIO
-            new Exercicio(9, "Desenvolvimento com Halteres (OMBRO/TRAPÉZIO)", "Em pé ou sentado, levante halteres sobre a cabeça, fortalecendo os ombros.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(10, "Elevação Lateral (OMBRO/TRAPÉZIO)", "Com halteres, levante os braços para os lados, trabalhando os deltoides.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(11, "Encolhimento de Ombros (OMBRO/TRAPÉZIO)", "Com halteres ou barra, eleve os ombros, fortalecendo os trapézios.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(12, "Elevação Frontal (OMBRO/TRAPÉZIO)", "Com halteres ou barra, levante os braços à frente, estimulando os deltoides anteriores.", LocalDate.now(), LocalDate.now()),
-            // BÍCEPS / ANTEBRAÇO
-            new Exercicio(13, "Rosca Direta (BÍCEPS/ANTEBRAÇO)", "Com halteres ou barra, dobre os braços para levantar o peso, trabalhando os bíceps.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(14, "Rosca Martelo (BÍCEPS/ANTEBRAÇO)", "Com halteres, levante os pesos mantendo os punhos neutros, estimulando os bíceps e antebraços.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(15, "Rosca Concentrada (BÍCEPS/ANTEBRAÇO)", "Sentado, dobre o braço em um banco e levante o peso, isolando o bíceps.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(16, "Flexão de Punhos (BÍCEPS/ANTEBRAÇO)", "Com halteres, flexione os pulsos para cima e para baixo, fortalecendo os antebraços.", LocalDate.now(), LocalDate.now()),
-            // TRÍCEPS
-            new Exercicio(17, "Tríceps Pulley (TRÍCEPS)", "Em uma máquina, puxe uma corda para baixo, estendendo os braços e trabalhando os tríceps.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(18, "Tríceps Francês (TRÍCEPS)", "Com halteres ou barra, abaixe o peso atrás da cabeça, estendendo os braços para cima.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(19, "Fundos (TRÍCEPS)", "Com as mãos em um banco e os pés no chão, abaixe o corpo flexionando os braços, trabalhando os tríceps.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(20, "Extensão de Tríceps (TRÍCEPS)", "Com halteres, estenda os braços para cima e para trás, focando nos tríceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(5, "Barra Fixa (COSTAS/LOMBAR)", "Pendurado em uma barra, puxe o corpo para cima, fortalecendo as costas e os bracos.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(6, "Remada Curvada (COSTAS/LOMBAR)", "Com halteres ou barra, incline o tronco para frente e puxe os pesos em direcao ao abdomen.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(7, "Hiperextensao (COSTAS/LOMBAR)", "Deitado de brucos em um banco inclinado, levante o tronco, fortalecendo a regiao lombar.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(8, "Pulldown (COSTAS/LOMBAR)", "Sentado em uma maquina, puxe a barra para baixo em direcao ao peito, trabalhando as costas e os bracos.", LocalDate.now(), LocalDate.now()),
+            // OMBRO / TRAPEZIO
+            new Exercicio(9, "Desenvolvimento Arnold (OMBRO/TRAPEZIO)", "Sentado, com halteres, comece com as palmas voltadas para voce. À medida que voce levanta os halteres, gire os pulsos para que as palmas fiquem voltadas para a frente no final do movimento.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(10, "Elevacao Lateral (OMBRO/TRAPEZIO)", "Com halteres, levante os bracos para os lados, trabalhando os deltoides.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(11, "Encolhimento de Ombros (OMBRO/TRAPEZIO)", "Com halteres ou barra, eleve os ombros, fortalecendo os trapezios.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(12, "Elevacao Frontal (OMBRO/TRAPEZIO)", "Com halteres ou barra, levante os bracos à frente, estimulando os deltoides anteriores.", LocalDate.now(), LocalDate.now()),
+            // BICEPS / ANTEBRACO
+            new Exercicio(13, "Rosca Direta (BICEPS/ANTEBRACO)", "Com halteres ou barra, dobre os bracos para levantar o peso, trabalhando os biceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(14, "Rosca Martelo (BICEPS/ANTEBRACO)", "Com halteres, levante os pesos mantendo os punhos neutros, estimulando os biceps e antebracos.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(15, "Rosca Concentrada (BICEPS/ANTEBRACO)", "Sentado, dobre o braco em um banco e levante o peso, isolando o biceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(16, "Flexao de Punhos (BICEPS/ANTEBRACO)", "Com halteres, flexione os pulsos para cima e para baixo, fortalecendo os antebracos.", LocalDate.now(), LocalDate.now()),
+            // TRiCEPS
+            new Exercicio(17, "Triceps Pulley (TRICEPS)", "Em uma maquina, puxe uma corda para baixo, estendendo os bracos e trabalhando os triceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(18, "Triceps Frances (TRICEPS)", "Com halteres ou barra, abaixe o peso atras da cabeca, estendendo os bracos para cima.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(19, "Fundos (TRICEPS)", "Com as maos em um banco e os pes no chao, abaixe o corpo flexionando os bracos, trabalhando os triceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(20, "Extensao de Triceps (TRICEPS)", "Com halteres, estenda os bracos para cima e para tras, focando nos triceps.", LocalDate.now(), LocalDate.now()),
             // PANTURRILHA          
-            new Exercicio(21, "Elevação de Panturrilha em Pé (PANTURRILHA)", "Em pé, levante o corpo sobre os dedos dos pés, trabalhando as panturrilhas.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(22, "Elevação de Panturrilha Sentado (PANTURRILHA)", "Sentado em uma máquina, levante os calcanhares, fortalecendo as panturrilhas.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(23, "Elevação de Panturrilha Unilateral (PANTURRILHA)", "Em pé, levante uma perna e eleve o calcanhar, trabalhando uma panturrilha de cada vez.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(21, "Elevacao de Panturrilha em Pe (PANTURRILHA)", "Em pe, levante o corpo sobre os dedos dos pes, trabalhando as panturrilhas.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(22, "Elevacao de Panturrilha Sentado (PANTURRILHA)", "Sentado em uma maquina, levante os calcanhares, fortalecendo as panturrilhas.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(23, "Elevacao de Panturrilha Unilateral (PANTURRILHA)", "Em pe, levante uma perna e eleve o calcanhar, trabalhando uma panturrilha de cada vez.", LocalDate.now(), LocalDate.now()),
             new Exercicio(24, "Salto na Panturrilha (PANTURRILHA)", "Pule e levante os calcanhares ao mesmo tempo, fortalecendo as panturrilhas com o impacto.", LocalDate.now(), LocalDate.now()),
-            // GLÚTEO
-            new Exercicio(25, "Agachamento (GLÚTEO)", "Com ou sem pesos, flexione os joelhos como se fosse sentar, trabalhando os glúteos e pernas.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(26, "Elevação Pélvica (GLÚTEO)", "Deitado no chão, levante os quadris, contraindo os glúteos.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(27, "Afundo (GLÚTEO)", "Dê passos largos para frente e flexione os joelhos, alternando as pernas para trabalhar os glúteos.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(28, "Glúteo Kickback (GLÚTEO)", "Com uma perna para trás, levante-a para trás, contraindo os glúteos.", LocalDate.now(), LocalDate.now()),
+            // GLuTEO
+            new Exercicio(25, "Agachamento (GLUTEO)", "Com ou sem pesos, flexione os joelhos como se fosse sentar, trabalhando os gluteos e pernas.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(26, "Elevacao Pelvica (GLUTEO)", "Deitado no chao, levante os quadris, contraindo os gluteos.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(27, "Afundo (GLUTEO)", "De passos largos para frente e flexione os joelhos, alternando as pernas para trabalhar os gluteos.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(28, "Gluteo Kickback (GLUTEO)", "Com uma perna para tras, levante-a para tras, contraindo os gluteos.", LocalDate.now(), LocalDate.now()),
             // COXA
             new Exercicio(29, "Agachamento Livre (COXA)", "Com barra ou apenas com o peso do corpo, flexione os joelhos, trabalhando as coxas.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(30, "Leg Press (COXA)", "Sentado em uma máquina, empurre os pesos com as pernas, fortalecendo as coxas.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(31, "Cadeira Extensora (COXA)", "Sentado em uma máquina, estenda as pernas, trabalhando os quadríceps.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(32, "Stiff (COXA)", "Com halteres ou barra, incline o tronco para frente e levante o peso, estimulando os músculos das coxas e glúteos.", LocalDate.now(), LocalDate.now()),
-            // ABDÔMEN
-            new Exercicio(33, "Prancha (ABDÔMEN)", "Com os antebraços e ponta dos pés no chão, mantenha o corpo reto, fortalecendo o core.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(34, "Crunch (ABDÔMEN)", "Deitado no chão, levante o tronco em direção aos joelhos, trabalhando os músculos abdominais.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(35, "Russian Twist (ABDÔMEN)", "Sentado no chão, gire o tronco de um lado para o outro, fortalecendo os oblíquos.", LocalDate.now(), LocalDate.now()),
-            new Exercicio(36, "Prancha Lateral (ABDÔMEN)", "Apoiado no antebraço e lateral dos pés, mantenha o corpo reto de lado, fortalecendo os oblíquos.", LocalDate.now(), LocalDate.now())
+            new Exercicio(30, "Leg Press (COXA)", "Sentado em uma maquina, empurre os pesos com as pernas, fortalecendo as coxas.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(31, "Cadeira Extensora (COXA)", "Sentado em uma maquina, estenda as pernas, trabalhando os quadriceps.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(32, "Stiff (COXA)", "Com halteres ou barra, incline o tronco para frente e levante o peso, estimulando os musculos das coxas e gluteos.", LocalDate.now(), LocalDate.now()),
+            // ABDOMEN
+            new Exercicio(33, "Prancha (ABDOMEN)", "Com os antebracos e ponta dos pes no chao, mantenha o corpo reto, fortalecendo o core.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(34, "Crunch (ABDOMEN)", "Deitado no chao, levante o tronco em direcao aos joelhos, trabalhando os musculos abdominais.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(35, "Russian Twist (ABDOMEN)", "Sentado no chao, gire o tronco de um lado para o outro, fortalecendo os obliquos.", LocalDate.now(), LocalDate.now()),
+            new Exercicio(36, "Prancha Lateral (ABDOMEN)", "Apoiado no antebraco e lateral dos pes, mantenha o corpo reto de lado, fortalecendo os obliquos.", LocalDate.now(), LocalDate.now())
         };
 
         for (Exercicio exercicio : exercicios) {

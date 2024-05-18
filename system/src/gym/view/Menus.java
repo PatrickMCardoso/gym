@@ -530,7 +530,7 @@ public class Menus {
         DivisaoTreinoMusculo novaDivisaoTreinoMusculo = new DivisaoTreinoMusculo(id, novaDescricao, novaDivisaoTreino, divisaoTreinoMusculo.getDataCriacao(), dataAtualizacao);
         return novaDivisaoTreinoMusculo;
     }
-
+ 
     // TREINO
     public static int treinoMenu() {
         System.out.println("**************************");
@@ -939,7 +939,7 @@ public class Menus {
     }
 
     // PAGAMENTO RECORRENTE
-    // ENTRADA ALUNO
+    // ENTRADA ALUNOS
     // MOVIMENTAcaO FINANCEIRA
     // RELATORIOS
     

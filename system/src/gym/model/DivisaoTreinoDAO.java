@@ -11,6 +11,20 @@ public class DivisaoTreinoDAO {
         this.divisoes = new DivisaoTreino[10];
         this.tamanho = 0;
     }
+    
+    public void adicionarDivisaoTreinoExemplos() {
+        String[][] exemplos = {
+            {"AB", "AB 2x descansa 1x"},
+            {"ABC", "ABC 2x descansa 1x"},
+            {"ABC", "ABC descansa 1x ABC descansa 1x"},
+            {"ABCD", "ABCD descansa 1x ABCD descansa 1x"},
+            {"ABCDE", "ABCDE descansa 1x"}
+        };
+
+        for (String[] exemplo : exemplos) {
+            adicionarDivisaoTreino(exemplo[0], exemplo[1]);
+        }
+    }
 
     public void adicionarDivisaoTreino(String nome, String descricao) {
         if (tamanho == divisoes.length) {
@@ -50,7 +64,7 @@ public class DivisaoTreinoDAO {
 
     public DivisaoTreino buscarDivisaoTreino(int id) {
         for (int i = 0; i < tamanho; i++) {
-            if (divisoes[i].getId() == id) {
+            if (divisoes[i] != null && divisoes[i].getId() == id) {
                 return divisoes[i];
             }
         }

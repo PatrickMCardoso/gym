@@ -17,14 +17,17 @@ public class Gym {
         ExercicioAplicacaoDAO exercicioAplicacaoDAO = new ExercicioAplicacaoDAO();
         DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
         DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO();
-        TreinoDAO treinoDAO = new TreinoDAO();
+        TreinoDAO treinoDAO = new TreinoDAO(pessoaDAO, divisaoTreinoDAO);
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
 
         academiaDAO.adicionarAcademiasExemplo();
-        pessoaDAO.adicionarPessoasExemplo();
+        pessoaDAO.adicionarPessoasExemplo();                
         exercicioDAO.adicionarExercicioExemplos();
         mensalidadeDAO.adicionarMensalidadesExemplo();
+        exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
+        divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
+        treinoDAO.adicionarTreinoExemplos();
 
         int opcao = 0;
         while (opcao != 15) {

@@ -1,6 +1,8 @@
 package gym.model;
 
 import java.time.LocalDate;
+import java.util.Random;
+
 
 public class ExercicioAplicacaoDAO {
 
@@ -12,6 +14,18 @@ public class ExercicioAplicacaoDAO {
         this.exerciciosAplicacao = new ExercicioAplicacao[10];
         this.tamanho = 0;
         this.geradorId = 0;
+    }
+    
+    public void adicionarExerciciosAplicacaoExemplos() {
+        Random random = new Random();
+        String[] descricoes = {"4x12", "4x10", "12 reps com rest pause", "5x5 com carga maxima", "4xMAX"};
+
+        for (int i = 1; i <= 36; i++) {           
+            int idExercicio = i;
+            String descricao = descricoes[random.nextInt(descricoes.length)];            
+            
+            adicionarExercicioAplicacao(idExercicio, descricao);
+        }
     }
 
     public void adicionarExercicioAplicacao(int idExercicio, String descricao) {
