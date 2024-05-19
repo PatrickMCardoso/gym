@@ -14,14 +14,13 @@ public class MovimentacaoFinanceiraDAO {
         this.geradorId = 0;
     }
 
-    public void adicionarMovimentacao(MovimentacaoFinanceira movimentacao) {
+    public void adicionarMovimentacao(MovimentacaoFinanceira movimentacao, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == movimentacoes.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
         movimentacao.setId(id);
-        LocalDate dataAtual = LocalDate.now();
         movimentacao.setDataCriacao(dataAtual);
         movimentacao.setDataModificacao(dataAtual);
         movimentacoes[tamanho++] = movimentacao;
@@ -34,13 +33,13 @@ public class MovimentacaoFinanceiraDAO {
         movimentacoes = novoArray;
     }
 
-    public void alterarMovimentacao(int id, MovimentacaoFinanceira novaMovimentacao) {
+    public void alterarMovimentacao(int id, MovimentacaoFinanceira novaMovimentacao, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (movimentacoes[i].getId() == id) {
                 movimentacoes[i].setValor(novaMovimentacao.getValor());
                 movimentacoes[i].setTipo(novaMovimentacao.getTipo());
                 movimentacoes[i].setDescricao(novaMovimentacao.getDescricao());
-                movimentacoes[i].setDataModificacao(LocalDate.now());
+                movimentacoes[i].setDataModificacao(dataAtual);
                 break;
             }
         }
@@ -89,7 +88,7 @@ public class MovimentacaoFinanceiraDAO {
             }
         }
         
-        MovimentacaoFinanceira movimentacaoDespesas = new MovimentacaoFinanceira(0, valorDespesasDoMes, "saida", "Despesas do mes " + dataAtual.getMonthValue() + "/" + dataAtual.getYear(), dataAtual, dataAtual);
-        adicionarMovimentacao(movimentacaoDespesas);
+        MovimentacaoFinanceira movimentacaoDespesas = new MovimentacaoFinanceira(0, valorDespesasDoMes, "saida", "Despesas do mes " + (dataAtual.getMonthValue() - 1) + "/" + dataAtual.getYear(), dataAtual.minusWeeks(1), dataAtual);
+        adicionarMovimentacao(movimentacaoDespesas, dataAtual.minusWeeks(1));
     }
 }

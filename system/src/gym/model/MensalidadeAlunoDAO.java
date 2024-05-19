@@ -14,14 +14,13 @@ public class MensalidadeAlunoDAO {
         this.geradorId = 0;
     }
 
-    public void adicionarMensalidadeAluno(MensalidadeAluno mensalidadeAluno) {
+    public void adicionarMensalidadeAluno(MensalidadeAluno mensalidadeAluno, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == mensalidadesAluno.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
         mensalidadeAluno.setId(id);
-        LocalDate dataAtual = LocalDate.now();
         mensalidadeAluno.setDataCriacao(dataAtual);
         mensalidadeAluno.setDataModificacao(dataAtual);
         mensalidadesAluno[tamanho++] = mensalidadeAluno;
@@ -34,12 +33,12 @@ public class MensalidadeAlunoDAO {
         mensalidadesAluno = novoArray;
     }
 
-    public void alterarMensalidadeAluno(int id, MensalidadeAluno novaMensalidadeAluno) {
+    public void alterarMensalidadeAluno(int id, MensalidadeAluno novaMensalidadeAluno, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (mensalidadesAluno[i].getId() == id) {
                 mensalidadesAluno[i].setIdAluno(novaMensalidadeAluno.getIdAluno());
                 mensalidadesAluno[i].setIdMensalidade(novaMensalidadeAluno.getIdMensalidade());
-                mensalidadesAluno[i].setDataModificacao(LocalDate.now());
+                mensalidadesAluno[i].setDataModificacao(dataAtual);
                 break;
             }
         }

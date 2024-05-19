@@ -19,20 +19,19 @@ public class PessoaDAO {
         Pessoa pessoa3 = new Pessoa(3, "Ruan Emanuell", 'M', LocalDate.of(2004, 3, 10), "ruan789", "ruanzin", "Aluno", LocalDate.now(), LocalDate.now());
         Pessoa pessoa4 = new Pessoa(4, "Samuel Colombo", 'M', LocalDate.of(2005, 6, 27), "colombo", "samu", "Professor", LocalDate.now(), LocalDate.now());
 
-        adicionarPessoa(pessoa1);
-        adicionarPessoa(pessoa2);
-        adicionarPessoa(pessoa3);
-        adicionarPessoa(pessoa4);
+        adicionarPessoa(pessoa1, LocalDate.now());
+        adicionarPessoa(pessoa2, LocalDate.now());
+        adicionarPessoa(pessoa3, LocalDate.now());
+        adicionarPessoa(pessoa4, LocalDate.now());
     }
 
-    public void adicionarPessoa(Pessoa pessoa) {
+    public void adicionarPessoa(Pessoa pessoa, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == pessoas.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
         pessoa.setId(id);
-        LocalDate dataAtual = LocalDate.now();
         pessoa.setDataCriacao(dataAtual);
         pessoa.setDataModificacao(dataAtual);
         pessoas[tamanho++] = pessoa;
@@ -45,7 +44,7 @@ public class PessoaDAO {
         pessoas = novoArray;
     }
 
-    public void alterarPessoa(int id, Pessoa novaPessoa) {
+    public void alterarPessoa(int id, Pessoa novaPessoa, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (pessoas[i].getId() == id) {
                 pessoas[i].setNome(novaPessoa.getNome());
@@ -54,7 +53,7 @@ public class PessoaDAO {
                 pessoas[i].setLogin(novaPessoa.getLogin());
                 pessoas[i].setSenha(novaPessoa.getSenha());
                 pessoas[i].setTipoUsuario(novaPessoa.getTipoUsuario());
-                pessoas[i].setDataModificacao(LocalDate.now());
+                pessoas[i].setDataModificacao(dataAtual);
                 break;
             }
         }

@@ -19,19 +19,18 @@ public class AcademiaDAO {
         Academia academia2 = new Academia(2, "BioTech Prime", "Av. Nenê Sabino, 915", LocalDate.now(), LocalDate.now());
         Academia academia3 = new Academia(3, "Smart Fit", "Av. Guilherme Ferreira, 1550", LocalDate.now(), LocalDate.now());
 
-        adicionarAcademia(academia1);
-        adicionarAcademia(academia2);
-        adicionarAcademia(academia3);
+        adicionarAcademia(academia1, LocalDate.now());
+        adicionarAcademia(academia2, LocalDate.now());
+        adicionarAcademia(academia3, LocalDate.now());
     }
 
-    public void adicionarAcademia(Academia academia) {
+    public void adicionarAcademia(Academia academia, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == academias.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
         academia.setId(id);
-        LocalDate dataAtual = LocalDate.now();
         academia.setDataCriacao(dataAtual);
         academia.setDataModificacao(dataAtual);
         academias[tamanho++] = academia;
@@ -44,12 +43,12 @@ public class AcademiaDAO {
         academias = novoArray;
     }
 
-    public void alterarAcademia(int id, Academia novaAcademia) {
+    public void alterarAcademia(int id, Academia novaAcademia, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (academias[i].getId() == id) {
                 academias[i].setNome(novaAcademia.getNome());
                 academias[i].setEndereco(novaAcademia.getEndereco());
-                academias[i].setDataModificacao(LocalDate.now());
+                academias[i].setDataModificacao(dataAtual);
                 break;
             }
         }

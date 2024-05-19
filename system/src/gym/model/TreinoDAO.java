@@ -30,33 +30,33 @@ public class TreinoDAO {
         if (pessoa2 != null && divisao1 != null) {
             Treino treino1 = new Treino(1, pessoa2, objetivos[0], LocalDate.now().minusDays(62), LocalDate.now().minusDays(32), divisao1, LocalDate.now(), LocalDate.now());
             Treino treino2 = new Treino(2, pessoa3, objetivos[0], LocalDate.now().minusDays(32), LocalDate.now().minusDays(2), divisao2, LocalDate.now(), LocalDate.now());
-            adicionarTreino(treino1);
-            adicionarTreino(treino2);
+            adicionarTreino(treino1, LocalDate.now());
+            adicionarTreino(treino2, LocalDate.now());
         }
 
         if (pessoa3 != null && divisao2 != null) {
             Treino treino3 = new Treino(3, pessoa3, objetivos[1], LocalDate.now().minusDays(62), LocalDate.now().minusDays(32), divisao2, LocalDate.now(), LocalDate.now());
             Treino treino4 = new Treino(4, pessoa3, objetivos[4], LocalDate.now().minusDays(32), LocalDate.now().minusDays(2), divisao2, LocalDate.now(), LocalDate.now());
-            adicionarTreino(treino3);
-            adicionarTreino(treino4);
+            adicionarTreino(treino3, LocalDate.now());
+            adicionarTreino(treino4, LocalDate.now());
         }
     }
 
-    public void adicionarTreino(Treino treino) {
+    public void adicionarTreino(Treino treino, LocalDate dataAtual) {
         if (tamanho == treinos.length) {
             aumentarCapacidade();
         }
         treino.setId(++geradorId);
-        treino.setDataCriacao(LocalDate.now());
-        treino.setDataModificacao(LocalDate.now());
+        treino.setDataCriacao(dataAtual);
+        treino.setDataModificacao(dataAtual);
         treinos[tamanho++] = treino;
     }
 
-    public void alterarTreino(int id, Treino novoTreino) {
+    public void alterarTreino(int id, Treino novoTreino, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (treinos[i].getId() == id) {
                 treinos[i] = novoTreino; 
-                treinos[i].setDataModificacao(LocalDate.now());
+                treinos[i].setDataModificacao(dataAtual);
                 break;
             }
         }

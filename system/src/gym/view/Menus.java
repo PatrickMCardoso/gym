@@ -465,7 +465,7 @@ public class Menus {
         return menuOption;
     }
   
-    public static void adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, DivisaoTreinoDAO divisaoTreinoDAO) {
+    public static void adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, DivisaoTreinoDAO divisaoTreinoDAO, LocalDate dataAtual) {
         divisaoTreinoDAO.mostrarTodasDivisoesTreinoMenu();
         System.out.println("Informe o ID da divisao de treino que deseja escolher: ");
         int escolhaId = Integer.parseInt(scanner.nextLine());
@@ -494,7 +494,7 @@ public class Menus {
                 tiposExercicios[i] = String.join(", ", tipos);
             }
 
-            divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(divisaoTreinoEscolhida, tiposExercicios);
+            divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(divisaoTreinoEscolhida, tiposExercicios, dataAtual);
         } else {
             System.out.println("Divisao de treino nao encontrada.");
         }
@@ -534,7 +534,7 @@ public class Menus {
         return id;
     }
     
-    public static void alterarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, int id) {
+    public static void alterarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, int id, LocalDate dataAtual) {
         DivisaoTreinoMusculo divisaoTreinoMusculo = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(id);
         if (divisaoTreinoMusculo != null) {
             String[] letras = divisaoTreinoMusculo.getDivisaoTreino().getNome().split("");
@@ -560,7 +560,7 @@ public class Menus {
             }
 
             divisaoTreinoMusculo.setTiposExercicios(tiposExercicios);
-            divisaoTreinoMusculo.setDataModificacao(LocalDate.now());
+            divisaoTreinoMusculo.setDataModificacao(dataAtual);
 
             System.out.println("Divisao de treino muscular alterada com sucesso.");
         } else {

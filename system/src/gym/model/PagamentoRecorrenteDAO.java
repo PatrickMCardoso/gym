@@ -14,13 +14,12 @@ public class PagamentoRecorrenteDAO {
         this.geradorId = 0;
     }
 
-    public void adicionarPagamento(PagamentoRecorrente pagamento) {
+    public void adicionarPagamento(PagamentoRecorrente pagamento, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == pagamentos.length) {
             aumentarCapacidade();
         }
         pagamento.setId(geradorId);
-        LocalDate dataAtual = LocalDate.now();
         pagamento.setDataCriacao(dataAtual);
         pagamento.setDataModificacao(dataAtual);
         pagamentos[tamanho++] = pagamento;
@@ -33,7 +32,7 @@ public class PagamentoRecorrenteDAO {
         pagamentos = novoArray;
     }
 
-    public void alterarPagamento(int id, PagamentoRecorrente novoPagamento) {
+    public void alterarPagamento(int id, PagamentoRecorrente novoPagamento, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (pagamentos[i].getId() == id) {
                 pagamentos[i].setIdPessoa(novoPagamento.getIdPessoa());
@@ -41,7 +40,7 @@ public class PagamentoRecorrenteDAO {
                 pagamentos[i].setCartaoDeCredito(novoPagamento.getCartaoDeCredito());
                 pagamentos[i].setDataDeInicio(novoPagamento.getDataDeInicio());
                 pagamentos[i].setNumeroDeMeses(novoPagamento.getNumeroDeMeses());
-                pagamentos[i].setDataModificacao(LocalDate.now());
+                pagamentos[i].setDataModificacao(dataAtual);
                 break;
             }
         }

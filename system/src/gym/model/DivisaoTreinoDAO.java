@@ -26,25 +26,25 @@ public class DivisaoTreinoDAO {
         };
 
         for (String[] exemplo : exemplos) {
-            adicionarDivisaoTreino(exemplo[0], exemplo[1]);
+            adicionarDivisaoTreino(exemplo[0], exemplo[1], LocalDate.now());
         }
     }
 
-    public void adicionarDivisaoTreino(String nome, String descricao) {
+    public void adicionarDivisaoTreino(String nome, String descricao, LocalDate dataAtual) {
         if (tamanho == divisoes.length) {
             aumentarCapacidade();
         }
         int id = tamanho + 1;
-        DivisaoTreino divisao = new DivisaoTreino(id, nome, descricao, LocalDate.now(), LocalDate.now());
+        DivisaoTreino divisao = new DivisaoTreino(id, nome, descricao, dataAtual, dataAtual);
         divisoes[tamanho++] = divisao;
     }
 
-    public void alterarDivisaoTreino(int id, String nome, String descricao) {
+    public void alterarDivisaoTreino(int id, String nome, String descricao, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (divisoes[i].getId() == id) {
                 divisoes[i].setNome(nome);
                 divisoes[i].setDescricao(descricao);
-                divisoes[i].setDataModificacao(LocalDate.now());
+                divisoes[i].setDataModificacao(dataAtual);
                 break;
             }
         }

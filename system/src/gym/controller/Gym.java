@@ -46,7 +46,7 @@ public class Gym {
                         opcaoAcademia = Menus.academiaMenu();
                         switch (opcaoAcademia) {
                             case 1: {
-                                academiaDAO.adicionarAcademia(Menus.adicionarAcademiaMenu());
+                                academiaDAO.adicionarAcademia(Menus.adicionarAcademiaMenu(), calendario.getDataAtual());
                             }
                             break;
                             case 2: {
@@ -62,7 +62,7 @@ public class Gym {
                                     Academia academiaExistente = academiaDAO.buscarAcademia(id);
                                     if (academiaExistente != null) {
                                         Academia novaAcademia = Menus.alterarAcademiaMenu(id, academiaExistente);
-                                        academiaDAO.alterarAcademia(id, novaAcademia);
+                                        academiaDAO.alterarAcademia(id, novaAcademia, calendario.getDataAtual());
                                         System.out.println("Academia alterada com sucesso.");
                                     } else {
                                         System.out.println("Academia nao encontrada.");
@@ -109,7 +109,7 @@ public class Gym {
                         switch (opcaoPessoa) {
                             case 1: {
                                 Pessoa novaPessoa = Menus.adicionarPessoaMenu();
-                                pessoaDAO.adicionarPessoa(novaPessoa);
+                                pessoaDAO.adicionarPessoa(novaPessoa, calendario.getDataAtual());
                                 System.out.println("Pessoa adicionada com sucesso!");
                             }
                             break;
@@ -126,7 +126,7 @@ public class Gym {
                                     Pessoa pessoaExistente = pessoaDAO.buscarPessoa(id);
                                     if (pessoaExistente != null) {
                                         Pessoa novaPessoa = Menus.alterarPessoaMenu(id, pessoaExistente);
-                                        pessoaDAO.alterarPessoa(id, novaPessoa);
+                                        pessoaDAO.alterarPessoa(id, novaPessoa, calendario.getDataAtual());
                                         System.out.println("Pessoa alterada com sucesso.");
                                     } else {
                                         System.out.println("Pessoa nao encontrada.");
@@ -173,7 +173,7 @@ public class Gym {
                         switch (opcaoExercicio) {
                             case 1: {
                                 Exercicio exercicio = Menus.adicionarExerciciosMenu();
-                                exercicioDAO.adicionarExercicio(exercicio);
+                                exercicioDAO.adicionarExercicio(exercicio, calendario.getDataAtual());
                             }
                             break;
                             case 2: {
@@ -186,7 +186,7 @@ public class Gym {
                                 Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idAlteracao);
                                 if (exercicioExistente != null) {
                                     Exercicio novoExercicio = Menus.alterarExercicioMenu(idAlteracao, exercicioExistente);
-                                    exercicioDAO.alterarExercicio(idAlteracao, novoExercicio);
+                                    exercicioDAO.alterarExercicio(idAlteracao, novoExercicio, calendario.getDataAtual());
                                     System.out.println("Exercicio alterado com sucesso!");
                                 } else {
                                     System.out.println("Exercicio nao encontrado.");
@@ -233,7 +233,7 @@ public class Gym {
                                 Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idExercicio);
                                 if (exercicioExistente != null) {
                                     ExercicioAplicacao exercicioAplicacao = Menus.adicionarExercicioAplicacaoMenu(idExercicio);
-                                    exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioAplicacao.getIdExercicio(), exercicioAplicacao.getDescricao());
+                                    exercicioAplicacaoDAO.adicionarExercicioAplicacao(exercicioAplicacao.getIdExercicio(), exercicioAplicacao.getDescricao(), calendario.getDataAtual());
                                 } else {
                                     System.out.println("Exercicio nao encontrado.");
                                 }
@@ -250,7 +250,7 @@ public class Gym {
                                 if (exercicioAplicacaoExistente != null) {
                                     if (exercicioDAO.buscarExercicio(exercicioAplicacaoExistente.getIdExercicio()) != null) {
                                         ExercicioAplicacao novoExercicioAplicacao = Menus.alterarExercicioAplicacaoMenu(idAlteracao, exercicioAplicacaoExistente);
-                                        exercicioAplicacaoDAO.alterarExercicioAplicacao(idAlteracao, novoExercicioAplicacao);
+                                        exercicioAplicacaoDAO.alterarExercicioAplicacao(idAlteracao, novoExercicioAplicacao, calendario.getDataAtual());
                                         System.out.println("Exercicio aplicacao alterado com sucesso!");
                                     } else {
                                         System.out.println("Exercicio aplicacao alterado com sucesso!");
@@ -308,7 +308,7 @@ public class Gym {
                         switch (opcaoDivisao) {
                             case 1: {
                                 DivisaoTreino divisaoTreino = Menus.adicionarDivisaoTreinoMenu();
-                                divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao());
+                                divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao(), calendario.getDataAtual());
                                 System.out.println("Divisao de Treino adicionada com sucesso!");
                             }
                             break;
@@ -321,7 +321,7 @@ public class Gym {
                                 DivisaoTreino divisaoTreinoExistente = divisaoTreinoDAO.buscarDivisaoTreino(idAlteracao);
                                 if (divisaoTreinoExistente != null) {
                                     DivisaoTreino novaDivisaoTreino = Menus.alterarDivisaoTreinoMenu(idAlteracao, divisaoTreinoExistente);
-                                    divisaoTreinoDAO.alterarDivisaoTreino(idAlteracao, novaDivisaoTreino.getNome(), novaDivisaoTreino.getDescricao());
+                                    divisaoTreinoDAO.alterarDivisaoTreino(idAlteracao, novaDivisaoTreino.getNome(), novaDivisaoTreino.getDescricao(), calendario.getDataAtual());
                                     System.out.println("Divisao de Treino alterada com sucesso!");
                                 } else {
                                     System.out.println("Divisao de Treino nao encontrada.");
@@ -362,14 +362,14 @@ public class Gym {
                         opcaoDivisaoTreinoMusculo = Menus.divisaoTreinoMusculoMenu();
                         switch (opcaoDivisaoTreinoMusculo) {
                             case 1:
-                                Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, divisaoTreinoDAO);
+                                Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, divisaoTreinoDAO, calendario.getDataAtual());
                                 break;
                             case 2:
                                 Menus.mostrarTodasDivisoesTreinoMusculoMenu(divisaoTreinoMusculoDAO);
                                 break;
                             case 3:
                                 int idParaAlterar = Menus.buscarDivisaoTreinoMusculoMenu("alterar");
-                                Menus.alterarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, idParaAlterar);
+                                Menus.alterarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, idParaAlterar, calendario.getDataAtual());
                                 break;
                             case 4:
                                 int idParaBuscar = Menus.buscarDivisaoTreinoMusculoMenu("buscar");
@@ -404,7 +404,7 @@ public class Gym {
                             case 1: {
                                 Treino treino = Menus.adicionarTreinoMenu(treinoDAO, divisaoTreinoDAO, pessoaDAO);
                                 if (treino != null) {
-                                    treinoDAO.adicionarTreino(treino);
+                                    treinoDAO.adicionarTreino(treino, calendario.getDataAtual());
                                     System.out.println("Treino adicionado com sucesso!");
                                 }
                             }
@@ -440,7 +440,7 @@ public class Gym {
                                 if (treinoExistente != null) {
                                     Treino novoTreino = Menus.alterarTreinoMenu(idAlteracao, treinoExistente, divisaoTreinoDAO, pessoaDAO);
                                     if (novoTreino != null) {
-                                        treinoDAO.alterarTreino(idAlteracao, novoTreino);
+                                        treinoDAO.alterarTreino(idAlteracao, novoTreino, calendario.getDataAtual());
                                         System.out.println("Treino alterado com sucesso!");
                                     }
                                 } else {
@@ -504,8 +504,8 @@ public class Gym {
                                 AvaliacaoFisica avaliacaoFisica = Menus.calcularIMC(pessoaDAO, treinoDAO);
                                 if (avaliacaoFisica != null) {
                                     MovimentacaoFinanceira movimentacaoAvaliacaoFisica = new MovimentacaoFinanceira(0, 20.0,
-                                            "entrada", "Pagamento de avaliacao fisica do aluno de id " + avaliacaoFisica.getPessoa().getId(), LocalDate.now(), LocalDate.now());
-                                    movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoAvaliacaoFisica);
+                                            "entrada", "Pagamento de avaliacao fisica do aluno de id " + avaliacaoFisica.getPessoa().getId(), calendario.getDataAtual(), calendario.getDataAtual());
+                                    movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoAvaliacaoFisica, calendario.getDataAtual());
                                     System.out.println("\nAvaliacao fisica realizada com sucesso.\n");
                                 }
                             }
@@ -529,7 +529,7 @@ public class Gym {
                         switch (opcaoMensalidade) {
                             case 1: {
                                 Mensalidade mensalidade = Menus.adicionarMensalidadeMenu();
-                                mensalidadeDAO.adicionarMensalidade(mensalidade);
+                                mensalidadeDAO.adicionarMensalidade(mensalidade, calendario.getDataAtual());
                                 System.out.println("Mensalidade adicionada com sucesso!");
                             }
                             break;
@@ -543,7 +543,7 @@ public class Gym {
                                 Mensalidade mensalidadeExistente = mensalidadeDAO.buscarMensalidade(idAlteracao);
                                 if (mensalidadeExistente != null) {
                                     Mensalidade novaMensalidade = Menus.alterarMensalidadeMenu(idAlteracao, mensalidadeExistente);
-                                    mensalidadeDAO.alterarMensalidade(idAlteracao, novaMensalidade);
+                                    mensalidadeDAO.alterarMensalidade(idAlteracao, novaMensalidade, calendario.getDataAtual());
                                     System.out.println("Mensalidade alterada com sucesso!");
                                 } else {
                                     System.out.println("Mensalidade nao encontrada.");
@@ -586,16 +586,16 @@ public class Gym {
                             case 1: {
                                 MensalidadeAluno mensalidadeAluno = Menus.associarMensalidadeAlunoMenu();
                                 Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
-                                LocalDate dataVencimento = mensalidadeAlunoDAO.ajustarDataVencimento(LocalDate.now(), mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDataFim());
+                                LocalDate dataVencimento = mensalidadeAlunoDAO.ajustarDataVencimento(calendario.getDataAtual(), mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDataFim());
                                 mensalidadeAluno.setDataVencimento(dataVencimento);
                                 Pessoa aluno = pessoaDAO.buscarPessoa(mensalidadeAluno.getIdAluno());
                                 if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
-                                    mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
+                                    mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno, calendario.getDataAtual());
                                     System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");
                                     if(mensalidadeAluno.getModalidade().equals("Pagamento Recorrente") == false){
                                         MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, mensalidadeAluno.getValorPago(),
                                         "entrada", "Pagamento de mensalidade do aluno de id " + mensalidadeAluno.getIdAluno(), calendario.getDataAtual(), calendario.getDataAtual());
-                                        movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento);
+                                        movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
                                     }else{
                                         System.out.println("Agora deve adicionar o Pagamento Recorrente do aluno!");
                                     }
@@ -616,7 +616,7 @@ public class Gym {
                                 MensalidadeAluno mensalidadeAlunoExistente = mensalidadeAlunoDAO.buscarMensalidadeAluno(idAlteracao);
                                 if (mensalidadeAlunoExistente != null) {
                                     MensalidadeAluno novaMensalidadeAluno = Menus.alterarMensalidadeAlunoMenu(mensalidadeAlunoExistente);
-                                    mensalidadeAlunoDAO.alterarMensalidadeAluno(idAlteracao, novaMensalidadeAluno);
+                                    mensalidadeAlunoDAO.alterarMensalidadeAluno(idAlteracao, novaMensalidadeAluno, calendario.getDataAtual());
                                     System.out.println("Associacao de mensalidade a aluno alterada com sucesso!");
                                 } else {
                                     System.out.println("Associacao de mensalidade a aluno nao encontrada.");
@@ -660,10 +660,10 @@ public class Gym {
                         switch (opcaoPagamento) {
                             case 1: {
                                 PagamentoRecorrente pagamentoRecorrente = Menus.adicionarPagamentoRecorrenteMenu();
-                                pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente);
+                                pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente, calendario.getDataAtual());
                                 MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
-                                        "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", LocalDate.now(), LocalDate.now());
-                                movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento);
+                                        "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", calendario.getDataAtual(), calendario.getDataAtual());
+                                movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
                                 System.out.println("Pagamento recorrente adicionado com sucesso!");
                             }
                             break;
@@ -678,7 +678,7 @@ public class Gym {
                                 PagamentoRecorrente pagamentoExistente = pagamentoRecorrenteDAO.buscarPagamento(idAlteracao);
                                 if (pagamentoExistente != null) {
                                     PagamentoRecorrente novoPagamento = Menus.alterarPagamentoRecorrenteMenu(idAlteracao, pagamentoExistente);
-                                    pagamentoRecorrenteDAO.alterarPagamento(idAlteracao, novoPagamento);
+                                    pagamentoRecorrenteDAO.alterarPagamento(idAlteracao, novoPagamento, calendario.getDataAtual());
                                     System.out.println("Pagamento recorrente alterado com sucesso!");
                                 } else {
                                     System.out.println("Pagamento recorrente nao encontrado.");

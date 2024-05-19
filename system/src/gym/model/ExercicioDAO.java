@@ -64,18 +64,17 @@ public class ExercicioDAO {
         };
 
         for (Exercicio exercicio : exercicios) {
-            adicionarExercicio(exercicio);
+            adicionarExercicio(exercicio, LocalDate.now());
         }
     }
 
-    public void adicionarExercicio(Exercicio exercicio) {
+    public void adicionarExercicio(Exercicio exercicio, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == exercicios.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
         exercicio.setId(id);
-        LocalDate dataAtual = LocalDate.now();
         exercicio.setDataCriacao(dataAtual);
         exercicio.setDataModificacao(dataAtual);
         exercicios[tamanho++] = exercicio;
@@ -88,12 +87,12 @@ public class ExercicioDAO {
         exercicios = novoArray;
     }
 
-    public void alterarExercicio(int id, Exercicio novoExercicio) {
+    public void alterarExercicio(int id, Exercicio novoExercicio, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (exercicios[i].getId() == id) {
                 exercicios[i].setNome(novoExercicio.getNome());
                 exercicios[i].setDescricao(novoExercicio.getDescricao());
-                exercicios[i].setDataModificacao(LocalDate.now());
+                exercicios[i].setDataModificacao(dataAtual);
                 break;
             }
         }

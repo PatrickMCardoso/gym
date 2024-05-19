@@ -15,7 +15,7 @@ public class DivisaoTreinoMusculoDAO {
         this.divisaoTreinoDAO = divisaoTreinoDAO;
     }
 
-    public void adicionarDivisaoTreinoMusculo(DivisaoTreino divisaoTreino, String[] tiposExercicios) {
+    public void adicionarDivisaoTreinoMusculo(DivisaoTreino divisaoTreino, String[] tiposExercicios, LocalDate dataAtual) {
         if (tamanho == divisoes.length) {
             aumentarCapacidade();
         }

@@ -24,17 +24,16 @@ public class ExercicioAplicacaoDAO {
             int idExercicio = i;
             String descricao = descricoes[random.nextInt(descricoes.length)];            
             
-            adicionarExercicioAplicacao(idExercicio, descricao);
+            adicionarExercicioAplicacao(idExercicio, descricao, LocalDate.now());
         }
     }
 
-    public void adicionarExercicioAplicacao(int idExercicio, String descricao) {
+    public void adicionarExercicioAplicacao(int idExercicio, String descricao, LocalDate dataAtual) {
             geradorId++;
             if (tamanho == exerciciosAplicacao.length) {
                 aumentarCapacidade();
             }
             int id = geradorId;
-            LocalDate dataAtual = LocalDate.now();
             ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(id, idExercicio, descricao, dataAtual, dataAtual);
             exerciciosAplicacao[tamanho++] = exercicioAplicacao; 
     }
@@ -46,11 +45,11 @@ public class ExercicioAplicacaoDAO {
         exerciciosAplicacao = novoArray;
     }
 
-    public void alterarExercicioAplicacao(int id, ExercicioAplicacao novoExercicioAplicacao) {
+    public void alterarExercicioAplicacao(int id, ExercicioAplicacao novoExercicioAplicacao, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (exerciciosAplicacao[i].getId() == id) {
                 exerciciosAplicacao[i].setDescricao(novoExercicioAplicacao.getDescricao());
-                exerciciosAplicacao[i].setDataModificacao(LocalDate.now());
+                exerciciosAplicacao[i].setDataModificacao(dataAtual);
                 break;
             }
         }

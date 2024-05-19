@@ -19,19 +19,18 @@ public class MensalidadeDAO {
         Mensalidade mensalidade2 = new Mensalidade(2, "Trimestral", 300.0, LocalDate.now(), LocalDate.now().plusMonths(3), LocalDate.now(), LocalDate.now());
         Mensalidade mensalidade3 = new Mensalidade(3, "Anual", 1000.0, LocalDate.now(), LocalDate.now().plusMonths(12), LocalDate.now(), LocalDate.now());
 
-        adicionarMensalidade(mensalidade1);
-        adicionarMensalidade(mensalidade2);
-        adicionarMensalidade(mensalidade3);
+        adicionarMensalidade(mensalidade1, LocalDate.now());
+        adicionarMensalidade(mensalidade2, LocalDate.now());
+        adicionarMensalidade(mensalidade3, LocalDate.now());
     }
 
-    public void adicionarMensalidade(Mensalidade mensalidade) {
+    public void adicionarMensalidade(Mensalidade mensalidade, LocalDate dataAtual) {
         geradorId++;
         if (tamanho == mensalidades.length) {
             aumentarCapacidade();
         }
         int id = geradorId;
         mensalidade.setId(id);
-        LocalDate dataAtual = LocalDate.now();
         mensalidade.setDataCriacao(dataAtual);
         mensalidade.setDataModificacao(dataAtual);
         mensalidades[tamanho++] = mensalidade;
@@ -44,13 +43,13 @@ public class MensalidadeDAO {
         mensalidades = novoArray;
     }
 
-    public void alterarMensalidade(int id, Mensalidade novaMensalidade) {
+    public void alterarMensalidade(int id, Mensalidade novaMensalidade, LocalDate dataAtual) {
         for (int i = 0; i < tamanho; i++) {
             if (mensalidades[i].getId() == id) {
                 mensalidades[i].setValor(novaMensalidade.getValor());
                 mensalidades[i].setDataInicio(novaMensalidade.getDataInicio());
                 mensalidades[i].setDataFim(novaMensalidade.getDataFim());
-                mensalidades[i].setDataModificacao(LocalDate.now());
+                mensalidades[i].setDataModificacao(dataAtual);
                 break;
             }
         }
