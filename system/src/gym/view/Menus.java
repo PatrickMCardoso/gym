@@ -9,6 +9,35 @@ import java.text.DecimalFormat;
 public class Menus {
 
     static Scanner scanner = new Scanner(System.in);
+    
+    // MENU INICIO
+    public static int menuIniciar() {
+        System.out.println("**************************************");
+        System.out.println("*  BEM VINDO AO SISTEMA DA ACADEMIA  *");
+        System.out.println("**************************************\n");
+        System.out.println("------------------------");
+        System.out.println("\nDigite a opcao escolhida:");
+        System.out.println("1 - Fazer login\n");
+        System.out.println("2 - SAIR\n");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+    
+    // MENU INICIO
+    public static String[] menuLogin() {
+        System.out.println("**********************");
+        System.out.println("*  SISTEMA DE LOGIN  *");
+        System.out.println("***********************\n");
+        System.out.println("------------------------");
+        System.out.println("\nDigite seu login:");
+        String login = scanner.nextLine();
+        System.out.println("\nDigite sua senha:");
+        String senha = scanner.nextLine();
+        
+        String[] loginSenha = {login, senha};
+        
+        return loginSenha;
+    }
 
     // MENU PRINCIPAL
     public static int mostrarMenuPrincipal() {
