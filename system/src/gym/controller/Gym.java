@@ -34,6 +34,7 @@ public class Gym {
         exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
         treinoDAO.adicionarTreinoExemplos();
 
+        //MENU ADMIN
         int opcao = 0;
         while (opcao != 17) {
             opcao = Menus.mostrarMenuPrincipal();
@@ -597,7 +598,9 @@ public class Gym {
                                 Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
                                 LocalDate dataVencimento = mensalidadeAlunoDAO.ajustarDataVencimento(calendario.getDataAtual(), mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDataFim());
                                 mensalidadeAluno.setDataVencimento(dataVencimento);
+                                mensalidadeAluno.setValorPago(mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getValor());
                                 Pessoa aluno = pessoaDAO.buscarPessoa(mensalidadeAluno.getIdAluno());
+                                
                                 if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
                                     mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno, calendario.getDataAtual());
                                     System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");

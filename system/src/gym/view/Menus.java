@@ -1101,8 +1101,6 @@ public class Menus {
         int idMensalidade = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o ID do aluno: ");
         int idAluno = Integer.parseInt(scanner.nextLine());
-        System.out.println("Digite o valor pago: ");
-        double valorPago = Double.parseDouble(scanner.nextLine());
         System.out.println("Digite a modalidade \n 1 - Pix \n 2 - Pagamento Recorrente \n 3 - Dinheiro \n 4 - Debito: ");
         int modalidadeNumero = Integer.parseInt(scanner.nextLine());
 
@@ -1122,7 +1120,7 @@ public class Menus {
 
         LocalDate dataAtual = LocalDate.now();
 
-        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idAluno, idMensalidade, dataAtual, dataAtual, valorPago, modalidade, dataAtual, dataAtual);
+        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idAluno, idMensalidade, dataAtual, dataAtual, 0.0, modalidade, dataAtual, dataAtual);
         return mensalidadeAluno;
     }
 
