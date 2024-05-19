@@ -1,7 +1,6 @@
 package gym.model;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class DivisaoTreinoMusculoDAO {
 
@@ -15,15 +14,14 @@ public class DivisaoTreinoMusculoDAO {
         this.divisaoTreinoDAO = divisaoTreinoDAO;
     }
 
-    public void adicionarDivisaoTreinoMusculo(DivisaoTreino divisaoTreino, String[] tiposExercicios, LocalDate dataAtual) {
+    public void adicionarDivisaoTreinoMusculo(int alunoId, DivisaoTreino divisaoTreino, String[] tiposExercicios, LocalDate dataAtual) {
         if (tamanho == divisoes.length) {
             aumentarCapacidade();
         }
         int id = tamanho + 1;
-        DivisaoTreinoMusculo divisaoTreinoMusculo = new DivisaoTreinoMusculo(id, divisaoTreino, LocalDate.now(), LocalDate.now(), tiposExercicios);
+        DivisaoTreinoMusculo divisaoTreinoMusculo = new DivisaoTreinoMusculo(id, alunoId, divisaoTreino, dataAtual, dataAtual, tiposExercicios);
         divisoes[tamanho++] = divisaoTreinoMusculo;
     }
-
 
     private void aumentarCapacidade() {
         int novaCapacidade = divisoes.length * 2;
@@ -46,7 +44,7 @@ public class DivisaoTreinoMusculoDAO {
         System.arraycopy(divisoes, 0, divisoesExistentes, 0, tamanho);
         return divisoesExistentes;
     }
-    
+
     public void removerDivisaoTreinoMusculo(int id) {
         for (int i = 0; i < tamanho; i++) {
             if (divisoes[i].getId() == id) {
@@ -61,5 +59,22 @@ public class DivisaoTreinoMusculoDAO {
         for (int i = 0; i < tamanho; i++) {
             divisoes[i].setId(i + 1);
         }
+    }
+
+    public DivisaoTreinoMusculo[] buscarDivisoesTreinoMusculoPorAluno(int alunoId) {
+        int count = 0;
+        for (int i = 0; i < tamanho; i++) {
+            if (divisoes[i].getAlunoId() == alunoId) {
+                count++;
+            }
+        }
+        DivisaoTreinoMusculo[] resultado = new DivisaoTreinoMusculo[count];
+        int index = 0;
+        for (int i = 0; i < tamanho; i++) {
+            if (divisoes[i].getAlunoId() == alunoId) {
+                resultado[index++] = divisoes[i];
+            }
+        }
+        return resultado;
     }
 }

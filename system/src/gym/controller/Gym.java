@@ -468,28 +468,37 @@ public class Gym {
                 //TREINO APLICACAO
                 case 8: {
                     int opcaoTreinoAplicacao = 0;
+                    String[] nomesExercicios = new String[100];
+                    int usuarioId = 2;
                     while (opcaoTreinoAplicacao != 5) {
                         Menus.digitarQualquerTecla();
                         opcaoTreinoAplicacao = Menus.treinoAplicacaoMenu();
                         switch (opcaoTreinoAplicacao) {
                             case 1: {
-                                Menus.adicionarTreinoAplicacaoMenu(treinoAplicacaoDAO, divisaoTreinoDAO, exercicioDAO, exercicioAplicacaoDAO, treinoDAO);
+                                nomesExercicios = Menus.adicionarTreinoAplicacaoMenu(treinoAplicacaoDAO, divisaoTreinoDAO, treinoDAO, exercicioDAO, exercicioAplicacaoDAO, divisaoTreinoMusculoDAO);
                             }
                             break;
-                            case 2:
-                                Menus.mostrarTodasTreinoAplicacoesMenu(treinoAplicacaoDAO, pessoaDAO, exercicioDAO, divisaoTreinoDAO);
-                                break;
-                            case 3:
+                            case 2: {
+                                Menus.mostrarTreinoAplicacaoMenu(treinoAplicacaoDAO, treinoDAO, nomesExercicios, divisaoTreinoDAO, usuarioId);
+                            }
+                            break;
+                            case 3: {
                                 Menus.alterarTreinoAplicacaoMenu(treinoAplicacaoDAO);
-                                break;
-                            case 4:
+                            }
+                            break;
+                            case 4: {
                                 Menus.removerTreinoAplicacaoMenu(treinoAplicacaoDAO);
+                            }
+                            break;
+                            case 5:
+                                System.out.println("\nSaindo...");
                                 break;
                             default:
                                 Menus.mostrarOpcaoInvalida();
                                 break;
                         }
                     }
+
                 }
                 break;
 
@@ -592,11 +601,11 @@ public class Gym {
                                 if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
                                     mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno, calendario.getDataAtual());
                                     System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");
-                                    if(mensalidadeAluno.getModalidade().equals("Pagamento Recorrente") == false){
+                                    if (mensalidadeAluno.getModalidade().equals("Pagamento Recorrente") == false) {
                                         MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, mensalidadeAluno.getValorPago(),
-                                        "entrada", "Pagamento de mensalidade do aluno de id " + mensalidadeAluno.getIdAluno(), calendario.getDataAtual(), calendario.getDataAtual());
+                                                "entrada", "Pagamento de mensalidade do aluno de id " + mensalidadeAluno.getIdAluno(), calendario.getDataAtual(), calendario.getDataAtual());
                                         movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
-                                    }else{
+                                    } else {
                                         System.out.println("Agora deve adicionar o Pagamento Recorrente do aluno!");
                                     }
                                 } else {
@@ -724,7 +733,7 @@ public class Gym {
                                 if (calendario.checarQuintoDiaUtil() == true) {
                                     Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
                                     movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
-                                }else if(calendario.checarTerminoMes() == true){
+                                } else if (calendario.checarTerminoMes() == true) {
                                     Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
                                     MensalidadeAluno[] mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
                                     int[] idsAlunosAdimplentes = calendario.checarAlunosAdimplentes(mensalidades);

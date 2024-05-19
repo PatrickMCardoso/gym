@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class TreinoAplicacaoDAO {
     private TreinoAplicacao[] treinoAplicacoes;
     private int tamanho;
-    private int geradorId;
+    private int geradorId;    
 
     public TreinoAplicacaoDAO() {
         this.treinoAplicacoes = new TreinoAplicacao[10];
@@ -62,5 +62,26 @@ public class TreinoAplicacaoDAO {
         TreinoAplicacao[] novoArray = new TreinoAplicacao[treinoAplicacoes.length * 2];
         System.arraycopy(treinoAplicacoes, 0, novoArray, 0, treinoAplicacoes.length);
         treinoAplicacoes = novoArray;
+    }
+    
+    public TreinoAplicacao[] listarTodosPorUsuario(int usuarioId) {
+        int count = 0;
+        // Contar o número de aplicações de treino do usuário
+        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
+            if (treinoAplicacao != null && treinoAplicacao.getUsuarioId() == usuarioId) {
+                count++;
+            }
+        }
+        // Criar um novo array com o tamanho correto
+        TreinoAplicacao[] treinoAplicacoesUsuario = new TreinoAplicacao[count];
+        int index = 0;
+        // Preencher o array com as aplicações de treino do usuário
+        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
+            if (treinoAplicacao != null && treinoAplicacao.getUsuarioId() == usuarioId) {
+                treinoAplicacoesUsuario[index] = treinoAplicacao;
+                index++;
+            }
+        }
+        return treinoAplicacoesUsuario;
     }
 }

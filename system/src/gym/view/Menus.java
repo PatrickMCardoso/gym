@@ -464,8 +464,11 @@ public class Menus {
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
-  
+
     public static void adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, DivisaoTreinoDAO divisaoTreinoDAO, LocalDate dataAtual) {
+        System.out.println("Informe o ID do aluno: ");
+        int alunoId = Integer.parseInt(scanner.nextLine());
+
         divisaoTreinoDAO.mostrarTodasDivisoesTreinoMenu();
         System.out.println("Informe o ID da divisao de treino que deseja escolher: ");
         int escolhaId = Integer.parseInt(scanner.nextLine());
@@ -475,7 +478,7 @@ public class Menus {
             String[] letras = divisaoTreinoEscolhida.getNome().split("");
             String[] tiposExercicios = new String[letras.length];
             String[] todosTipos = new String[]{"PEITO", "COSTAS", "OMBROS", "BICEPS", "TRICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
-            
+
             System.out.println("Opcoes de exercicios:");
             for (int i = 0; i < todosTipos.length; i++) {
                 System.out.println((i + 1) + " - " + todosTipos[i]);
@@ -494,10 +497,45 @@ public class Menus {
                 tiposExercicios[i] = String.join(", ", tipos);
             }
 
-            divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(divisaoTreinoEscolhida, tiposExercicios, dataAtual);
+            divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(alunoId, divisaoTreinoEscolhida, tiposExercicios, dataAtual);
         } else {
             System.out.println("Divisao de treino nao encontrada.");
         }
+    }
+
+    public static String[] adicionarDivisaoTreinoMusculoMenu2(DivisaoTreino divisaoTreino, int usuarioId, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, DivisaoTreinoDAO divisaoTreinoDAO, LocalDate dataAtual) {
+        // Se a divisao de treino fornecida for nula, nao podemos prosseguir
+        if (divisaoTreino == null) {
+            System.out.println("Divisao de treino nao encontrada.");
+        }
+
+        String[] letras = divisaoTreino.getNome().split("");
+        String[] tiposExercicios = new String[letras.length];
+        String[] nomesExercicios = new String[tiposExercicios.length];
+        String[] todosTipos = new String[]{"PEITO", "COSTAS", "OMBROS", "BICEPS", "TRICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
+
+        System.out.println("Opcoes de exercicios:");
+        for (int i = 0; i < todosTipos.length; i++) {
+            System.out.println((i + 1) + " - " + todosTipos[i]);
+        }
+
+        for (int i = 0; i < letras.length; i++) {
+            System.out.println("Informe os exercicios para " + letras[i] + " (separados por virgula): ");
+            String entrada = scanner.nextLine();
+            nomesExercicios[i] = entrada;
+            String[] partes = entrada.replaceAll("\\s+", "").split(",");
+            String[] tipos = new String[partes.length];
+
+            for (int j = 0; j < partes.length; j++) {
+                int indice = Integer.parseInt(partes[j]);
+                tipos[j] = todosTipos[indice - 1];
+            }
+            tiposExercicios[i] = String.join(", ", tipos);
+        }
+
+        divisaoTreinoMusculoDAO.adicionarDivisaoTreinoMusculo(usuarioId, divisaoTreino, tiposExercicios, dataAtual);
+
+        return nomesExercicios;
     }
 
     public static void mostrarTodasDivisoesTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
@@ -519,6 +557,7 @@ public class Menus {
     public static void mostrarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculo divisaoTreinoMusculo) {
         System.out.println("\n***** DIVISAO DE TREINO MUSCULAR *****\n");
         System.out.println("ID: " + divisaoTreinoMusculo.getId());
+        System.out.println("Aluno ID: " + divisaoTreinoMusculo.getAlunoId());
         System.out.println("Divisao: " + divisaoTreinoMusculo.getDivisaoTreino().getNome());
         String[] letras = divisaoTreinoMusculo.getDivisaoTreino().getNome().split("");
         String[] tiposExercicios = divisaoTreinoMusculo.getTiposExercicios();
@@ -527,25 +566,25 @@ public class Menus {
         }
         System.out.println("------------------------");
     }
-    
+
     public static int buscarDivisaoTreinoMusculoMenu(String modo) {
         System.out.println("Digite o ID da divisao de treino muscular que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
-    
+
     public static void alterarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, int id, LocalDate dataAtual) {
         DivisaoTreinoMusculo divisaoTreinoMusculo = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(id);
         if (divisaoTreinoMusculo != null) {
             String[] letras = divisaoTreinoMusculo.getDivisaoTreino().getNome().split("");
             String[] tiposExercicios = new String[letras.length];
             String[] todosTipos = new String[]{"PEITO", "COSTAS", "OMBROS", "BICEPS", "TRICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
-            
+
             System.out.println("Opcoes de exercicios:");
             for (int i = 0; i < todosTipos.length; i++) {
                 System.out.println((i + 1) + " - " + todosTipos[i]);
             }
-            
+
             for (int i = 0; i < letras.length; i++) {
                 System.out.println("Informe os exercicios para " + letras[i] + " (separados por virgula): ");
                 String entrada = scanner.nextLine();
@@ -567,12 +606,17 @@ public class Menus {
             System.out.println("Divisao de treino muscular nao encontrada.");
         }
     }
-    
+
     public static void removerDivisaoTreinoMusculoMenu(DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO, int id) {
-        divisaoTreinoMusculoDAO.removerDivisaoTreinoMusculo(id);
-        System.out.println("Divisao de treino muscular removida com sucesso.");
+        DivisaoTreinoMusculo divisaoTreinoMusculo = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(id);
+        if (divisaoTreinoMusculo != null) {
+            divisaoTreinoMusculoDAO.removerDivisaoTreinoMusculo(id);
+            System.out.println("Divisao de treino muscular removida com sucesso.");
+        } else {
+            System.out.println("Divisao de treino muscular nao encontrada.");
+        }
     }
- 
+
     // TREINO
     public static int treinoMenu() {
         System.out.println("**************************");
@@ -608,7 +652,7 @@ public class Menus {
             String objetivo = scanner.nextLine();
 
             System.out.println("Digite a data de inicio do treino (no formato dd/MM/aaaa):");
-            LocalDate dataInicio = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));            
+            LocalDate dataInicio = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
             System.out.println("Digite a data de termino do treino (no formato dd/MM/aaaa):");
             LocalDate dataTermino = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -727,209 +771,103 @@ public class Menus {
         return menuOption;
     }
     
-//    public static void adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
-//        System.out.println("Informe o ID do usuario: ");
-//        int usuarioId = Integer.parseInt(scanner.nextLine());
-//
-//        // Selecao da divisao de treino
-//        mostrarTodasDivisoesTreinoMenu(divisaoTreinoDAO);
-//        System.out.println("Informe o ID da divisao de treino escolhida: ");
-//        int divisaoTreinoId = Integer.parseInt(scanner.nextLine());
-//        DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(divisaoTreinoId);
-//
-//        if (divisaoTreino != null) {
-//            String[] tiposExercicios = divisaoTreino.getNome().split("");
-//            for (String tipoExercicio : tiposExercicios) {
-//                System.out.println("Quantos exercicios deseja para " + tipoExercicio + "?");
-//                int numExercicios = Integer.parseInt(scanner.nextLine());
-//
-//                for (int i = 0; i < numExercicios; i++) {
-//                    System.out.println("Informe o nome do exercicio " + (i + 1) + " para " + tipoExercicio + ": ");
-//                    String nomeExercicio = scanner.nextLine();
-//                    Exercicio exercicio = exercicioDAO.buscarExercicioPorNome(nomeExercicio);
-//
-//                    if (exercicio != null) {
-//                        ExercicioAplicacao exercicioAplicacao = exercicioAplicacaoDAO.buscarExercicioAplicacao(exercicio.getId());
-//                        if (exercicioAplicacao != null) {
-//                            TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, usuarioId, null, exercicio, exercicioAplicacao, divisaoTreino, null, LocalDate.now(), LocalDate.now());
-//                            treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacao);
-//                        } else {
-//                            System.out.println("Exercicio aplicacao nao encontrado.");
-//                        }
-//                    } else {
-//                        System.out.println("Exercicio nao encontrado.");
-//                    }
-//                }
-//            }
-//        } else {
-//            System.out.println("Divisao de treino nao encontrada.");
-//        }
-//    }
-//    
-//    public static void mostrarTodasTreinoAplicacoesMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
-//        TreinoAplicacao[] treinoAplicacoes = treinoAplicacaoDAO.listarTodos();
-//        System.out.println("\n***** TODAS AS FICHAS DE TREINO *****\n");
-//        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
-//            System.out.println("ID: " + treinoAplicacao.getId() + ", Usuario ID: " + treinoAplicacao.getUsuarioId());
-//            System.out.println("Treino: " + treinoAplicacao.getTreino().getObjetivo());
-//            System.out.println("Exercicio: " + treinoAplicacao.getExercicio().getNome());
-//            System.out.println("Descricao do Exercicio de Aplicacao: " + treinoAplicacao.getExercicioAplicacao().getDescricao());
-//            System.out.println("Divisao de Treino: " + treinoAplicacao.getDivisaoTreino().getNome());
-//            System.out.println("Divisao de Treino Musculo: " + treinoAplicacao.getDivisaoTreinoMusculo().getDivisaoTreino().getNome());
-//            System.out.println("Data de Criacao: " + treinoAplicacao.getDataCriacao());
-//            System.out.println("Data de Modificacao: " + treinoAplicacao.getDataModificacao());
-//            System.out.println("------------------------");
-//        }
-//    }
-//    
-//    public static void alterarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
-//        System.out.println("Informe o ID da ficha de treino que deseja alterar: ");
-//        int id = Integer.parseInt(scanner.nextLine());
-//        TreinoAplicacao treinoAplicacao = treinoAplicacaoDAO.buscarTreinoAplicacao(id);
-//
-//        if (treinoAplicacao != null) {
-//            System.out.println("Informe o novo ID do usuario: ");
-//            int novoUsuarioId = Integer.parseInt(scanner.nextLine());
-//            treinoAplicacao.setUsuarioId(novoUsuarioId);
-//            // Outros campos a serem alterados...
-//            treinoAplicacao.setDataModificacao(LocalDate.now());
-//            treinoAplicacaoDAO.alterarTreinoAplicacao(id, treinoAplicacao);
-//            System.out.println("Ficha de treino alterada com sucesso.");
-//        } else {
-//            System.out.println("Ficha de treino nao encontrada.");
-//        }
-//    }
-//    
-//    public static void removerTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
-//        System.out.println("Informe o ID da ficha de treino que deseja remover: ");
-//        int id = Integer.parseInt(scanner.nextLine());
-//        treinoAplicacaoDAO.removerTreinoAplicacao(id);
-//        System.out.println("Ficha de treino removida com sucesso.");
-//    }
-    
-    public static void adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, TreinoDAO treinoDAO) {
-        System.out.println("Informe o ID do aluno: ");
-        int alunoId = Integer.parseInt(scanner.nextLine());
+    public static String[] adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, TreinoDAO treinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
+        System.out.println("Informe o ID do usuario: ");
+        int usuarioId = Integer.parseInt(scanner.nextLine());
 
-        // Verificar se o aluno ja tem uma divisao de treino
-        DivisaoTreinoMusculo[] divisoesTreinoMusculo = divisaoTreinoDAO.buscarDivisoesTreinoMusculoPorAluno(alunoId);
+        mostrarTodasDivisoesTreinoMenu(divisaoTreinoDAO);
+        System.out.println("Informe o ID da divisao de treino escolhida: ");
+        int divisaoTreinoId = Integer.parseInt(scanner.nextLine());
+        DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(divisaoTreinoId);
 
-        if (divisoesTreinoMusculo.length > 0) {
-            // Aluno ja possui uma divisao de treino
-            adicionarDivisaoTreinoMusculo(divisoesTreinoMusculo, treinoAplicacaoDAO, exercicioDAO, exercicioAplicacaoDAO, alunoId);
-        } else {
-            // Aluno nao possui uma divisao de treino, adicionar nova
-            adicionarDivisaoTreinoMusculoMenu(divisaoTreinoDAO, treinoAplicacaoDAO, exercicioDAO, exercicioAplicacaoDAO, alunoId);
+        if (divisaoTreino == null) {
+            System.out.println("Divisao de treino nao encontrada.");
+            return new String[0];
         }
-    }
 
-    public static void adicionarDivisaoTreinoMusculo(DivisaoTreinoMusculo[] divisoesTreinoMusculo, TreinoAplicacaoDAO treinoAplicacaoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, int alunoId) {
-        String[] todosTipos = new String[]{"PEITO", "OMBRO", "TRICEPS", "COSTAS", "BICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
-        TreinoAplicacao[] treinoAplicacoes = new TreinoAplicacao[100];  // Ajuste conforme necessario
-        int index = 0;
+        Treino[] treinos = treinoDAO.mostrarTreinos();
+        for (Treino treino : treinos) {
+            System.out.println("ID do Treino: " + treino.getId() + " - Objetivo: " + treino.getObjetivo());
+        }
+        System.out.println("Informe o ID do treino escolhido: ");
+        int treinoId = Integer.parseInt(scanner.nextLine());
+        Treino treino = treinoDAO.buscarTreino(treinoId);
 
-        for (DivisaoTreinoMusculo divisao : divisoesTreinoMusculo) {
-            String[] tiposExercicios = divisao.getDivisaoTreino().getNome().split("");
+        if (treino == null) {
+            System.out.println("Treino nao encontrado.");
+            return new String[0];
+        }
 
-            for (String tipoExercicio : tiposExercicios) {
-                String musculo = todosTipos[Integer.parseInt(tipoExercicio) - 1];
-                System.out.println("Quantos exercicios deseja para " + musculo + "?");
-                int numExercicios = Integer.parseInt(scanner.nextLine());
+        System.out.println("Informe o ID da divisao de treino musculo escolhida: ");
+        int divisaoTreinoMusculoId = Integer.parseInt(scanner.nextLine());
+        DivisaoTreinoMusculo divisaoTreinoMusculo = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(divisaoTreinoMusculoId);
 
-                for (int i = 0; i < numExercicios; i++) {
-                    System.out.println("Informe o nome do exercicio " + (i + 1) + " para " + musculo + ": ");
-                    String nomeExercicio = scanner.nextLine();
-                    Exercicio exercicio = exercicioDAO.buscarExercicioPorNome(nomeExercicio);
+        if (divisaoTreinoMusculo == null) {
+            System.out.println("Divisao de treino musculo nao encontrada.");
+            return new String[0];
+        }
 
-                    if (exercicio != null) {
-                        ExercicioAplicacao exercicioAplicacao = exercicioAplicacaoDAO.buscarExercicioAplicacao(exercicio.getId());
-                        if (exercicioAplicacao != null) {
-                            TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, alunoId, null, exercicio, exercicioAplicacao, divisao.getDivisaoTreino(), divisao, LocalDate.now(), LocalDate.now());
-                            treinoAplicacoes[index++] = treinoAplicacao;
-                        } else {
-                            System.out.println("Exercicio aplicacao nao encontrado.");
-                        }
+        String[] nomesExercicios = new String[100];
+        String[] tiposExercicios = divisaoTreino.getNome().split("");
+        int index = 0; 
+
+        for (String tipoExercicio : tiposExercicios) {
+            System.out.println("Quantos exercicios deseja para " + tipoExercicio + "?");
+            int numExercicios = Integer.parseInt(scanner.nextLine());
+
+            for (int i = 0; i < numExercicios; i++) {
+                System.out.println("Informe o nome do exercicio " + (i + 1) + " para " + tipoExercicio + ": ");
+                String nomeExercicio = scanner.nextLine();
+                nomesExercicios[index++] = nomeExercicio;
+                Exercicio exercicio = exercicioDAO.buscarExercicioPorNome(nomeExercicio);
+
+                if (exercicio != null) {
+                    ExercicioAplicacao exercicioAplicacao = exercicioAplicacaoDAO.buscarExercicioAplicacao(exercicio.getId());
+                    if (exercicioAplicacao != null) {
+                        TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, usuarioId, treino, exercicio, exercicioAplicacao, divisaoTreino, divisaoTreinoMusculo, LocalDate.now(), LocalDate.now());
+                        treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacao);
                     } else {
-                        System.out.println("Exercicio nao encontrado.");
+                        System.out.println("Exercicio aplicacao nao encontrado.");
                     }
+                } else {
+                    System.out.println("Exercicio nao encontrado.");
                 }
             }
         }
-
-        // Adicionar todos os TreinoAplicacao ao DAO
-        for (int i = 0; i < index; i++) {
-            treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacoes[i]);
-        }
-
-        System.out.println("Treino aplicacao adicionado com sucesso.");
+        return nomesExercicios;
     }
 
-    public static void adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoDAO divisaoTreinoDAO, TreinoAplicacaoDAO treinoAplicacaoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, int alunoId) {
-        // Implementar logica para adicionar uma nova divisao de treino para o aluno
-        // ...
-        // Apos adicionar a nova divisao, chamar adicionarDivisaoTreinoMusculo()
-        DivisaoTreinoMusculo[] novasDivisoesTreinoMusculo = divisaoTreinoDAO.buscarDivisoesTreinoMusculoPorAluno(alunoId);
-        adicionarDivisaoTreinoMusculo(novasDivisoesTreinoMusculo, treinoAplicacaoDAO, exercicioDAO, exercicioAplicacaoDAO, alunoId);
-    }
+    public static void mostrarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, TreinoDAO treinoDAO, String[] nomesExercicios, DivisaoTreinoDAO divisaoTreino, int usuarioId) {
+        TreinoAplicacao[] treinoAplicacoesUsuario = treinoAplicacaoDAO.listarTodosPorUsuario(usuarioId);
 
-    public static void mostrarTodasTreinoAplicacoesMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, PessoaDAO pessoaDAO, ExercicioDAO exercicioDAO, DivisaoTreinoDAO divisaoTreinoDAO) {
-        TreinoAplicacao[] treinoAplicacoes = treinoAplicacaoDAO.listarTodos();
-        System.out.println("\n***** TODAS AS FICHAS DE TREINO *****\n");
-
-        // Coletar IDs unicos dos alunos
-        int[] alunoIds = new int[treinoAplicacoes.length];
-        int alunoIndex = 0;
-
-        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
-            int usuarioId = treinoAplicacao.getUsuarioId();
-            boolean alunoExistente = false;
-            for (int id : alunoIds) {
-                if (id == usuarioId) {
-                    alunoExistente = true;
-                    break;
-                }
-            }
-            if (!alunoExistente) {
-                alunoIds[alunoIndex++] = usuarioId;
-            }
+        if (treinoAplicacoesUsuario.length == 0) {
+            System.out.println("Nenhuma ficha de treino encontrada para este usuario.");
+            return;
         }
 
-        for (int i = 0; i < alunoIndex; i++) {
-            int alunoId = alunoIds[i];
-            Pessoa aluno = pessoaDAO.buscarPessoa(alunoId);
+        System.out.println("\n***** FICHA DE TREINO DO USUaRIO *****\n");
 
-            if (aluno != null && pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
-                System.out.println("ID aluno: " + alunoId);
-                System.out.println("Nome do Aluno: " + aluno.getNome());
+        for (TreinoAplicacao treinoAplicacao : treinoAplicacoesUsuario) {
+            System.out.println("ID da Ficha de Treino: " + treinoAplicacao.getId());
+            System.out.println("ID do Usuario: " + treinoAplicacao.getUsuarioId());
 
-                DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
-                for (DivisaoTreino divisaoTreino : divisoesTreino) {
-                    System.out.println("Treino " + divisaoTreino.getNome());
+            Treino treino = treinoDAO.buscarTreino(treinoAplicacao.getTreino().getId());
 
-                    char[] letrasDivisao = divisaoTreino.getNome().toCharArray();
-                    for (char letra : letrasDivisao) {
-                        System.out.print("\t" + letra + " = ");
-
-                        String[] todosTipos = new String[]{"PEITO", "COSTAS", "OMBROS", "BICEPS", "TRICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
-                        for (String tipo : todosTipos) {
-                            System.out.print(tipo + ", ");
-                        }
-                        System.out.println();
-
-                        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
-                            if (treinoAplicacao.getUsuarioId() == alunoId && treinoAplicacao.getDivisaoTreino().getId() == divisaoTreino.getId() && treinoAplicacao.getDivisaoTreinoMusculo().getDivisaoTreino().getNome().charAt(0) == letra) {
-                                Exercicio exercicio = exercicioDAO.buscarExercicio(treinoAplicacao.getExercicio().getId());
-                                System.out.println("\t\t" + treinoAplicacao.getDivisaoTreinoMusculo().getMusculo());
-                                System.out.println("\t\t\t" + (exercicio != null ? exercicio.getNome() : "Desconhecido") + " + (" + treinoAplicacao.getExercicioAplicacao().getDescricao() + ")");
-                            }
-                        }
-                    }
-                }
-                System.out.println("------------------------");
+            if (treino != null) {
+                System.out.println("Divisao de Treino: " + treinoAplicacao.getDivisaoTreino().getNome());
+                System.out.println("Objetivo do Treino: " + treino.getObjetivo());
+                System.out.println("Data de Inicio do Treino: " + formataData(treino.getDataInicio()));
+                System.out.println("Data de Termino do Treino: " + formataData(treino.getDataTermino()));
+                System.out.println("Data de Criacao: " + treinoAplicacao.getDataCriacao());
+                System.out.println("Data de Modificacao: " + treinoAplicacao.getDataModificacao());
+            } else {
+                System.out.println("Treino nao encontrado para este usuario.");
             }
+
+            System.out.println("------------------------");
         }
     }
-
+    
     public static void alterarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
         System.out.println("Informe o ID da ficha de treino que deseja alterar: ");
         int id = Integer.parseInt(scanner.nextLine());
@@ -947,29 +885,27 @@ public class Menus {
             System.out.println("Ficha de treino nao encontrada.");
         }
     }
-
+    
     public static void removerTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
         System.out.println("Informe o ID da ficha de treino que deseja remover: ");
         int id = Integer.parseInt(scanner.nextLine());
         treinoAplicacaoDAO.removerTreinoAplicacao(id);
         System.out.println("Ficha de treino removida com sucesso.");
     }
-    
-    
-    
+
     // AVALIACAO FISICA
     public static int avaliacaoFisicaMenu() {
         System.out.println("***********************************");
         System.out.println("*   SISTEMA DE AVALIACAO FISICA   *");
         System.out.println("***********************************\n");
         System.out.println("Escolha uma opcao:\n");
-        System.out.println("1 - Realizar avaliacao fisica\n");        
+        System.out.println("1 - Realizar avaliacao fisica\n");
         System.out.println("2 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
-    
+
     public static AvaliacaoFisica calcularIMC(PessoaDAO pessoaDAO, TreinoDAO treinoDAO) {
         System.out.println("\n*****  REALIZAR AVALIACAO FISICA  *****\n");
 
@@ -1018,15 +954,15 @@ public class Menus {
                 AvaliacaoFisica avaliacaoFisica = new AvaliacaoFisica(0, pessoaEncontrada, ultimoTreino, peso, altura, indiceSatisfacao);
                 avaliacaoFisica.setDataCriacao(dataAtual);
                 avaliacaoFisica.setDataModificacao(dataAtual);
-                                
+
                 DecimalFormat df = new DecimalFormat("#.00");
                 String imcFormatado = df.format(avaliacaoFisica.getImc());
                 System.out.println("\nIndice de Massa Coporal(IMC): " + imcFormatado);
-                
+
                 System.out.println("\nInforme sua idade para visualizar Tabela do IMC: ");
                 int idade = Integer.parseInt(scanner.nextLine());
                 mostrarTabelaIMC(idade);
-                
+
                 return avaliacaoFisica;
             } else {
                 System.out.println("Nenhum treino foi encontrado para voce.");
@@ -1037,7 +973,7 @@ public class Menus {
             return null;
         }
     }
-     
+
     private static void mostrarTabelaIMC(int idade) {
         System.out.println("\n*****  TABELA DE IMC  *****\n");
         if (idade < 18) {
@@ -1061,7 +997,7 @@ public class Menus {
             System.out.println("Sobrepeso: IMC > 27");
         }
     }
-    
+
     // MENSALIDADE
     public static int mensalidadeMenu() {
         System.out.println("*******************************");
@@ -1169,13 +1105,16 @@ public class Menus {
         double valorPago = Double.parseDouble(scanner.nextLine());
         System.out.println("Digite a modalidade \n 1 - Pix \n 2 - Pagamento Recorrente \n 3 - Dinheiro \n 4 - Debito: ");
         int modalidadeNumero = Integer.parseInt(scanner.nextLine());
-        
+
         String modalidade;
-        
+
         switch (modalidadeNumero) {
-            case 2 -> modalidade = "Pagamento Recorrente";
-            case 3 -> modalidade = "Dinheiro";
-            case 4 -> modalidade = "Debito";
+            case 2 ->
+                modalidade = "Pagamento Recorrente";
+            case 3 ->
+                modalidade = "Dinheiro";
+            case 4 ->
+                modalidade = "Debito";
             default -> {
                 modalidade = "Pix";
             }
@@ -1198,6 +1137,7 @@ public class Menus {
         System.out.println("Data de Modificacao: " + formataData(mensalidadeAluno.getDataModificacao()));
         System.out.println("------------------------");
     }
+
     public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos, Pessoa[] alunos, Mensalidade[] mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES DOS ALUNOS  *****\n");
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
@@ -1301,7 +1241,6 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-
     public static PagamentoRecorrente alterarPagamentoRecorrenteMenu(int id, PagamentoRecorrente pagamentoRecorrente) {
         System.out.println("\n*****  ALTERAR PAGAMENTO RECORRENTE  *****\n");
         System.out.println("Digite o novo ID da pessoa: ");
@@ -1318,13 +1257,13 @@ public class Menus {
         PagamentoRecorrente novoPagamentoRecorrente = new PagamentoRecorrente(id, novoIdPessoa, dataAtual, novoCartaoDeCredito, novoValor, novaDataDeInicio, novoNumeroDeMeses, pagamentoRecorrente.getDataCriacao(), dataAtual);
         return novoPagamentoRecorrente;
     }
-    
-        public static int buscarPagamentoRecorrenteMenu(String modo) {
+
+    public static int buscarPagamentoRecorrenteMenu(String modo) {
         System.out.println("Digite o ID do pagamento recorrente que deseja " + modo + ": ");
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
-        
+
     //CALENDARIO
     public static int calendarioMenu(Calendario calendario) {
         System.out.println("*******************************");
@@ -1339,17 +1278,16 @@ public class Menus {
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
-    
+
     public static void avancarCalendarioMenu() {
         System.out.println("Dia do calendario avançado com sucesso!: \n");
     }
-    
+
     public static void diminuirCalendarioMenu() {
         System.out.println("Dia do calendario diminuido com sucesso! \n");
     }
-     
+
     // ENTRADA ALUNOS
-    
     // RELATORIOS
     public static int relatoriosMenu() {
         System.out.println("*******************************");
@@ -1363,17 +1301,17 @@ public class Menus {
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
-    
+
     public static int[] relatorioMovimentacao() {
         System.out.println("Digite o numero do mes desejado (1 a 12):");
         int mes = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o ano desejado:");
         int ano = Integer.parseInt(scanner.nextLine());
-        
+
         int mesAno[] = {mes, ano};
         return mesAno;
     }
-    
+
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {
             System.out.println();
@@ -1388,10 +1326,10 @@ public class Menus {
         System.out.println("Aperte qualquer tecla para continuar...");
         scanner.nextLine();
     }
-    
+
     public static String formataData(LocalDate data) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
+
         return data.format(dtf);
     }
 
