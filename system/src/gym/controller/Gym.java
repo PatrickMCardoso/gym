@@ -23,6 +23,7 @@ public class Gym {
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
         PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
         Calendario calendario = new Calendario(LocalDate.now());
+        MovimentacaoFinanceiraDAO movimentacaoFinanceiraDAO = new MovimentacaoFinanceiraDAO();
 
         divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         academiaDAO.adicionarAcademiasExemplo();
@@ -37,15 +38,19 @@ public class Gym {
             // VERIFICANDO SE AS FUNÇÕES DE CHECAR SE A MENSALIDADE DOS ALUNOS ESTÃO VENCIDAS ESTÁ FUNCIONANDO (DEU CERTO),  
             // ACREDITO QUE SÓ PODEREMOS USÁ-LAS QUANDO O LOGIN E AS PERMISSÕES DE CADA TIPO DE USUARIO ESTIVEREM CERTINHAS,
             // DEIXANDO ISSO AQUI PARA NÃO ESQUERCEMOS DE HABILITÁ-LAS ANTES DE ENVIAR A VERSÃO FINAL
-            
+
             /*
             MensalidadeAluno[] mensalidadesAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
             int[] mensalidadesVencidas = calendario.checarVencimentos(mensalidadesAlunos);
             for (int i = 0; i < mensalidadesVencidas.length; i++) {
                 System.out.println(mensalidadesVencidas[i]);
             }
-            */
-            
+             */
+           if(calendario.checarQuintoDiaUtil() == true){
+               Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+               movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
+           } 
+           
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 //ACADEMIA
@@ -513,6 +518,9 @@ public class Gym {
                             case 1: {
                                 AvaliacaoFisica avaliacaoFisica = Menus.calcularIMC(pessoaDAO, treinoDAO);
                                 if (avaliacaoFisica != null) {
+                                MovimentacaoFinanceira movimentacaoAvaliacaoFisica = new MovimentacaoFinanceira(0, 20.0,
+                                        "entrada", "Pagamento de avaliacao fisica do aluno de id" + avaliacaoFisica.getPessoa().getId(), LocalDate.now(), LocalDate.now());
+                                movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoAvaliacaoFisica);
                                     System.out.println("\nAvaliacao fisica realizada com sucesso.\n");
                                 }
                             }
@@ -661,6 +669,9 @@ public class Gym {
                             case 1: {
                                 PagamentoRecorrente pagamentoRecorrente = Menus.adicionarPagamentoRecorrenteMenu();
                                 pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente);
+                                MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
+                                        "entrada", "Pagamento de mensalidade do aluno de id" + pagamentoRecorrente.getIdPessoa(), LocalDate.now(), LocalDate.now());
+                                movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento);
                                 System.out.println("Pagamento recorrente adicionado com sucesso!");
                             }
                             break;
@@ -716,13 +727,13 @@ public class Gym {
                         opcaoCalendario = Menus.calendarioMenu(calendario);
                         switch (opcaoCalendario) {
                             case 1: {
-                                int dias = Menus.avancarCalendarioMenu();
-                                calendario.aumentarDias(dias);
+                                Menus.avancarCalendarioMenu();
+                                calendario.avancarDia();
                             }
                             break;
                             case 2: {
-                                int dias = Menus.avancarCalendarioMenu();
-                                calendario.diminuirDias(dias);
+                                Menus.avancarCalendarioMenu();
+                                calendario.diminuirDia();
                             }
                             break;
                             case 3:

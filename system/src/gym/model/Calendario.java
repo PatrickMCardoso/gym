@@ -1,11 +1,11 @@
 package gym.model;
 
 import java.time.LocalDate;
-import gym.model.MensalidadeAluno;
 
 public class Calendario {
 
     private LocalDate dataAtual;
+    private boolean diaDePagamento = false;
 
     public Calendario(LocalDate dataAtual) {
         this.dataAtual = dataAtual;
@@ -18,26 +18,45 @@ public class Calendario {
     public void setDataAtual(LocalDate dataAtual) {
         this.dataAtual = dataAtual;
     }
-
-    public void aumentarDias(int dias) {
-        setDataAtual(this.dataAtual.plusDays(dias));
+    
+    public boolean isDiaDePagamento() {
+        return diaDePagamento;
     }
 
-    public void diminuirDias(int dias) {
-        setDataAtual(this.dataAtual.minusDays(dias));
+    public void setDiaDePagamento(boolean diaDePagamento) {
+        this.diaDePagamento = diaDePagamento;
     }
+
+    public void avancarDia() {
+        setDataAtual(this.dataAtual.plusDays(1));
+    }
+
+    public void diminuirDia() {
+        setDataAtual(this.dataAtual.minusDays(1));
+    }
+    
 
     public int[] checarVencimentos(MensalidadeAluno[] mensalidadesAlunos) {
         int[] idsAlunosMensalidadesVencidas = new int[mensalidadesAlunos.length];
         int quantidadeMensalidadeVencida = 0;
         for (int i = 0; i < mensalidadesAlunos.length; i++) {
-            if (this.dataAtual.isAfter(mensalidadesAlunos[i].getDataVencimento())) {
+            if (this.getDataAtual().isAfter(mensalidadesAlunos[i].getDataVencimento())) {
                 idsAlunosMensalidadesVencidas[quantidadeMensalidadeVencida] = mensalidadesAlunos[i].getIdAluno();
                 quantidadeMensalidadeVencida++;
             }
         }
 
         return idsAlunosMensalidadesVencidas;
+    }
+    
+    public boolean checarQuintoDiaUtil(){
+        if(this.getDataAtual().getDayOfMonth() == 5){
+            setDiaDePagamento(true);
+        }else{
+            setDiaDePagamento(false);
+        }
+        
+        return this.diaDePagamento;
     }
 
 }

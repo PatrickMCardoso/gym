@@ -1321,24 +1321,20 @@ public class Menus {
         System.out.println("*     DATA ATUAL: " + formataData(calendario.getDataAtual()) + "  *");
         System.out.println("*******************************\n");
         System.out.println("Escolha uma opcao:\n");
-        System.out.println("1 - Avancar dias no calendario\n");
-        System.out.println("2 - Diminuir dias no calendario\n");
+        System.out.println("1 - Avancar dia no calendario\n");
+        System.out.println("2 - Diminui dia no calendario\n");
         System.out.println("3 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
     
-    public static int avancarCalendarioMenu() {
-        System.out.println("Digite quantos dias voce quer avancar no calendario: \n");
-        int dias = Integer.parseInt(scanner.nextLine());
-        return dias;
+    public static void avancarCalendarioMenu() {
+        System.out.println("Dia do calendario avançado com sucesso!: \n");
     }
     
-    public static int diminuirCalendarioMenu() {
-        System.out.println("Digite quantos dias voce quer diminuir no calendario: \n");
-        int dias = Integer.parseInt(scanner.nextLine());
-        return dias;
+    public static void diminuirCalendarioMenu() {
+        System.out.println("Dia do calendario diminuido com sucesso! \n");
     }
      
     // ENTRADA ALUNOS
