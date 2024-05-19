@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 public class Menus {
 
     static Scanner scanner = new Scanner(System.in);
-    
+
     // MENU INICIO
     public static int menuIniciar() {
         System.out.println("**************************************");
@@ -22,7 +22,7 @@ public class Menus {
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
-    
+
     // MENU INICIO
     public static String[] menuLogin() {
         System.out.println("**********************");
@@ -33,14 +33,14 @@ public class Menus {
         String login = scanner.nextLine();
         System.out.println("\nDigite sua senha:");
         String senha = scanner.nextLine();
-        
+
         String[] loginSenha = {login, senha};
-        
+
         return loginSenha;
     }
 
-    // MENU PRINCIPAL
-    public static int mostrarMenuPrincipal() {
+    // MENU ADMIN
+    public static int mostrarMenuAdmin() {
         limparTela();
         System.out.println("*********************************");
         System.out.println("*   SISTEMAS DE GERENCIAMENTO   *");
@@ -62,6 +62,44 @@ public class Menus {
         System.out.println("14 - Entrada Aluno\n");
         System.out.println("15 - Relatorios\n");
         System.out.println("16 - Fechar\n");
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    // MENU PROFESSOR
+    public static int mostrarMenuProfessor() {
+        limparTela();
+        System.out.println("******************************************");
+        System.out.println("*   SISTEMAS DE GERENCIAMENTO DE ALUNO   *");
+        System.out.println("******************************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Exercicios\n");
+        System.out.println("2 - Aplicacao de Exercicios\n");
+        System.out.println("3 - Divisao de Treino\n");
+        System.out.println("4 - Divisao de Treino-Musculo\n");
+        System.out.println("5 - Treino\n");
+        System.out.println("6 - Treino Aplicacao\n");
+        System.out.println("7 - Avaliacao Fisica (custo de R$ 20)\n");
+        System.out.println("8 - Entrada Aluno\n");
+        System.out.println("9 - Relatorios\n");
+        System.out.println("10 - Fechar\n");
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
+    //MENU ALUNO
+    public static int mostrarMenuAluno() {
+        limparTela();
+        System.out.println("*********************************");
+        System.out.println("*      GERENCIAMENTO ALUNO      *");
+        System.out.println("*********************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Avaliacao Fisica (custo de R$ 20)\n");
+        System.out.println("2 - Entrada Aluno\n");
+        System.out.println("3 - Relatorios\n");
+        System.out.println("9 - Fechar\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -792,14 +830,13 @@ public class Menus {
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar Treino Aplicacao\n");
         System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");
-        System.out.println("3 - Alterar Treino Aplicacao\n");
-        System.out.println("4 - Remover Treino Aplicacao\n");
-        System.out.println("5 - Sair\n");        
+        System.out.println("3 - Remover Treino Aplicacao\n");
+        System.out.println("4 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }
-    
+
     public static String[] adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, TreinoDAO treinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
         System.out.println("Informe o ID do usuario: ");
         int usuarioId = Integer.parseInt(scanner.nextLine());
@@ -838,7 +875,7 @@ public class Menus {
 
         String[] nomesExercicios = new String[100];
         String[] tiposExercicios = divisaoTreino.getNome().split("");
-        int index = 0; 
+        int index = 0;
 
         for (String tipoExercicio : tiposExercicios) {
             System.out.println("Quantos exercicios deseja para " + tipoExercicio + "?");
@@ -866,7 +903,10 @@ public class Menus {
         return nomesExercicios;
     }
 
-    public static void mostrarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, TreinoDAO treinoDAO, String[] nomesExercicios, DivisaoTreinoDAO divisaoTreino, int usuarioId) {
+    public static void mostrarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO) {
+        System.out.println("Informe o ID do usuario: ");
+        int usuarioId = Integer.parseInt(scanner.nextLine());
+
         TreinoAplicacao[] treinoAplicacoesUsuario = treinoAplicacaoDAO.listarTodosPorUsuario(usuarioId);
 
         if (treinoAplicacoesUsuario.length == 0) {
@@ -874,7 +914,7 @@ public class Menus {
             return;
         }
 
-        System.out.println("\n***** FICHA DE TREINO DO USUaRIO *****\n");
+        System.out.println("\n***** FICHA DE TREINO DO USUARIO *****\n");
 
         for (TreinoAplicacao treinoAplicacao : treinoAplicacoesUsuario) {
             System.out.println("ID da Ficha de Treino: " + treinoAplicacao.getId());
@@ -885,10 +925,10 @@ public class Menus {
             if (treino != null) {
                 System.out.println("Divisao de Treino: " + treinoAplicacao.getDivisaoTreino().getNome());
                 System.out.println("Objetivo do Treino: " + treino.getObjetivo());
-                System.out.println("Data de Inicio do Treino: " + formataData(treino.getDataInicio()));
+                System.out.println("Data de Início do Treino: " + formataData(treino.getDataInicio()));
                 System.out.println("Data de Termino do Treino: " + formataData(treino.getDataTermino()));
-                System.out.println("Data de Criacao: " + treinoAplicacao.getDataCriacao());
-                System.out.println("Data de Modificacao: " + treinoAplicacao.getDataModificacao());
+                System.out.println("Data de Criacao: " + formataData(treinoAplicacao.getDataCriacao()));
+                System.out.println("Data de Modificacao: " + formataData(treinoAplicacao.getDataModificacao()));
             } else {
                 System.out.println("Treino nao encontrado para este usuario.");
             }
@@ -896,30 +936,18 @@ public class Menus {
             System.out.println("------------------------");
         }
     }
-    
-    public static void alterarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
-        System.out.println("Informe o ID da ficha de treino que deseja alterar: ");
+
+    public static void removerTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
+        System.out.println("Informe o ID da ficha de treino que deseja remover: ");
         int id = Integer.parseInt(scanner.nextLine());
         TreinoAplicacao treinoAplicacao = treinoAplicacaoDAO.buscarTreinoAplicacao(id);
 
         if (treinoAplicacao != null) {
-            System.out.println("Informe o novo ID do usuario: ");
-            int novoUsuarioId = Integer.parseInt(scanner.nextLine());
-            treinoAplicacao.setUsuarioId(novoUsuarioId);
-            // Outros campos a serem alterados...
-            treinoAplicacao.setDataModificacao(LocalDate.now());
-            treinoAplicacaoDAO.alterarTreinoAplicacao(id, treinoAplicacao);
-            System.out.println("Ficha de treino alterada com sucesso.");
+            treinoAplicacaoDAO.removerTreinoAplicacao(id);
+            System.out.println("Ficha de treino removida com sucesso.");
         } else {
             System.out.println("Ficha de treino nao encontrada.");
         }
-    }
-    
-    public static void removerTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
-        System.out.println("Informe o ID da ficha de treino que deseja remover: ");
-        int id = Integer.parseInt(scanner.nextLine());
-        treinoAplicacaoDAO.removerTreinoAplicacao(id);
-        System.out.println("Ficha de treino removida com sucesso.");
     }
 
     // AVALIACAO FISICA
