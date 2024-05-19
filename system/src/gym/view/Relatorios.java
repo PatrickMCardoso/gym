@@ -1,6 +1,8 @@
 package gym.view;
 
+import gym.model.MensalidadeAluno;
 import gym.model.MovimentacaoFinanceira;
+import gym.model.Pessoa;
 import static gym.view.Menus.formataData;
 import java.time.LocalDate;
 
@@ -21,6 +23,23 @@ public class Relatorios {
                 System.out.println("Data de Criacao: " + formataData(movimentacao.getDataCriacao()));
                 System.out.println("Data de Modificacao: " + formataData(movimentacao.getDataModificacao()));
                 System.out.println("------------------------");
+            }
+        }
+    }
+
+    public static void relatorioAlunosAdimplentes(MensalidadeAluno[] mensalidades, Pessoa[] alunos, LocalDate dataAtual, int[] idsAlunosAdimplentes) {
+        System.out.println("*******************************");
+        System.out.println("*  ALUNOS ADIMPLENTES    *");
+        System.out.println("*     MES/ANO: " + dataAtual.getMonthValue() + "/" + dataAtual.getYear() + "  *");
+        System.out.println("*******************************\n");
+        System.out.println("------------------------");
+        for (Pessoa pessoa : alunos) {
+            for (int id : idsAlunosAdimplentes) {
+                if (id == pessoa.getId() && pessoa.getTipoUsuario().equals("Aluno")) {
+                    System.out.println("ID: " + pessoa.getId());
+                    System.out.println("Nome: " + pessoa.getNome());
+                    System.out.println("------------------------");
+                }
             }
         }
     }

@@ -36,17 +36,6 @@ public class Gym {
 
         int opcao = 0;
         while (opcao != 17) {
-            // VERIFICANDO SE AS FUNÇÕES DE CHECAR SE A MENSALIDADE DOS ALUNOS ESTÃO VENCIDAS ESTÁ FUNCIONANDO (DEU CERTO),  
-            // ACREDITO QUE SÓ PODEREMOS USÁ-LAS QUANDO O LOGIN E AS PERMISSÕES DE CADA TIPO DE USUARIO ESTIVEREM CERTINHAS,
-            // DEIXANDO ISSO AQUI PARA NÃO ESQUERCEMOS DE HABILITÁ-LAS ANTES DE ENVIAR A VERSÃO FINAL
-
-            /*
-            MensalidadeAluno[] mensalidadesAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
-            int[] mensalidadesVencidas = calendario.checarVencimentos(mensalidadesAlunos);
-            for (int i = 0; i < mensalidadesVencidas.length; i++) {
-                System.out.println(mensalidadesVencidas[i]);
-            }
-             */
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 //ACADEMIA
@@ -603,6 +592,13 @@ public class Gym {
                                 if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
                                     mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
                                     System.out.println("Associacao de mensalidade a aluno adicionada com sucesso!");
+                                    if(mensalidadeAluno.getModalidade().equals("Pagamento Recorrente") == false){
+                                        MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, mensalidadeAluno.getValorPago(),
+                                        "entrada", "Pagamento de mensalidade do aluno de id " + mensalidadeAluno.getIdAluno(), calendario.getDataAtual(), calendario.getDataAtual());
+                                        movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento);
+                                    }else{
+                                        System.out.println("Agora deve adicionar o Pagamento Recorrente do aluno!");
+                                    }
                                 } else {
                                     System.out.println("ID digitado nao eh aluno!");
                                 }
@@ -666,7 +662,7 @@ public class Gym {
                                 PagamentoRecorrente pagamentoRecorrente = Menus.adicionarPagamentoRecorrenteMenu();
                                 pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente);
                                 MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
-                                        "entrada", "Pagamento de mensalidade do aluno de id" + pagamentoRecorrente.getIdPessoa(), LocalDate.now(), LocalDate.now());
+                                        "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", LocalDate.now(), LocalDate.now());
                                 movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento);
                                 System.out.println("Pagamento recorrente adicionado com sucesso!");
                             }
@@ -728,6 +724,11 @@ public class Gym {
                                 if (calendario.checarQuintoDiaUtil() == true) {
                                     Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
                                     movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
+                                }else if(calendario.checarTerminoMes() == true){
+                                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                                    MensalidadeAluno[] mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
+                                    int[] idsAlunosAdimplentes = calendario.checarAlunosAdimplentes(mensalidades);
+                                    Relatorios.relatorioAlunosAdimplentes(mensalidades, pessoas, calendario.getDataAtual(), idsAlunosAdimplentes);
                                 }
                             }
                             break;

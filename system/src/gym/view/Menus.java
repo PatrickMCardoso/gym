@@ -1167,8 +1167,19 @@ public class Menus {
         int idAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o valor pago: ");
         double valorPago = Double.parseDouble(scanner.nextLine());
-        System.out.println("Digite a modalidade (pix, cartao de credito, dinheiro, etc): ");
-        String modalidade = scanner.nextLine();
+        System.out.println("Digite a modalidade \n 1 - Pix \n 2 - Pagamento Recorrente \n 3 - Dinheiro \n 4 - Debito: ");
+        int modalidadeNumero = Integer.parseInt(scanner.nextLine());
+        
+        String modalidade;
+        
+        switch (modalidadeNumero) {
+            case 2 -> modalidade = "Pagamento Recorrente";
+            case 3 -> modalidade = "Dinheiro";
+            case 4 -> modalidade = "Debito";
+            default -> {
+                modalidade = "Pix";
+            }
+        }
 
         LocalDate dataAtual = LocalDate.now();
 
@@ -1322,7 +1333,7 @@ public class Menus {
         System.out.println("*******************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Avancar dia no calendario\n");
-        System.out.println("2 - Diminui dia no calendario\n");
+        System.out.println("2 - Diminuir dia no calendario\n");
         System.out.println("3 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());

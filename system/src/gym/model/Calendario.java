@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Calendario {
 
     private LocalDate dataAtual;
-    private boolean diaDePagamento = false;
 
     public Calendario(LocalDate dataAtual) {
         this.dataAtual = dataAtual;
@@ -18,14 +17,6 @@ public class Calendario {
     public void setDataAtual(LocalDate dataAtual) {
         this.dataAtual = dataAtual;
     }
-    
-    public boolean isDiaDePagamento() {
-        return diaDePagamento;
-    }
-
-    public void setDiaDePagamento(boolean diaDePagamento) {
-        this.diaDePagamento = diaDePagamento;
-    }
 
     public void avancarDia() {
         setDataAtual(this.dataAtual.plusDays(1));
@@ -34,29 +25,43 @@ public class Calendario {
     public void diminuirDia() {
         setDataAtual(this.dataAtual.minusDays(1));
     }
-    
 
-    public int[] checarVencimentos(MensalidadeAluno[] mensalidadesAlunos) {
-        int[] idsAlunosMensalidadesVencidas = new int[mensalidadesAlunos.length];
+    //PEGAR A LISTA DE IDS ALUNOS COM MENSALIDADES VENCIDAS
+    public int[] checarAlunosVencidos(MensalidadeAluno[] mensalidadesAlunos) {
+        int[] idsAlunosVencidos = new int[mensalidadesAlunos.length];
         int quantidadeMensalidadeVencida = 0;
         for (int i = 0; i < mensalidadesAlunos.length; i++) {
             if (this.getDataAtual().isAfter(mensalidadesAlunos[i].getDataVencimento())) {
-                idsAlunosMensalidadesVencidas[quantidadeMensalidadeVencida] = mensalidadesAlunos[i].getIdAluno();
+                idsAlunosVencidos[quantidadeMensalidadeVencida] = mensalidadesAlunos[i].getIdAluno();
                 quantidadeMensalidadeVencida++;
             }
         }
 
-        return idsAlunosMensalidadesVencidas;
+        return idsAlunosVencidos;
     }
     
-    public boolean checarQuintoDiaUtil(){
-        if(this.getDataAtual().getDayOfMonth() == 5){
-            setDiaDePagamento(true);
-        }else{
-            setDiaDePagamento(false);
+    //PEGAR A LISTA IDS DE ALUNOS ADIMPLENTES
+    public int[] checarAlunosAdimplentes(MensalidadeAluno[] mensalidadesAlunos) {
+        int[] idsAlunosAdimplentes = new int[mensalidadesAlunos.length];
+        int quantidadeMensalidadeAdimplente = 0;
+        for (int i = 0; i < mensalidadesAlunos.length; i++) {
+            if (this.getDataAtual().isBefore(mensalidadesAlunos[i].getDataVencimento())) {
+                idsAlunosAdimplentes[quantidadeMensalidadeAdimplente] = mensalidadesAlunos[i].getIdAluno();
+                quantidadeMensalidadeAdimplente++;
+            }
         }
-        
-        return this.diaDePagamento;
+
+        return idsAlunosAdimplentes;
+    }
+
+    //CHECAR SE É O QUINTO DIA DO MES, USADO PARA VERIFICAR SE É NECESSARIO PAGAR AS DESPESAS MENSAIS
+    public boolean checarQuintoDiaUtil() {
+        return this.getDataAtual().getDayOfMonth() == 5;
+    }
+
+    //CHECAR SE ACABOU O MES, PARA VERIFICAR E POSTERIORMENTE MOSTRAR A LISTA DE ALUNOS ADIMPLENTES
+    public boolean checarTerminoMes() {
+        return this.getDataAtual().getDayOfMonth() == 1;
     }
 
 }
