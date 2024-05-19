@@ -25,13 +25,13 @@ public class Menus {
         System.out.println("6 - Divisao de Treino-Musculo\n");
         System.out.println("7 - Treino\n");
         System.out.println("8 - Treino Aplicacao\n");
-        System.out.println("9 - Avaliacao Fisica\n");
+        System.out.println("9 - Avaliacao Fisica (custo de R$ 20)\n");
         System.out.println("10 - Mensalidades\n");
         System.out.println("11 - Mensalidade Aluno\n");
         System.out.println("12 - Pagamento Recorrente\n");
         System.out.println("13 - Calendario\n");
         System.out.println("14 - Entrada Aluno\n");
-        System.out.println("15 - Movimentacao Financeira\n");
+        System.out.println("15 - Relatorios\n");
         System.out.println("16 - Fechar\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
@@ -1338,8 +1338,30 @@ public class Menus {
     }
      
     // ENTRADA ALUNOS
-    // MOVIMENTAcaO FINANCEIRA
+    
     // RELATORIOS
+    public static int relatoriosMenu() {
+        System.out.println("*******************************");
+        System.out.println("*        RELATORIOS           *");
+        System.out.println("*******************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Relatorio com toda a movimentacao financeira da academia em um dado mes\n");
+        System.out.println("2 - Ficha de treino do aluno\n");
+        System.out.println("3 - Sair\n");
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+    
+    public static int[] relatorioMovimentacao() {
+        System.out.println("Digite o numero do mes desejado (1 a 12):");
+        int mes = Integer.parseInt(scanner.nextLine());
+        System.out.println("Digite o ano desejado:");
+        int ano = Integer.parseInt(scanner.nextLine());
+        
+        int mesAno[] = {mes, ano};
+        return mesAno;
+    }
     
     public static void limparTela() {
         for (int i = 0; i < 50; ++i) {

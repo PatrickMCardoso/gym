@@ -89,7 +89,7 @@ public class MovimentacaoFinanceiraDAO {
             }
         }
         
-        MovimentacaoFinanceira movimentacaoDespesas = new MovimentacaoFinanceira(0, valorDespesasDoMes, "saida", "Despesas do mes " + dataAtual.getMonth() + "/" + dataAtual.getYear(), dataAtual, dataAtual);
+        MovimentacaoFinanceira movimentacaoDespesas = new MovimentacaoFinanceira(0, valorDespesasDoMes, "saida", "Despesas do mes " + dataAtual.getMonthValue() + "/" + dataAtual.getYear(), dataAtual, dataAtual);
         adicionarMovimentacao(movimentacaoDespesas);
     }
 }

@@ -2,6 +2,7 @@ package gym.controller;
 
 import gym.model.*;
 import gym.view.Menus;
+import gym.view.Relatorios;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -34,7 +35,7 @@ public class Gym {
         treinoDAO.adicionarTreinoExemplos();
 
         int opcao = 0;
-        while (opcao != 16) {
+        while (opcao != 17) {
             // VERIFICANDO SE AS FUNÇÕES DE CHECAR SE A MENSALIDADE DOS ALUNOS ESTÃO VENCIDAS ESTÁ FUNCIONANDO (DEU CERTO),  
             // ACREDITO QUE SÓ PODEREMOS USÁ-LAS QUANDO O LOGIN E AS PERMISSÕES DE CADA TIPO DE USUARIO ESTIVEREM CERTINHAS,
             // DEIXANDO ISSO AQUI PARA NÃO ESQUERCEMOS DE HABILITÁ-LAS ANTES DE ENVIAR A VERSÃO FINAL
@@ -46,11 +47,6 @@ public class Gym {
                 System.out.println(mensalidadesVencidas[i]);
             }
              */
-           if(calendario.checarQuintoDiaUtil() == true){
-               Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
-               movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
-           } 
-           
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 //ACADEMIA
@@ -518,9 +514,9 @@ public class Gym {
                             case 1: {
                                 AvaliacaoFisica avaliacaoFisica = Menus.calcularIMC(pessoaDAO, treinoDAO);
                                 if (avaliacaoFisica != null) {
-                                MovimentacaoFinanceira movimentacaoAvaliacaoFisica = new MovimentacaoFinanceira(0, 20.0,
-                                        "entrada", "Pagamento de avaliacao fisica do aluno de id" + avaliacaoFisica.getPessoa().getId(), LocalDate.now(), LocalDate.now());
-                                movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoAvaliacaoFisica);
+                                    MovimentacaoFinanceira movimentacaoAvaliacaoFisica = new MovimentacaoFinanceira(0, 20.0,
+                                            "entrada", "Pagamento de avaliacao fisica do aluno de id " + avaliacaoFisica.getPessoa().getId(), LocalDate.now(), LocalDate.now());
+                                    movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoAvaliacaoFisica);
                                     System.out.println("\nAvaliacao fisica realizada com sucesso.\n");
                                 }
                             }
@@ -729,6 +725,10 @@ public class Gym {
                             case 1: {
                                 Menus.avancarCalendarioMenu();
                                 calendario.avancarDia();
+                                if (calendario.checarQuintoDiaUtil() == true) {
+                                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                                    movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
+                                }
                             }
                             break;
                             case 2: {
@@ -748,6 +748,31 @@ public class Gym {
                 case 14:
                     break;
                 case 15:
+                    int opcaoRelatorio = 0;
+                    while (opcaoRelatorio != 3) {
+                        Menus.digitarQualquerTecla();
+                        opcaoRelatorio = Menus.relatoriosMenu();
+                        switch (opcaoRelatorio) {
+                            case 1: {
+                                int mesAnoRelatorio[] = Menus.relatorioMovimentacao();
+                                int mes = mesAnoRelatorio[0];
+                                int ano = mesAnoRelatorio[1];
+                                MovimentacaoFinanceira[] movimentacoes = movimentacaoFinanceiraDAO.mostrarMovimentacoes();
+                                Relatorios.relatorioMovimentacaoFinanceira(movimentacoes, mes, ano);
+                            }
+                            break;
+                            case 2: {
+                                //RELATORIO DE FICHA DE TREINO DO ALUNO
+                            }
+                            break;
+                            case 3:
+                                System.out.println("\nSaindo...");
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
                     break;
                 case 16:
                     System.out.println("\nEncerrando programa...\n");
