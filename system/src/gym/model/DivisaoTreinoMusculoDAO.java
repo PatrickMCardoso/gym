@@ -2,7 +2,6 @@ package gym.model;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class DivisaoTreinoMusculoDAO {
 

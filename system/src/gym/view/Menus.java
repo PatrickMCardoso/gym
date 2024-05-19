@@ -406,7 +406,7 @@ public class Menus {
     }
 
     public static void mostrarTodasDivisoesTreinoMenu(DivisaoTreinoDAO divisaoTreinoDAO) {
-        System.out.println("\n*****  TODOAS DIVISOES DE TREINO  *****\n");
+        System.out.println("\n*****  TODAS DIVISOES DE TREINO  *****\n");
         System.out.println("------------------------");
 
         DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
@@ -712,6 +712,250 @@ public class Menus {
     }
 
     // TREINO APLICACAO
+    public static int treinoAplicacaoMenu() {
+        System.out.println("***********************************");
+        System.out.println("*   SISTEMA DE TREINO APLICACAO   *");
+        System.out.println("***********************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Adicionar Treino Aplicacao\n");
+        System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");
+        System.out.println("3 - Alterar Treino Aplicacao\n");
+        System.out.println("4 - Remover Treino Aplicacao\n");
+        System.out.println("5 - Sair\n");        
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+    
+//    public static void adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
+//        System.out.println("Informe o ID do usuario: ");
+//        int usuarioId = Integer.parseInt(scanner.nextLine());
+//
+//        // Selecao da divisao de treino
+//        mostrarTodasDivisoesTreinoMenu(divisaoTreinoDAO);
+//        System.out.println("Informe o ID da divisao de treino escolhida: ");
+//        int divisaoTreinoId = Integer.parseInt(scanner.nextLine());
+//        DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(divisaoTreinoId);
+//
+//        if (divisaoTreino != null) {
+//            String[] tiposExercicios = divisaoTreino.getNome().split("");
+//            for (String tipoExercicio : tiposExercicios) {
+//                System.out.println("Quantos exercicios deseja para " + tipoExercicio + "?");
+//                int numExercicios = Integer.parseInt(scanner.nextLine());
+//
+//                for (int i = 0; i < numExercicios; i++) {
+//                    System.out.println("Informe o nome do exercicio " + (i + 1) + " para " + tipoExercicio + ": ");
+//                    String nomeExercicio = scanner.nextLine();
+//                    Exercicio exercicio = exercicioDAO.buscarExercicioPorNome(nomeExercicio);
+//
+//                    if (exercicio != null) {
+//                        ExercicioAplicacao exercicioAplicacao = exercicioAplicacaoDAO.buscarExercicioAplicacao(exercicio.getId());
+//                        if (exercicioAplicacao != null) {
+//                            TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, usuarioId, null, exercicio, exercicioAplicacao, divisaoTreino, null, LocalDate.now(), LocalDate.now());
+//                            treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacao);
+//                        } else {
+//                            System.out.println("Exercicio aplicacao nao encontrado.");
+//                        }
+//                    } else {
+//                        System.out.println("Exercicio nao encontrado.");
+//                    }
+//                }
+//            }
+//        } else {
+//            System.out.println("Divisao de treino nao encontrada.");
+//        }
+//    }
+//    
+//    public static void mostrarTodasTreinoAplicacoesMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
+//        TreinoAplicacao[] treinoAplicacoes = treinoAplicacaoDAO.listarTodos();
+//        System.out.println("\n***** TODAS AS FICHAS DE TREINO *****\n");
+//        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
+//            System.out.println("ID: " + treinoAplicacao.getId() + ", Usuario ID: " + treinoAplicacao.getUsuarioId());
+//            System.out.println("Treino: " + treinoAplicacao.getTreino().getObjetivo());
+//            System.out.println("Exercicio: " + treinoAplicacao.getExercicio().getNome());
+//            System.out.println("Descricao do Exercicio de Aplicacao: " + treinoAplicacao.getExercicioAplicacao().getDescricao());
+//            System.out.println("Divisao de Treino: " + treinoAplicacao.getDivisaoTreino().getNome());
+//            System.out.println("Divisao de Treino Musculo: " + treinoAplicacao.getDivisaoTreinoMusculo().getDivisaoTreino().getNome());
+//            System.out.println("Data de Criacao: " + treinoAplicacao.getDataCriacao());
+//            System.out.println("Data de Modificacao: " + treinoAplicacao.getDataModificacao());
+//            System.out.println("------------------------");
+//        }
+//    }
+//    
+//    public static void alterarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
+//        System.out.println("Informe o ID da ficha de treino que deseja alterar: ");
+//        int id = Integer.parseInt(scanner.nextLine());
+//        TreinoAplicacao treinoAplicacao = treinoAplicacaoDAO.buscarTreinoAplicacao(id);
+//
+//        if (treinoAplicacao != null) {
+//            System.out.println("Informe o novo ID do usuario: ");
+//            int novoUsuarioId = Integer.parseInt(scanner.nextLine());
+//            treinoAplicacao.setUsuarioId(novoUsuarioId);
+//            // Outros campos a serem alterados...
+//            treinoAplicacao.setDataModificacao(LocalDate.now());
+//            treinoAplicacaoDAO.alterarTreinoAplicacao(id, treinoAplicacao);
+//            System.out.println("Ficha de treino alterada com sucesso.");
+//        } else {
+//            System.out.println("Ficha de treino nao encontrada.");
+//        }
+//    }
+//    
+//    public static void removerTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
+//        System.out.println("Informe o ID da ficha de treino que deseja remover: ");
+//        int id = Integer.parseInt(scanner.nextLine());
+//        treinoAplicacaoDAO.removerTreinoAplicacao(id);
+//        System.out.println("Ficha de treino removida com sucesso.");
+//    }
+    
+    public static void adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, TreinoDAO treinoDAO) {
+        System.out.println("Informe o ID do aluno: ");
+        int alunoId = Integer.parseInt(scanner.nextLine());
+
+        // Verificar se o aluno ja tem uma divisao de treino
+        DivisaoTreinoMusculo[] divisoesTreinoMusculo = divisaoTreinoDAO.buscarDivisoesTreinoMusculoPorAluno(alunoId);
+
+        if (divisoesTreinoMusculo.length > 0) {
+            // Aluno ja possui uma divisao de treino
+            adicionarDivisaoTreinoMusculo(divisoesTreinoMusculo, treinoAplicacaoDAO, exercicioDAO, exercicioAplicacaoDAO, alunoId);
+        } else {
+            // Aluno nao possui uma divisao de treino, adicionar nova
+            adicionarDivisaoTreinoMusculoMenu(divisaoTreinoDAO, treinoAplicacaoDAO, exercicioDAO, exercicioAplicacaoDAO, alunoId);
+        }
+    }
+
+    public static void adicionarDivisaoTreinoMusculo(DivisaoTreinoMusculo[] divisoesTreinoMusculo, TreinoAplicacaoDAO treinoAplicacaoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, int alunoId) {
+        String[] todosTipos = new String[]{"PEITO", "OMBRO", "TRICEPS", "COSTAS", "BICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
+        TreinoAplicacao[] treinoAplicacoes = new TreinoAplicacao[100];  // Ajuste conforme necessario
+        int index = 0;
+
+        for (DivisaoTreinoMusculo divisao : divisoesTreinoMusculo) {
+            String[] tiposExercicios = divisao.getDivisaoTreino().getNome().split("");
+
+            for (String tipoExercicio : tiposExercicios) {
+                String musculo = todosTipos[Integer.parseInt(tipoExercicio) - 1];
+                System.out.println("Quantos exercicios deseja para " + musculo + "?");
+                int numExercicios = Integer.parseInt(scanner.nextLine());
+
+                for (int i = 0; i < numExercicios; i++) {
+                    System.out.println("Informe o nome do exercicio " + (i + 1) + " para " + musculo + ": ");
+                    String nomeExercicio = scanner.nextLine();
+                    Exercicio exercicio = exercicioDAO.buscarExercicioPorNome(nomeExercicio);
+
+                    if (exercicio != null) {
+                        ExercicioAplicacao exercicioAplicacao = exercicioAplicacaoDAO.buscarExercicioAplicacao(exercicio.getId());
+                        if (exercicioAplicacao != null) {
+                            TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, alunoId, null, exercicio, exercicioAplicacao, divisao.getDivisaoTreino(), divisao, LocalDate.now(), LocalDate.now());
+                            treinoAplicacoes[index++] = treinoAplicacao;
+                        } else {
+                            System.out.println("Exercicio aplicacao nao encontrado.");
+                        }
+                    } else {
+                        System.out.println("Exercicio nao encontrado.");
+                    }
+                }
+            }
+        }
+
+        // Adicionar todos os TreinoAplicacao ao DAO
+        for (int i = 0; i < index; i++) {
+            treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacoes[i]);
+        }
+
+        System.out.println("Treino aplicacao adicionado com sucesso.");
+    }
+
+    public static void adicionarDivisaoTreinoMusculoMenu(DivisaoTreinoDAO divisaoTreinoDAO, TreinoAplicacaoDAO treinoAplicacaoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, int alunoId) {
+        // Implementar logica para adicionar uma nova divisao de treino para o aluno
+        // ...
+        // Apos adicionar a nova divisao, chamar adicionarDivisaoTreinoMusculo()
+        DivisaoTreinoMusculo[] novasDivisoesTreinoMusculo = divisaoTreinoDAO.buscarDivisoesTreinoMusculoPorAluno(alunoId);
+        adicionarDivisaoTreinoMusculo(novasDivisoesTreinoMusculo, treinoAplicacaoDAO, exercicioDAO, exercicioAplicacaoDAO, alunoId);
+    }
+
+    public static void mostrarTodasTreinoAplicacoesMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, PessoaDAO pessoaDAO, ExercicioDAO exercicioDAO, DivisaoTreinoDAO divisaoTreinoDAO) {
+        TreinoAplicacao[] treinoAplicacoes = treinoAplicacaoDAO.listarTodos();
+        System.out.println("\n***** TODAS AS FICHAS DE TREINO *****\n");
+
+        // Coletar IDs unicos dos alunos
+        int[] alunoIds = new int[treinoAplicacoes.length];
+        int alunoIndex = 0;
+
+        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
+            int usuarioId = treinoAplicacao.getUsuarioId();
+            boolean alunoExistente = false;
+            for (int id : alunoIds) {
+                if (id == usuarioId) {
+                    alunoExistente = true;
+                    break;
+                }
+            }
+            if (!alunoExistente) {
+                alunoIds[alunoIndex++] = usuarioId;
+            }
+        }
+
+        for (int i = 0; i < alunoIndex; i++) {
+            int alunoId = alunoIds[i];
+            Pessoa aluno = pessoaDAO.buscarPessoa(alunoId);
+
+            if (aluno != null && pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
+                System.out.println("ID aluno: " + alunoId);
+                System.out.println("Nome do Aluno: " + aluno.getNome());
+
+                DivisaoTreino[] divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+                for (DivisaoTreino divisaoTreino : divisoesTreino) {
+                    System.out.println("Treino " + divisaoTreino.getNome());
+
+                    char[] letrasDivisao = divisaoTreino.getNome().toCharArray();
+                    for (char letra : letrasDivisao) {
+                        System.out.print("\t" + letra + " = ");
+
+                        String[] todosTipos = new String[]{"PEITO", "COSTAS", "OMBROS", "BICEPS", "TRICEPS", "PANTURRILHA", "GLUTEO", "COXA", "ABDOMEN", "AEROBICO"};
+                        for (String tipo : todosTipos) {
+                            System.out.print(tipo + ", ");
+                        }
+                        System.out.println();
+
+                        for (TreinoAplicacao treinoAplicacao : treinoAplicacoes) {
+                            if (treinoAplicacao.getUsuarioId() == alunoId && treinoAplicacao.getDivisaoTreino().getId() == divisaoTreino.getId() && treinoAplicacao.getDivisaoTreinoMusculo().getDivisaoTreino().getNome().charAt(0) == letra) {
+                                Exercicio exercicio = exercicioDAO.buscarExercicio(treinoAplicacao.getExercicio().getId());
+                                System.out.println("\t\t" + treinoAplicacao.getDivisaoTreinoMusculo().getMusculo());
+                                System.out.println("\t\t\t" + (exercicio != null ? exercicio.getNome() : "Desconhecido") + " + (" + treinoAplicacao.getExercicioAplicacao().getDescricao() + ")");
+                            }
+                        }
+                    }
+                }
+                System.out.println("------------------------");
+            }
+        }
+    }
+
+    public static void alterarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
+        System.out.println("Informe o ID da ficha de treino que deseja alterar: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        TreinoAplicacao treinoAplicacao = treinoAplicacaoDAO.buscarTreinoAplicacao(id);
+
+        if (treinoAplicacao != null) {
+            System.out.println("Informe o novo ID do usuario: ");
+            int novoUsuarioId = Integer.parseInt(scanner.nextLine());
+            treinoAplicacao.setUsuarioId(novoUsuarioId);
+            // Outros campos a serem alterados...
+            treinoAplicacao.setDataModificacao(LocalDate.now());
+            treinoAplicacaoDAO.alterarTreinoAplicacao(id, treinoAplicacao);
+            System.out.println("Ficha de treino alterada com sucesso.");
+        } else {
+            System.out.println("Ficha de treino nao encontrada.");
+        }
+    }
+
+    public static void removerTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO) {
+        System.out.println("Informe o ID da ficha de treino que deseja remover: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        treinoAplicacaoDAO.removerTreinoAplicacao(id);
+        System.out.println("Ficha de treino removida com sucesso.");
+    }
+    
+    
     
     // AVALIACAO FISICA
     public static int avaliacaoFisicaMenu() {
@@ -789,7 +1033,7 @@ public class Menus {
                 return null;
             }
         } else {
-            System.out.println("Pessoa não encontrada.");
+            System.out.println("Pessoa nao encontrada.");
             return null;
         }
     }
@@ -1005,7 +1249,7 @@ public class Menus {
         String cartaoDeCredito = scanner.nextLine();
         System.out.println("Digite o valor do pagamento: ");
         double valor = Double.parseDouble(scanner.nextLine());
-        System.out.println("Digite o número de meses autorizados: ");
+        System.out.println("Digite o numero de meses autorizados: ");
         int numeroDeMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtual = LocalDate.now();
@@ -1022,12 +1266,12 @@ public class Menus {
             System.out.println("ID: " + pagamento.getId());
             System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
             System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
-            System.out.println("Cartão de Credito: " + pagamento.getCartaoDeCredito());
+            System.out.println("Cartao de Credito: " + pagamento.getCartaoDeCredito());
             System.out.println("Valor: R$ " + pagamento.getValor());
             System.out.println("Data de Inicio: " + formataData(pagamento.getDataDeInicio()));
-            System.out.println("Número de Meses Autorizados: " + pagamento.getNumeroDeMeses());
+            System.out.println("Numero de Meses Autorizados: " + pagamento.getNumeroDeMeses());
             System.out.println("Data de Criacao: " + formataData(pagamento.getDataCriacao()));
-            System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
+            System.out.println("Data de Modificacao: " + formataData(pagamento.getDataModificacao()));
             System.out.println("------------------------");
         }
     }
@@ -1037,12 +1281,12 @@ public class Menus {
         System.out.println("ID: " + pagamento.getId());
         System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
         System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
-        System.out.println("Cartão de Credito: " + pagamento.getCartaoDeCredito());
+        System.out.println("Cartao de Credito: " + pagamento.getCartaoDeCredito());
         System.out.println("Valor: R$ " + pagamento.getValor());
         System.out.println("Data de Inicio: " + formataData(pagamento.getDataDeInicio()));
-        System.out.println("Número de Meses Autorizados: " + pagamento.getNumeroDeMeses());
-        System.out.println("Data de Criação: " + formataData(pagamento.getDataCriacao()));
-        System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
+        System.out.println("Numero de Meses Autorizados: " + pagamento.getNumeroDeMeses());
+        System.out.println("Data de Criacao: " + formataData(pagamento.getDataCriacao()));
+        System.out.println("Data de Modificacao: " + formataData(pagamento.getDataModificacao()));
         System.out.println("------------------------");
     }
 
@@ -1055,7 +1299,7 @@ public class Menus {
         String novoCartaoDeCredito = scanner.nextLine();
         System.out.println("Digite o novo valor do pagamento: ");
         double novoValor = Double.parseDouble(scanner.nextLine());
-        System.out.println("Digite o novo número de meses autorizados: ");
+        System.out.println("Digite o novo numero de meses autorizados: ");
         int novoNumeroDeMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtual = LocalDate.now();

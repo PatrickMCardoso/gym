@@ -9,6 +9,9 @@ public class DivisaoTreinoMusculo {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     private String[] tiposExercicios;
+    private String[] musculos;
+    private int alunoId;
+    
 
     public DivisaoTreinoMusculo(int id, DivisaoTreino divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao, String[] tiposExercicios) {
         this.id = id;        
@@ -18,6 +21,14 @@ public class DivisaoTreinoMusculo {
         this.tiposExercicios = tiposExercicios;
     }
 
+    public int getAlunoId() {
+        return alunoId;
+    }
+    
+    public String[] getMusculo() {
+        return musculos;
+    }
+    
     public int getId() {
         return id;
     }

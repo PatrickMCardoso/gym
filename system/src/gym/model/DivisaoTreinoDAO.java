@@ -5,11 +5,15 @@ import java.time.LocalDate;
 public class DivisaoTreinoDAO {
 
     private DivisaoTreino[] divisoes;
+    private DivisaoTreinoMusculo[] divisoesTreinoMusculo;
     private int tamanho;
+    private int tamanhoMusculos;
 
     public DivisaoTreinoDAO() {
         this.divisoes = new DivisaoTreino[10];
+        this.divisoesTreinoMusculo = new DivisaoTreinoMusculo[10];
         this.tamanho = 0;
+        this.tamanhoMusculos = 0;
     }
     
     public void adicionarDivisaoTreinoExemplos() {
@@ -100,5 +104,20 @@ public class DivisaoTreinoDAO {
         DivisaoTreino[] novoArray = new DivisaoTreino[novaCapacidade];
         System.arraycopy(divisoes, 0, novoArray, 0, tamanho);
         divisoes = novoArray;
+    }
+    
+    public DivisaoTreinoMusculo[] buscarDivisoesTreinoMusculoPorAluno(int alunoId) {
+        DivisaoTreinoMusculo[] resultadoTemp = new DivisaoTreinoMusculo[tamanhoMusculos];
+        int count = 0;
+
+        for (int i = 0; i < tamanhoMusculos; i++) {
+            if (divisoesTreinoMusculo[i].getAlunoId() == alunoId) {
+                resultadoTemp[count++] = divisoesTreinoMusculo[i];
+            }
+        }
+
+        DivisaoTreinoMusculo[] resultadoFinal = new DivisaoTreinoMusculo[count];
+        System.arraycopy(resultadoTemp, 0, resultadoFinal, 0, count);
+        return resultadoFinal;
     }
 }

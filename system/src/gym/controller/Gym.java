@@ -18,6 +18,7 @@ public class Gym {
         DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
         DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO(divisaoTreinoDAO);
         TreinoDAO treinoDAO = new TreinoDAO(pessoaDAO, divisaoTreinoDAO);
+        TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO();
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
         PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
@@ -475,8 +476,33 @@ public class Gym {
                 }
                 break;
                 //TREINO APLICACAO
-                case 8:
-                    break;
+                case 8: {
+                    int opcaoTreinoAplicacao = 0;
+                    while (opcaoTreinoAplicacao != 5) {
+                        Menus.digitarQualquerTecla();
+                        opcaoTreinoAplicacao = Menus.treinoAplicacaoMenu();
+                        switch (opcaoTreinoAplicacao) {
+                            case 1: {
+                                Menus.adicionarTreinoAplicacaoMenu(treinoAplicacaoDAO, divisaoTreinoDAO, exercicioDAO, exercicioAplicacaoDAO, treinoDAO);
+                            }
+                            break;
+                            case 2:
+                                Menus.mostrarTodasTreinoAplicacoesMenu(treinoAplicacaoDAO, pessoaDAO, exercicioDAO, divisaoTreinoDAO);
+                                break;
+                            case 3:
+                                Menus.alterarTreinoAplicacaoMenu(treinoAplicacaoDAO);
+                                break;
+                            case 4:
+                                Menus.removerTreinoAplicacaoMenu(treinoAplicacaoDAO);
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
+                }
+                break;
+
                 //AVALIACAO FISICA
                 case 9: {
                     int opcaoAvaliacaoFisica = 0;
