@@ -29,9 +29,10 @@ public class Menus {
         System.out.println("10 - Mensalidades\n");
         System.out.println("11 - Mensalidade Aluno\n");
         System.out.println("12 - Pagamento Recorrente\n");
-        System.out.println("13 - Entrada Aluno\n");
-        System.out.println("14 - Movimentacao Financeira\n");
-        System.out.println("15 - Fechar\n");
+        System.out.println("13 - Calendario\n");
+        System.out.println("14 - Entrada Aluno\n");
+        System.out.println("15 - Movimentacao Financeira\n");
+        System.out.println("16 - Fechar\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -927,7 +928,7 @@ public class Menus {
 
         LocalDate dataAtual = LocalDate.now();
 
-        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idAluno, idMensalidade, dataAtual, valorPago, modalidade, dataAtual, dataAtual);
+        MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(0, idAluno, idMensalidade, dataAtual, dataAtual, valorPago, modalidade, dataAtual, dataAtual);
         return mensalidadeAluno;
     }
 
@@ -1000,7 +1001,7 @@ public class Menus {
         System.out.println("\n*****  ADICIONAR PAGAMENTO RECORRENTE  ******\n");
         System.out.println("Digite o ID da pessoa: ");
         int idPessoa = Integer.parseInt(scanner.nextLine());
-        System.out.println("Digite o token do cartão de crédito: ");
+        System.out.println("Digite o token do cartao de credito: ");
         String cartaoDeCredito = scanner.nextLine();
         System.out.println("Digite o valor do pagamento: ");
         double valor = Double.parseDouble(scanner.nextLine());
@@ -1021,11 +1022,11 @@ public class Menus {
             System.out.println("ID: " + pagamento.getId());
             System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
             System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
-            System.out.println("Cartão de Crédito: " + pagamento.getCartaoDeCredito());
+            System.out.println("Cartão de Credito: " + pagamento.getCartaoDeCredito());
             System.out.println("Valor: R$ " + pagamento.getValor());
-            System.out.println("Data de Início: " + formataData(pagamento.getDataDeInicio()));
+            System.out.println("Data de Inicio: " + formataData(pagamento.getDataDeInicio()));
             System.out.println("Número de Meses Autorizados: " + pagamento.getNumeroDeMeses());
-            System.out.println("Data de Criação: " + formataData(pagamento.getDataCriacao()));
+            System.out.println("Data de Criacao: " + formataData(pagamento.getDataCriacao()));
             System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
             System.out.println("------------------------");
         }
@@ -1036,9 +1037,9 @@ public class Menus {
         System.out.println("ID: " + pagamento.getId());
         System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
         System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
-        System.out.println("Cartão de Crédito: " + pagamento.getCartaoDeCredito());
+        System.out.println("Cartão de Credito: " + pagamento.getCartaoDeCredito());
         System.out.println("Valor: R$ " + pagamento.getValor());
-        System.out.println("Data de Início: " + formataData(pagamento.getDataDeInicio()));
+        System.out.println("Data de Inicio: " + formataData(pagamento.getDataDeInicio()));
         System.out.println("Número de Meses Autorizados: " + pagamento.getNumeroDeMeses());
         System.out.println("Data de Criação: " + formataData(pagamento.getDataCriacao()));
         System.out.println("Data de Modificação: " + formataData(pagamento.getDataModificacao()));
@@ -1050,7 +1051,7 @@ public class Menus {
         System.out.println("\n*****  ALTERAR PAGAMENTO RECORRENTE  *****\n");
         System.out.println("Digite o novo ID da pessoa: ");
         int novoIdPessoa = Integer.parseInt(scanner.nextLine());
-        System.out.println("Digite o novo token do cartão de crédito: ");
+        System.out.println("Digite o novo token do cartao de credito: ");
         String novoCartaoDeCredito = scanner.nextLine();
         System.out.println("Digite o novo valor do pagamento: ");
         double novoValor = Double.parseDouble(scanner.nextLine());
@@ -1068,6 +1069,34 @@ public class Menus {
         int id = Integer.parseInt(scanner.nextLine());
         return id;
     }
+        
+    //CALENDARIO
+    public static int calendarioMenu(Calendario calendario) {
+        System.out.println("*******************************");
+        System.out.println("*        CALENDARIO           *");
+        System.out.println("*     DATA ATUAL: " + formataData(calendario.getDataAtual()) + "  *");
+        System.out.println("*******************************\n");
+        System.out.println("Escolha uma opcao:\n");
+        System.out.println("1 - Avancar dias no calendario\n");
+        System.out.println("2 - Diminuir dias no calendario\n");
+        System.out.println("3 - Sair\n");
+        System.out.println("\nDigite a opcao escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+    
+    public static int avancarCalendarioMenu() {
+        System.out.println("Digite quantos dias voce quer avancar no calendario: \n");
+        int dias = Integer.parseInt(scanner.nextLine());
+        return dias;
+    }
+    
+    public static int diminuirCalendarioMenu() {
+        System.out.println("Digite quantos dias voce quer diminuir no calendario: \n");
+        int dias = Integer.parseInt(scanner.nextLine());
+        return dias;
+    }
+     
     // ENTRADA ALUNOS
     // MOVIMENTAcaO FINANCEIRA
     // RELATORIOS

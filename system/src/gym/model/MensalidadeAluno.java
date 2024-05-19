@@ -7,16 +7,18 @@ public class MensalidadeAluno {
     private int id;
     private int idAluno;
     private int idMensalidade;
+    private LocalDate dataVencimento;
     private LocalDate dataPagamento;
     private double valorPago;
     private String modalidade;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    public MensalidadeAluno(int id, int idAluno, int idMensalidade, LocalDate dataPagamento, double valorPago, String modalidade, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public MensalidadeAluno(int id, int idAluno, int idMensalidade, LocalDate dataVencimento, LocalDate dataPagamento, double valorPago, String modalidade, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.idAluno = idAluno;
         this.idMensalidade = idMensalidade;
+        this.dataVencimento = dataVencimento;
         this.dataPagamento = dataPagamento;
         this.valorPago = valorPago;
         this.modalidade = modalidade;
@@ -46,6 +48,14 @@ public class MensalidadeAluno {
 
     public void setIdMensalidade(int idMensalidade) {
         this.idMensalidade = idMensalidade;
+    }
+
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
     }
 
     public LocalDate getDataPagamento() {

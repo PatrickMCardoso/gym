@@ -71,4 +71,11 @@ public class MensalidadeAlunoDAO {
         System.arraycopy(mensalidadesAluno, 0, mensalidadesExistentes, 0, tamanho);
         return mensalidadesExistentes;
     }
+    
+    public LocalDate ajustarDataVencimento(LocalDate dataPagamento, LocalDate dataMensalidade){
+        LocalDate dataAtual = LocalDate.now();
+        int diferencaMeses = dataMensalidade.getMonthValue() - dataPagamento.getMonthValue();
+        LocalDate dataVencimento = dataAtual.plusMonths(diferencaMeses);
+        return dataVencimento;
+    }
 }

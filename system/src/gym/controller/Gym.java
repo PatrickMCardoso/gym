@@ -21,6 +21,7 @@ public class Gym {
         MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
         MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
         PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
+        Calendario calendario = new Calendario(LocalDate.now());
 
         divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         academiaDAO.adicionarAcademiasExemplo();
@@ -31,7 +32,19 @@ public class Gym {
         treinoDAO.adicionarTreinoExemplos();
 
         int opcao = 0;
-        while (opcao != 15) {
+        while (opcao != 16) {
+            // VERIFICANDO SE AS FUNÇÕES DE CHECAR SE A MENSALIDADE DOS ALUNOS ESTÃO VENCIDAS ESTÁ FUNCIONANDO (DEU CERTO),  
+            // ACREDITO QUE SÓ PODEREMOS USÁ-LAS QUANDO O LOGIN E AS PERMISSÕES DE CADA TIPO DE USUARIO ESTIVEREM CERTINHAS,
+            // DEIXANDO ISSO AQUI PARA NÃO ESQUERCEMOS DE HABILITÁ-LAS ANTES DE ENVIAR A VERSÃO FINAL
+            
+            /*
+            MensalidadeAluno[] mensalidadesAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
+            int[] mensalidadesVencidas = calendario.checarVencimentos(mensalidadesAlunos);
+            for (int i = 0; i < mensalidadesVencidas.length; i++) {
+                System.out.println(mensalidadesVencidas[i]);
+            }
+            */
+            
             opcao = Menus.mostrarMenuPrincipal();
             switch (opcao) {
                 //ACADEMIA
@@ -553,6 +566,9 @@ public class Gym {
                         switch (opcaoMensalidadeAluno) {
                             case 1: {
                                 MensalidadeAluno mensalidadeAluno = Menus.associarMensalidadeAlunoMenu();
+                                Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                                LocalDate dataVencimento = mensalidadeAlunoDAO.ajustarDataVencimento(LocalDate.now(), mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDataFim());
+                                mensalidadeAluno.setDataVencimento(dataVencimento);
                                 Pessoa aluno = pessoaDAO.buscarPessoa(mensalidadeAluno.getIdAluno());
                                 if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
                                     mensalidadeAlunoDAO.adicionarMensalidadeAluno(mensalidadeAluno);
@@ -668,10 +684,35 @@ public class Gym {
                 }
                 break;
                 case 13:
+                    int opcaoCalendario = 0;
+                    while (opcaoCalendario != 3) {
+                        Menus.digitarQualquerTecla();
+                        opcaoCalendario = Menus.calendarioMenu(calendario);
+                        switch (opcaoCalendario) {
+                            case 1: {
+                                int dias = Menus.avancarCalendarioMenu();
+                                calendario.aumentarDias(dias);
+                            }
+                            break;
+                            case 2: {
+                                int dias = Menus.avancarCalendarioMenu();
+                                calendario.diminuirDias(dias);
+                            }
+                            break;
+                            case 3:
+                                System.out.println("\nSaindo...");
+                                break;
+                            default:
+                                Menus.mostrarOpcaoInvalida();
+                                break;
+                        }
+                    }
                     break;
                 case 14:
                     break;
                 case 15:
+                    break;
+                case 16:
                     System.out.println("\nEncerrando programa...\n");
                     break;
                 default:
