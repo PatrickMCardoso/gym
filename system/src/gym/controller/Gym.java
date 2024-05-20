@@ -781,6 +781,37 @@ public class Gym {
                                 }
                                 break;
                             case 14:
+                                // ENTRADA ALUNO
+                                int opcaoEntradaAluno = 0;
+                                while (opcaoEntradaAluno != 2) {
+                                    Menus.digitarQualquerTecla();
+                                    opcaoEntradaAluno = Menus.entradaAlunoMenu();
+                                    switch (opcaoEntradaAluno) {
+                                        case 1: {
+                                            int[] alunosVencidos = calendario.checarAlunosVencidos(mensalidadeAlunoDAO.mostrarMensalidadesAluno());
+                                            boolean mensalidadeVencida = false;
+                                            for (int i = 0; i < alunosVencidos.length; i++) {
+                                                if (pessoaLogada.getId() == alunosVencidos[i]) {
+                                                    mensalidadeVencida = true;
+                                                }
+                                            }
+                                            if (mensalidadeVencida && pessoaLogada.getTipoUsuario().equals("Aluno")) {
+                                                System.out.println("Mensalidade vencida! Procure alguem na recepcao para registrar o pagamento.");
+                                            } else {
+                                                EntradaAluno entradaAluno = new EntradaAluno(0, calendario.getDataAtual(), calendario.getDataAtual(), calendario.getDataAtual());
+                                                entradaAlunoDAO.adicionarEntradaAluno(entradaAluno);
+                                                System.out.println("Entrada aluno registrada com sucesso");
+                                            }
+                                        }
+                                        break;
+                                        case 2:
+                                            System.out.println("\nSaindo...");
+                                            break;
+                                        default:
+                                            Menus.mostrarOpcaoInvalida();
+                                            break;
+                                    }
+                                }
                                 break;
                             case 15:
                                 int opcaoRelatorio = 0;
@@ -1184,6 +1215,39 @@ public class Gym {
                             }
                             break;
                             case 8:
+                                // ENTRADA ALUNO
+                                int opcaoEntradaAluno = 0;
+                                while (opcaoEntradaAluno != 2) {
+                                    Menus.digitarQualquerTecla();
+                                    opcaoEntradaAluno = Menus.entradaAlunoMenu();
+                                    switch (opcaoEntradaAluno) {
+                                        case 1: {
+                                            int[] alunosVencidos = calendario.checarAlunosVencidos(mensalidadeAlunoDAO.mostrarMensalidadesAluno());
+                                            boolean mensalidadeVencida = false;
+                                            for (int i = 0; i < alunosVencidos.length; i++) {
+                                                if (pessoaLogada.getId() == alunosVencidos[i]) {
+                                                    mensalidadeVencida = true;
+                                                }
+                                            }
+                                            if (mensalidadeVencida && pessoaLogada.getTipoUsuario().equals("Aluno")) {
+                                                System.out.println("Mensalidade vencida! Procure alguem na recepcao para registrar o pagamento.");
+                                            } else {
+                                                EntradaAluno entradaAluno = new EntradaAluno(0, calendario.getDataAtual(), calendario.getDataAtual(), calendario.getDataAtual());
+                                                entradaAlunoDAO.adicionarEntradaAluno(entradaAluno);
+                                                System.out.println("Entrada aluno registrada com sucesso");
+                                            }
+                                        }
+                                        break;
+                                        case 2:
+                                            System.out.println("\nSaindo...");
+                                            break;
+                                        default:
+                                            Menus.mostrarOpcaoInvalida();
+                                            break;
+                                    }
+                                }
+                                break;
+                            case 9:
                                 int opcaoRelatorio = 0;
                                 while (opcaoRelatorio != 3) {
                                     Menus.digitarQualquerTecla();
@@ -1210,7 +1274,7 @@ public class Gym {
                                     }
                                 }
                                 break;
-                            case 9:
+                            case 10:
                                 System.out.println("\nEncerrando programa...\n");
                                 break;
                             default:
@@ -1262,14 +1326,14 @@ public class Gym {
                                         case 1: {
                                             int[] alunosVencidos = calendario.checarAlunosVencidos(mensalidadeAlunoDAO.mostrarMensalidadesAluno());
                                             boolean mensalidadeVencida = false;
-                                            for(int i=0; i<alunosVencidos.length; i++){
-                                               if(pessoaLogada.getId() == alunosVencidos[i]){
-                                                   mensalidadeVencida = true;
-                                               }
+                                            for (int i = 0; i < alunosVencidos.length; i++) {
+                                                if (pessoaLogada.getId() == alunosVencidos[i]) {
+                                                    mensalidadeVencida = true;
+                                                }
                                             }
-                                            if(mensalidadeVencida && pessoaLogada.getTipoUsuario().equals("Aluno")){
-                                                System.out.println("Mensalidade vencida! Procure alguem na recepção para registrar o pagamento.");
-                                            }else {
+                                            if (mensalidadeVencida && pessoaLogada.getTipoUsuario().equals("Aluno")) {
+                                                System.out.println("Mensalidade vencida! Procure alguem na recepcao para registrar o pagamento.");
+                                            } else {
                                                 EntradaAluno entradaAluno = new EntradaAluno(0, calendario.getDataAtual(), calendario.getDataAtual(), calendario.getDataAtual());
                                                 entradaAlunoDAO.adicionarEntradaAluno(entradaAluno);
                                                 System.out.println("Entrada aluno registrada com sucesso");
