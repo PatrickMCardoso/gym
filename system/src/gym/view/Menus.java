@@ -1084,7 +1084,7 @@ public class Menus {
         LocalDate dataInicio = LocalDate.now();
         LocalDate dataFim = dataInicio.plusMonths(meses);
 
-        Mensalidade mensalidade = new Mensalidade(0, descricao, valor, dataInicio, dataFim, dataInicio, dataInicio);
+        Mensalidade mensalidade = new Mensalidade(0, descricao, valor, dataInicio, dataFim, meses, dataInicio, dataInicio);
         return mensalidade;
     }
 
@@ -1131,7 +1131,7 @@ public class Menus {
 
         LocalDate dataAtualizacao = LocalDate.now();
         LocalDate dataFim = mensalidade.getDataInicio().plusMonths(novosMeses);
-        Mensalidade novaMensalidade = new Mensalidade(id, novaDescricao, novoValor, mensalidade.getDataInicio(), dataFim, mensalidade.getDataCriacao(), dataAtualizacao);
+        Mensalidade novaMensalidade = new Mensalidade(id, novaDescricao, novoValor, mensalidade.getDataInicio(), dataFim, novosMeses, mensalidade.getDataCriacao(), dataAtualizacao);
         return novaMensalidade;
     }
 
@@ -1240,8 +1240,7 @@ public class Menus {
         System.out.println("2 - Mostrar todos os pagamentos recorrentes\n");
         System.out.println("3 - Alterar pagamento recorrente\n");
         System.out.println("4 - Buscar pagamento recorrente\n");
-        System.out.println("5 - Remover pagamento recorrente\n");
-        System.out.println("6 - Sair\n");
+        System.out.println("5 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -1255,12 +1254,10 @@ public class Menus {
         int idPessoa = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o token do cartao de credito: ");
         String cartaoDeCredito = scanner.nextLine();
-        System.out.println("Digite o numero de meses autorizados: ");
-        int numeroDeMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtual = LocalDate.now();
         LocalDate dataDeInicio = dataAtual;
-        PagamentoRecorrente pagamentoRecorrente = new PagamentoRecorrente(0, idPessoa, idMensalidadeAluno, dataAtual, cartaoDeCredito, 0.0, dataDeInicio, numeroDeMeses, dataAtual, dataAtual);
+        PagamentoRecorrente pagamentoRecorrente = new PagamentoRecorrente(0, idPessoa, idMensalidadeAluno, dataAtual, cartaoDeCredito, 0.0, dataDeInicio, 0, dataAtual, dataAtual);
         return pagamentoRecorrente;
     }
 
@@ -1304,12 +1301,10 @@ public class Menus {
         int novoIdPessoa = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o novo token do cartao de credito: ");
         String novoCartaoDeCredito = scanner.nextLine();
-        System.out.println("Digite o novo numero de meses autorizados: ");
-        int novoNumeroDeMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtual = LocalDate.now();
         LocalDate novaDataDeInicio = dataAtual;
-        PagamentoRecorrente novoPagamentoRecorrente = new PagamentoRecorrente(id, novoIdPessoa, novoIdMensalidadeAluno, dataAtual, novoCartaoDeCredito, 0.0, novaDataDeInicio, novoNumeroDeMeses, pagamentoRecorrente.getDataCriacao(), dataAtual);
+        PagamentoRecorrente novoPagamentoRecorrente = new PagamentoRecorrente(id, novoIdPessoa, novoIdMensalidadeAluno, dataAtual, novoCartaoDeCredito, 0.0, novaDataDeInicio, 0, pagamentoRecorrente.getDataCriacao(), dataAtual);
         return novoPagamentoRecorrente;
     }
 

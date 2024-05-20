@@ -9,15 +9,17 @@ public class Mensalidade {
     private Double valor;
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    private int termino;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
     
-    public Mensalidade(int id, String descricao, Double valor, LocalDate dataInicio, LocalDate dataFim, LocalDate dataCriacao, LocalDate dataModificacao){
+    public Mensalidade(int id, String descricao, Double valor, LocalDate dataInicio, LocalDate dataFim, int termino, LocalDate dataCriacao, LocalDate dataModificacao){
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
+        this.termino = termino;
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
     }
@@ -76,5 +78,13 @@ public class Mensalidade {
 
     public void setDataModificacao(LocalDate dataModificacao) {
         this.dataModificacao = dataModificacao;
+    }
+
+    public int getTermino() {
+        return termino;
+    }
+
+    public void setTermino(int termino) {
+        this.termino = termino;
     }
 }

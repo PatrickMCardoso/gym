@@ -693,21 +693,23 @@ public class Gym {
                             //PAGAMENTO RECORRENTE
                             case 12: {
                                 int opcaoPagamento = 0;
-                                while (opcaoPagamento != 6) {
+                                while (opcaoPagamento != 5) {
                                     Menus.digitarQualquerTecla();
                                     opcaoPagamento = Menus.pagamentoRecorrenteMenu();
                                     switch (opcaoPagamento) {
                                         case 1: {
                                             PagamentoRecorrente pagamentoRecorrente = Menus.adicionarPagamentoRecorrenteMenu();
-                                            MensalidadeAluno mensalidade = mensalidadeAlunoDAO.buscarMensalidadeAluno(pagamentoRecorrente.getIdMensalidadeAluno());
-                                            if(mensalidade != null){
-                                            pagamentoRecorrente.setValor(mensalidade.getValorPago());
-                                            pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente, calendario.getDataAtual());
-                                            MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
-                                                    "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", calendario.getDataAtual(), calendario.getDataAtual());
-                                            movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
-                                            System.out.println("Pagamento recorrente adicionado com sucesso!");
-                                            }else {
+                                            MensalidadeAluno mensalidadeAluno = mensalidadeAlunoDAO.buscarMensalidadeAluno(pagamentoRecorrente.getIdMensalidadeAluno());
+                                            if (mensalidadeAluno != null) {
+                                                Mensalidade mensalidade = mensalidadeDAO.buscarMensalidade(mensalidadeAluno.getIdMensalidade());
+                                                pagamentoRecorrente.setValor(mensalidadeAluno.getValorPago());
+                                                pagamentoRecorrente.setNumeroDeMeses(mensalidade.getTermino());
+                                                pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente, calendario.getDataAtual());
+                                                MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
+                                                        "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", calendario.getDataAtual(), calendario.getDataAtual());
+                                                movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
+                                                System.out.println("Pagamento recorrente adicionado com sucesso!");
+                                            } else {
                                                 System.out.println("Erro ao adicionar pagamento recorrente. Tente novamente");
                                             }
                                         }
@@ -719,18 +721,6 @@ public class Gym {
                                         }
                                         break;
                                         case 3: {
-                                            int idAlteracao = Menus.buscarPagamentoRecorrenteMenu("alterar");
-                                            PagamentoRecorrente pagamentoExistente = pagamentoRecorrenteDAO.buscarPagamento(idAlteracao);
-                                            if (pagamentoExistente != null) {
-                                                PagamentoRecorrente novoPagamento = Menus.alterarPagamentoRecorrenteMenu(idAlteracao, pagamentoExistente);
-                                                pagamentoRecorrenteDAO.alterarPagamento(idAlteracao, novoPagamento, calendario.getDataAtual());
-                                                System.out.println("Pagamento recorrente alterado com sucesso!");
-                                            } else {
-                                                System.out.println("Pagamento recorrente nao encontrado.");
-                                            }
-                                        }
-                                        break;
-                                        case 4: {
                                             int idBusca = Menus.buscarPagamentoRecorrenteMenu("buscar");
                                             PagamentoRecorrente pagamentoBuscado = pagamentoRecorrenteDAO.buscarPagamento(idBusca);
                                             if (pagamentoBuscado != null) {
@@ -741,13 +731,13 @@ public class Gym {
                                             }
                                         }
                                         break;
-                                        case 5: {
+                                        case 4: {
                                             int idRemocao = Menus.buscarPagamentoRecorrenteMenu("remover");
                                             pagamentoRecorrenteDAO.removerPagamento(idRemocao);
                                             System.out.println("Pagamento recorrente removido com sucesso!");
                                         }
                                         break;
-                                        case 6:
+                                        case 5:
                                             System.out.println("\nSaindo...");
                                             break;
                                         default:

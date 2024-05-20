@@ -15,9 +15,9 @@ public class MensalidadeDAO {
     }
 
     public void adicionarMensalidadesExemplo() {
-        Mensalidade mensalidade1 = new Mensalidade(1, "Mensal", 120.0, LocalDate.now(), LocalDate.now().plusMonths(1), LocalDate.now(), LocalDate.now());
-        Mensalidade mensalidade2 = new Mensalidade(2, "Trimestral", 300.0, LocalDate.now(), LocalDate.now().plusMonths(3), LocalDate.now(), LocalDate.now());
-        Mensalidade mensalidade3 = new Mensalidade(3, "Anual", 1000.0, LocalDate.now(), LocalDate.now().plusMonths(12), LocalDate.now(), LocalDate.now());
+        Mensalidade mensalidade1 = new Mensalidade(1, "Mensal", 120.0, LocalDate.now(), LocalDate.now().plusMonths(1), 1, LocalDate.now(), LocalDate.now());
+        Mensalidade mensalidade2 = new Mensalidade(2, "Trimestral", 300.0, LocalDate.now(), LocalDate.now().plusMonths(3), 3, LocalDate.now(), LocalDate.now());
+        Mensalidade mensalidade3 = new Mensalidade(3, "Anual", 1000.0, LocalDate.now(), LocalDate.now().plusMonths(12), 12, LocalDate.now(), LocalDate.now());
 
         adicionarMensalidade(mensalidade1, LocalDate.now());
         adicionarMensalidade(mensalidade2, LocalDate.now());
