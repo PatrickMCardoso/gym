@@ -120,4 +120,6 @@ public class DivisaoTreinoDAO {
         System.arraycopy(resultadoTemp, 0, resultadoFinal, 0, count);
         return resultadoFinal;
     }
+    
+    
 }

@@ -7,6 +7,13 @@ public class EntradaAluno {
     private LocalDate data;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
+    
+    public EntradaAluno(int id, LocalDate data, LocalDate dataCriacao, LocalDate dataModificacao) {
+        this.id = id;
+        this.data = data;
+        this.dataCriacao = dataCriacao;
+        this.dataModificacao = dataModificacao;
+    }
 
     public int getId() {
         return id;
@@ -15,6 +22,7 @@ public class EntradaAluno {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public LocalDate getData() {
         return data;

@@ -11,6 +11,7 @@ public class DivisaoTreinoMusculo {
     private String[] tiposExercicios;
     private String[] musculos;
     private int alunoId;
+    private int treinoAplicacaoId;
     
 
     public DivisaoTreinoMusculo(int id, int alunoId, DivisaoTreino divisaoTreino, LocalDate dataCriacao, LocalDate dataModificacao, String[] tiposExercicios) {
@@ -20,6 +21,7 @@ public class DivisaoTreinoMusculo {
         this.dataCriacao = dataCriacao;
         this.dataModificacao = dataModificacao;
         this.tiposExercicios = tiposExercicios;
+        this.treinoAplicacaoId = -1;
     }
 
     public int getAlunoId() {
@@ -72,5 +74,13 @@ public class DivisaoTreinoMusculo {
 
     public void setTiposExercicios(String[] tiposExercicios) {
         this.tiposExercicios = tiposExercicios;
+    }
+    
+    public int getTreinoAplicacaoId() {
+        return treinoAplicacaoId;
+    }
+
+    public void setTreinoAplicacaoId(int treinoAplicacaoId) {
+        this.treinoAplicacaoId = treinoAplicacaoId;
     }
 }

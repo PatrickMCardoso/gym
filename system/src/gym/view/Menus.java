@@ -99,7 +99,7 @@ public class Menus {
         System.out.println("1 - Avaliacao Fisica (custo de R$ 20)\n");
         System.out.println("2 - Entrada Aluno\n");
         System.out.println("3 - Relatorios\n");
-        System.out.println("9 - Fechar\n");
+        System.out.println("4 - Fechar\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -623,7 +623,7 @@ public class Menus {
 
     public static void mostrarDivisaoTreinoMusculoMenu(DivisaoTreinoMusculo divisaoTreinoMusculo) {
         System.out.println("\n***** DIVISAO DE TREINO MUSCULAR *****\n");
-        System.out.println("ID: " + divisaoTreinoMusculo.getId());
+        System.out.println("ID da DTM: " + divisaoTreinoMusculo.getId());
         System.out.println("Aluno ID: " + divisaoTreinoMusculo.getAlunoId());
         System.out.println("Divisao: " + divisaoTreinoMusculo.getDivisaoTreino().getNome());
         String[] letras = divisaoTreinoMusculo.getDivisaoTreino().getNome().split("");
@@ -830,8 +830,9 @@ public class Menus {
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar Treino Aplicacao\n");
         System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");
-        System.out.println("3 - Remover Treino Aplicacao\n");
-        System.out.println("4 - Sair\n");
+        System.out.println("3 - Alterar Treino Aplicacao\n");
+        System.out.println("4 - Remover Treino Aplicacao\n");
+        System.out.println("5 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -903,7 +904,7 @@ public class Menus {
         return nomesExercicios;
     }
 
-    public static void mostrarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO) {
+    public static void mostrarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
         System.out.println("Informe o ID do usuario: ");
         int usuarioId = Integer.parseInt(scanner.nextLine());
 
@@ -917,23 +918,31 @@ public class Menus {
         System.out.println("\n***** FICHA DE TREINO DO USUARIO *****\n");
 
         for (TreinoAplicacao treinoAplicacao : treinoAplicacoesUsuario) {
-            System.out.println("ID da Ficha de Treino: " + treinoAplicacao.getId());
-            System.out.println("ID do Usuario: " + treinoAplicacao.getUsuarioId());
 
-            Treino treino = treinoDAO.buscarTreino(treinoAplicacao.getTreino().getId());
+            DivisaoTreinoMusculo divisaoTreinoMusculo = divisaoTreinoMusculoDAO.buscarPrimeiraDivisaoTreinoMusculoPorAluno(treinoAplicacao.getId());
+            if (divisaoTreinoMusculo != null) {
+                System.out.println("ID da Ficha de Treino: " + treinoAplicacao.getId());
+                System.out.println("ID do Usuario: " + treinoAplicacao.getUsuarioId());
 
-            if (treino != null) {
-                System.out.println("Divisao de Treino: " + treinoAplicacao.getDivisaoTreino().getNome());
-                System.out.println("Objetivo do Treino: " + treino.getObjetivo());
-                System.out.println("Data de Início do Treino: " + formataData(treino.getDataInicio()));
-                System.out.println("Data de Termino do Treino: " + formataData(treino.getDataTermino()));
-                System.out.println("Data de Criacao: " + formataData(treinoAplicacao.getDataCriacao()));
-                System.out.println("Data de Modificacao: " + formataData(treinoAplicacao.getDataModificacao()));
-            } else {
-                System.out.println("Treino nao encontrado para este usuario.");
+                Treino treino = treinoDAO.buscarTreino(treinoAplicacao.getTreino().getId());
+
+                if (treino != null) {
+                    System.out.println("Divisao de Treino: " + treinoAplicacao.getDivisaoTreino().getNome());
+                    System.out.println("Objetivo do Treino: " + treino.getObjetivo());
+                    System.out.println("Data de Inicio do Treino: " + formataData(treino.getDataInicio()));
+                    System.out.println("Data de Termino do Treino: " + formataData(treino.getDataTermino()));
+
+                    mostrarDivisaoTreinoMusculoMenu(divisaoTreinoMusculo);
+
+                    System.out.println("Data de Criacao: " + formataData(treinoAplicacao.getDataCriacao()));
+                    System.out.println("Data de Modificacao: " + formataData(treinoAplicacao.getDataModificacao()));
+
+                } else {
+                    System.out.println("Treino nao encontrado para este usuario.");
+                }
+
+                System.out.println("------------------------");
             }
-
-            System.out.println("------------------------");
         }
     }
 
@@ -1338,6 +1347,18 @@ public class Menus {
     }
 
     // ENTRADA ALUNOS
+    public static int entradaAlunoMenu() {
+        System.out.println("*****************************************");
+        System.out.println("*       SISTEMA DE ENTRADA DE ALUNOS    *");
+        System.out.println("*****************************************\n");
+        System.out.println("Escolha uma opção:\n");
+        System.out.println("1 - Fazer entrada de aluno");
+        System.out.println("2 - Sair");
+        System.out.println("\nDigite a opção escolhida:");
+        int menuOption = Integer.parseInt(scanner.nextLine());
+        return menuOption;
+    }
+
     // RELATORIOS
     public static int relatoriosMenu() {
         System.out.println("*******************************");

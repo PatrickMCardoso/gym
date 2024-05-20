@@ -77,4 +77,22 @@ public class DivisaoTreinoMusculoDAO {
         }
         return resultado;
     }
+
+    public DivisaoTreinoMusculo buscarPrimeiraDivisaoTreinoMusculoPorAluno(int alunoId) {
+        for (int i = 0; i < tamanho; i++) {
+            if (divisoes[i].getAlunoId() == alunoId) {
+                return divisoes[i];
+            }
+        }
+        return null;
+    }
+
+    public DivisaoTreinoMusculo buscarDivisaoTreinoMusculoPorTreinoAplicacaoId(int treinoAplicacaoId) {
+        for (int i = 0; i < tamanho; i++) {
+            if (divisoes[i].getTreinoAplicacaoId() == treinoAplicacaoId) {
+                return divisoes[i];
+            }
+        }
+        return null;
+    }
 }
