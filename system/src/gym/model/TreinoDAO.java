@@ -19,7 +19,7 @@ public class TreinoDAO {
     
     public void adicionarTreinoExemplos() {        
         
-        String[] objetivos = {"Definir abdomen", "Ganho de Massa Muscular", "Fortalecimento da Coluna", "Fortalecimento do Joelho", "Ficar MONSTRO"};
+        String[] objetivos = {"Definir abdomen", "Ganho de Massa Muscular", "Fortalecimento da Coluna", "Fortalecimento do Joelho"};
 
         Pessoa pessoa2 = pessoaDAO.buscarPessoa(2);
         Pessoa pessoa3 = pessoaDAO.buscarPessoa(3);
@@ -29,14 +29,14 @@ public class TreinoDAO {
 
         if (pessoa2 != null && divisao1 != null) {
             Treino treino1 = new Treino(1, pessoa2, objetivos[0], LocalDate.now().minusDays(62), LocalDate.now().minusDays(32), divisao1, LocalDate.now(), LocalDate.now());
-            Treino treino2 = new Treino(2, pessoa3, objetivos[0], LocalDate.now().minusDays(32), LocalDate.now().minusDays(2), divisao2, LocalDate.now(), LocalDate.now());
+            Treino treino2 = new Treino(2, pessoa3, objetivos[1], LocalDate.now().minusDays(32), LocalDate.now().minusDays(2), divisao2, LocalDate.now(), LocalDate.now());
             adicionarTreino(treino1, LocalDate.now());
             adicionarTreino(treino2, LocalDate.now());
         }
 
         if (pessoa3 != null && divisao2 != null) {
-            Treino treino3 = new Treino(3, pessoa3, objetivos[1], LocalDate.now().minusDays(62), LocalDate.now().minusDays(32), divisao2, LocalDate.now(), LocalDate.now());
-            Treino treino4 = new Treino(4, pessoa3, objetivos[4], LocalDate.now().minusDays(32), LocalDate.now().minusDays(2), divisao2, LocalDate.now(), LocalDate.now());
+            Treino treino3 = new Treino(3, pessoa3, objetivos[2], LocalDate.now().minusDays(62), LocalDate.now().minusDays(32), divisao2, LocalDate.now(), LocalDate.now());
+            Treino treino4 = new Treino(4, pessoa3, objetivos[3], LocalDate.now().minusDays(32), LocalDate.now().minusDays(2), divisao2, LocalDate.now(), LocalDate.now());
             adicionarTreino(treino3, LocalDate.now());
             adicionarTreino(treino4, LocalDate.now());
         }

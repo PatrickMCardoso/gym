@@ -852,7 +852,7 @@ public class Gym {
                 } else if (tipoUsuarioLogado.equals("Professor")) {
                     //MENU PROFESSOR
                     int opcaoProfessor = 0;
-                    while (opcaoProfessor != 9) {
+                    while (opcaoProfessor != 10) {
                         opcaoProfessor = Menus.mostrarMenuProfessor();
                         switch (opcaoProfessor) {
                             //EXERCICIO

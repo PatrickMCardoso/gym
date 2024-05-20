@@ -829,10 +829,9 @@ public class Menus {
         System.out.println("***********************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar Treino Aplicacao\n");
-        System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");
-        System.out.println("3 - Alterar Treino Aplicacao\n");
-        System.out.println("4 - Remover Treino Aplicacao\n");
-        System.out.println("5 - Sair\n");
+        System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");        
+        System.out.println("3 - Remover Treino Aplicacao\n");
+        System.out.println("4 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
@@ -915,7 +914,8 @@ public class Menus {
             return;
         }
 
-        System.out.println("\n***** FICHA DE TREINO DO USUARIO *****\n");
+        System.out.println("\n***** FICHA DE TREINO DO USUARIO *****");
+        System.out.println("*****        TASMANIAN GYM         *****\n");
 
         for (TreinoAplicacao treinoAplicacao : treinoAplicacoesUsuario) {
 
