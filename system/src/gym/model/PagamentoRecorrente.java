@@ -6,6 +6,7 @@ public class PagamentoRecorrente {
 
     private int id;
     private int idPessoa;
+    private int idMensalidadeAluno;
     private LocalDate data;
     private String cartaoDeCredito;
     private Double valor;
@@ -14,9 +15,10 @@ public class PagamentoRecorrente {
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
 
-    public PagamentoRecorrente(int id, int idPessoa, LocalDate data, String cartaoDeCredito, Double valor, LocalDate dataDeInicio, int numeroDeMeses, LocalDate dataCriacao, LocalDate dataModificacao) {
+    public PagamentoRecorrente(int id, int idPessoa, int idMensalidadeAluno, LocalDate data, String cartaoDeCredito, Double valor, LocalDate dataDeInicio, int numeroDeMeses, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.idPessoa = idPessoa;
+        this.idMensalidadeAluno= idMensalidadeAluno;
         this.data = data;
         this.cartaoDeCredito = cartaoDeCredito;
         this.valor = valor;
@@ -96,6 +98,14 @@ public class PagamentoRecorrente {
 
     public Double setValor(Double valor) {
         return this.valor = valor;
+    }
+
+    public int getIdMensalidadeAluno() {
+        return idMensalidadeAluno;
+    }
+
+    public void setIdMensalidadeAluno(int idMensalidadeAluno) {
+        this.idMensalidadeAluno = idMensalidadeAluno;
     }
 
 }

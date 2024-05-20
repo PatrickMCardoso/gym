@@ -1249,18 +1249,18 @@ public class Menus {
 
     public static PagamentoRecorrente adicionarPagamentoRecorrenteMenu() {
         System.out.println("\n*****  ADICIONAR PAGAMENTO RECORRENTE  ******\n");
+        System.out.println("Digite o ID da mensalidade do aluno: ");
+        int idMensalidadeAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o ID da pessoa: ");
         int idPessoa = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o token do cartao de credito: ");
         String cartaoDeCredito = scanner.nextLine();
-        System.out.println("Digite o valor do pagamento: ");
-        double valor = Double.parseDouble(scanner.nextLine());
         System.out.println("Digite o numero de meses autorizados: ");
         int numeroDeMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtual = LocalDate.now();
         LocalDate dataDeInicio = dataAtual;
-        PagamentoRecorrente pagamentoRecorrente = new PagamentoRecorrente(0, idPessoa, dataAtual, cartaoDeCredito, valor, dataDeInicio, numeroDeMeses, dataAtual, dataAtual);
+        PagamentoRecorrente pagamentoRecorrente = new PagamentoRecorrente(0, idPessoa, idMensalidadeAluno, dataAtual, cartaoDeCredito, 0.0, dataDeInicio, numeroDeMeses, dataAtual, dataAtual);
         return pagamentoRecorrente;
     }
 
@@ -1298,18 +1298,18 @@ public class Menus {
 
     public static PagamentoRecorrente alterarPagamentoRecorrenteMenu(int id, PagamentoRecorrente pagamentoRecorrente) {
         System.out.println("\n*****  ALTERAR PAGAMENTO RECORRENTE  *****\n");
+        System.out.println("Digite o novo ID da mensalidade do aluno: ");
+        int novoIdMensalidadeAluno = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o novo ID da pessoa: ");
         int novoIdPessoa = Integer.parseInt(scanner.nextLine());
         System.out.println("Digite o novo token do cartao de credito: ");
         String novoCartaoDeCredito = scanner.nextLine();
-        System.out.println("Digite o novo valor do pagamento: ");
-        double novoValor = Double.parseDouble(scanner.nextLine());
         System.out.println("Digite o novo numero de meses autorizados: ");
         int novoNumeroDeMeses = Integer.parseInt(scanner.nextLine());
 
         LocalDate dataAtual = LocalDate.now();
         LocalDate novaDataDeInicio = dataAtual;
-        PagamentoRecorrente novoPagamentoRecorrente = new PagamentoRecorrente(id, novoIdPessoa, dataAtual, novoCartaoDeCredito, novoValor, novaDataDeInicio, novoNumeroDeMeses, pagamentoRecorrente.getDataCriacao(), dataAtual);
+        PagamentoRecorrente novoPagamentoRecorrente = new PagamentoRecorrente(id, novoIdPessoa, novoIdMensalidadeAluno, dataAtual, novoCartaoDeCredito, 0.0, novaDataDeInicio, novoNumeroDeMeses, pagamentoRecorrente.getDataCriacao(), dataAtual);
         return novoPagamentoRecorrente;
     }
 

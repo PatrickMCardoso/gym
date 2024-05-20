@@ -699,11 +699,17 @@ public class Gym {
                                     switch (opcaoPagamento) {
                                         case 1: {
                                             PagamentoRecorrente pagamentoRecorrente = Menus.adicionarPagamentoRecorrenteMenu();
+                                            MensalidadeAluno mensalidade = mensalidadeAlunoDAO.buscarMensalidadeAluno(pagamentoRecorrente.getIdMensalidadeAluno());
+                                            if(mensalidade != null){
+                                            pagamentoRecorrente.setValor(mensalidade.getValorPago());
                                             pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente, calendario.getDataAtual());
                                             MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
                                                     "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", calendario.getDataAtual(), calendario.getDataAtual());
                                             movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
                                             System.out.println("Pagamento recorrente adicionado com sucesso!");
+                                            }else {
+                                                System.out.println("Erro ao adicionar pagamento recorrente. Tente novamente");
+                                            }
                                         }
                                         break;
                                         case 2: {
