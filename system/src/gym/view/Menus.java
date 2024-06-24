@@ -829,7 +829,7 @@ public class Menus {
         System.out.println("***********************************\n");
         System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Adicionar Treino Aplicacao\n");
-        System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");        
+        System.out.println("2 - Mostrar Todos os Treinos Aplicacao\n");
         System.out.println("3 - Remover Treino Aplicacao\n");
         System.out.println("4 - Sair\n");
         System.out.println("\nDigite a opcao escolhida:");
@@ -1360,14 +1360,19 @@ public class Menus {
     }
 
     // RELATORIOS
-    public static int relatoriosMenu() {
+    public static int relatoriosMenu(String tipoUsuarioLogado) {
         System.out.println("*******************************");
         System.out.println("*        RELATORIOS           *");
         System.out.println("*******************************\n");
         System.out.println("Escolha uma opcao:\n");
-        System.out.println("1 - Relatorio com toda a movimentacao financeira da academia em um dado mes\n");
-        System.out.println("2 - Ficha de treino do aluno\n");
-        System.out.println("3 - Sair\n");
+        if (tipoUsuarioLogado.equals("Admin")) {
+            System.out.println("1 - Relatorio com toda a movimentacao financeira da academia em um dado mes\n");
+            System.out.println("2 - Ficha de treino do aluno\n");
+            System.out.println("3 - Sair\n");
+        } else {
+            System.out.println("1 - Ficha de treino do aluno\n");
+            System.out.println("2 - Sair\n");
+        }
         System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
