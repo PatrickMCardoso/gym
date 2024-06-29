@@ -12,8 +12,8 @@ public class Mensalidade {
     private int termino;
     private LocalDate dataCriacao;
     private LocalDate dataModificacao;
-    
-    public Mensalidade(int id, String descricao, Double valor, LocalDate dataInicio, LocalDate dataFim, int termino, LocalDate dataCriacao, LocalDate dataModificacao){
+
+    public Mensalidade(int id, String descricao, Double valor, LocalDate dataInicio, LocalDate dataFim, int termino, LocalDate dataCriacao, LocalDate dataModificacao) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -31,9 +31,13 @@ public class Mensalidade {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getDescricao() {
         return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public void setId(String descricao) {

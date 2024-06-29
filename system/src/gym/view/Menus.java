@@ -1095,7 +1095,7 @@ public class Menus {
         return mensalidade;
     }
 
-    public static void mostrarTodasMensalidadesMenu(Mensalidade[] mensalidades) {
+    public static void mostrarTodasMensalidadesMenu(ArrayList<Mensalidade> mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES  *****\n");
         System.out.println("------------------------");
 
@@ -1188,26 +1188,26 @@ public class Menus {
         return mensalidadeAluno;
     }
 
-    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno, ArrayList<Pessoa> alunos, Mensalidade[] mensalidades) {
+    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno, ArrayList<Pessoa> alunos, ArrayList<Mensalidade> mensalidades) {
         System.out.println("\n*****  MENSALIDADE ALUNO  *****\n");
         System.out.println("ID Associacao: " + mensalidadeAluno.getId());
         System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
         System.out.println("Nome do Aluno: " + alunos.get(mensalidadeAluno.getIdAluno() - 1).getNome());
         System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
-        System.out.println("Descricao da mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
+        System.out.println("Descricao da mensalidade: " + mensalidades.get(mensalidadeAluno.getIdMensalidade() - 1).getDescricao());
         System.out.println("Data de Criacao: " + formataData(mensalidadeAluno.getDataCriacao()));
         System.out.println("Data de Modificacao: " + formataData(mensalidadeAluno.getDataModificacao()));
         System.out.println("------------------------");
     }
 
-    public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos, ArrayList<Pessoa> alunos, Mensalidade[] mensalidades) {
+    public static void mostrarTodasMensalidadesAlunoMenu(ArrayList<MensalidadeAluno> mensalidadesAlunos, ArrayList<Pessoa> alunos, ArrayList<Mensalidade> mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES DOS ALUNOS  *****\n");
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
             System.out.println("ID Associacao: " + mensalidadeAluno.getId());
             System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
             System.out.println("Nome do Aluno: " + alunos.get(mensalidadeAluno.getIdAluno() - 1).getNome());
             System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
-            System.out.println("Descricao da Mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
+            System.out.println("Descricao da Mensalidade: " +  mensalidades.get(mensalidadeAluno.getIdMensalidade() - 1).getDescricao());
             System.out.println("Valor Pago: " + mensalidadeAluno.getValorPago());
             System.out.println("Modalidade: " + mensalidadeAluno.getModalidade());
             System.out.println("Data de pagamento: " + formataData(mensalidadeAluno.getDataPagamento()));

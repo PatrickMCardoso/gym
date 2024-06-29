@@ -1,84 +1,162 @@
 package gym.model;
 
+import gym.controller.SQLConnection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MensalidadeDAO {
 
-    private Mensalidade[] mensalidades;
-    private int tamanho;
-    private int geradorId;
+    private ArrayList<Mensalidade> mensalidades;
 
     public MensalidadeDAO() {
-        this.mensalidades = new Mensalidade[10];
-        this.tamanho = 0;
-        this.geradorId = 0;
+        this.mensalidades = new ArrayList<>();
+    }
+
+    public void recuperarDadosMensalidade() {
+        String sql = "SELECT * FROM Mensalidade";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String descricao = rs.getString("descricao");
+                    double valor = rs.getDouble("valor");
+                    LocalDate dataInicio = rs.getDate("dataInicio").toLocalDate();
+                    LocalDate dataFim = rs.getDate("dataFim").toLocalDate();
+                    int termino = rs.getInt("termino");
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+                    Mensalidade mensalidade = new Mensalidade(id, descricao, valor, dataInicio, dataFim, termino, dataCriacao, dataModificacao);
+                    mensalidades.add(mensalidade);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public boolean checarMensalidadeExisteBanco(int id) {
+        String sql = "SELECT * FROM Mensalidade WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
     }
 
     public void adicionarMensalidadesExemplo() {
-        Mensalidade mensalidade1 = new Mensalidade(1, "Mensal", 120.0, LocalDate.now(), LocalDate.now().plusMonths(1), 1, LocalDate.now(), LocalDate.now());
-        Mensalidade mensalidade2 = new Mensalidade(2, "Trimestral", 300.0, LocalDate.now(), LocalDate.now().plusMonths(3), 3, LocalDate.now(), LocalDate.now());
-        Mensalidade mensalidade3 = new Mensalidade(3, "Anual", 1000.0, LocalDate.now(), LocalDate.now().plusMonths(12), 12, LocalDate.now(), LocalDate.now());
+        if (!checarMensalidadeExisteBanco(1)) {
+            LocalDate dataAtual = LocalDate.now();
 
-        adicionarMensalidade(mensalidade1, LocalDate.now());
-        adicionarMensalidade(mensalidade2, LocalDate.now());
-        adicionarMensalidade(mensalidade3, LocalDate.now());
+            Mensalidade mensalidade1 = new Mensalidade(1, "Mensal", 120.0, dataAtual, dataAtual.plusMonths(1), 1, dataAtual, dataAtual);
+            Mensalidade mensalidade2 = new Mensalidade(2, "Trimestral", 300.0, dataAtual, dataAtual.plusMonths(3), 3, dataAtual, dataAtual);
+            Mensalidade mensalidade3 = new Mensalidade(3, "Anual", 1000.0, dataAtual, dataAtual.plusMonths(12), 12, dataAtual, dataAtual);
+
+            adicionarMensalidade(mensalidade1, dataAtual);
+            adicionarMensalidade(mensalidade2, dataAtual);
+            adicionarMensalidade(mensalidade3, dataAtual);
+        }
     }
 
     public void adicionarMensalidade(Mensalidade mensalidade, LocalDate dataAtual) {
-        geradorId++;
-        if (tamanho == mensalidades.length) {
-            aumentarCapacidade();
-        }
-        int id = geradorId;
-        mensalidade.setId(id);
-        mensalidade.setDataCriacao(dataAtual);
-        mensalidade.setDataModificacao(dataAtual);
-        mensalidades[tamanho++] = mensalidade;
-    }
+        String sql = "INSERT INTO Mensalidade (descricao, valor, dataInicio, dataFim, termino, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, mensalidade.getDescricao());
+                stmt.setDouble(2, mensalidade.getValor());
+                stmt.setDate(3, Date.valueOf(mensalidade.getDataInicio()));
+                stmt.setDate(4, Date.valueOf(mensalidade.getDataFim()));
+                stmt.setInt(5, mensalidade.getTermino());
+                stmt.setDate(6, Date.valueOf(mensalidade.getDataCriacao()));
+                stmt.setDate(7, Date.valueOf(mensalidade.getDataModificacao()));
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = mensalidades.length * 2;
-        Mensalidade[] novoArray = new Mensalidade[novaCapacidade];
-        System.arraycopy(mensalidades, 0, novoArray, 0, tamanho);
-        mensalidades = novoArray;
+                int id = mensalidade.getId();
+
+                if (!checarMensalidadeExisteBanco(id)) {
+                    stmt.executeUpdate();
+                    mensalidades.clear();
+                    recuperarDadosMensalidade();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
     }
 
     public void alterarMensalidade(int id, Mensalidade novaMensalidade, LocalDate dataAtual) {
-        for (int i = 0; i < tamanho; i++) {
-            if (mensalidades[i].getId() == id) {
-                mensalidades[i].setValor(novaMensalidade.getValor());
-                mensalidades[i].setDataInicio(novaMensalidade.getDataInicio());
-                mensalidades[i].setDataFim(novaMensalidade.getDataFim());
-                mensalidades[i].setDataModificacao(dataAtual);
+        for (Mensalidade mensalidade : mensalidades) {
+            if (mensalidade.getId() == id) {
+                mensalidade.setDescricao(novaMensalidade.getDescricao());
+                mensalidade.setValor(novaMensalidade.getValor());
+                mensalidade.setDataInicio(novaMensalidade.getDataInicio());
+                mensalidade.setDataFim(novaMensalidade.getDataFim());
+                mensalidade.setTermino(novaMensalidade.getTermino());
+                mensalidade.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE Mensalidade SET descricao = ?, valor = ?, dataInicio = ?, dataFim = ?, termino = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, mensalidade.getDescricao());
+                        stmt.setDouble(2, mensalidade.getValor());
+                        stmt.setDate(3, Date.valueOf(mensalidade.getDataInicio()));
+                        stmt.setDate(4, Date.valueOf(mensalidade.getDataFim()));
+                        stmt.setInt(5, mensalidade.getTermino());
+                        stmt.setDate(6, Date.valueOf(mensalidade.getDataModificacao()));
+                        stmt.setInt(7, mensalidade.getId());
+                        stmt.executeUpdate();
+                        mensalidades.clear();
+                        recuperarDadosMensalidade();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
     public void removerMensalidade(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (mensalidades[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    mensalidades[j] = mensalidades[j + 1];
-                }
-                tamanho--;
-                break;
+        mensalidades.removeIf(mensalidade -> mensalidade.getId() == id);
+
+        String sql = "DELETE FROM Mensalidade WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                mensalidades.clear();
+                recuperarDadosMensalidade();
             }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
     }
 
     public Mensalidade buscarMensalidade(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (mensalidades[i].getId() == id) {
-                return mensalidades[i];
+        for (Mensalidade mensalidade : mensalidades) {
+            if (mensalidade.getId() == id) {
+                return mensalidade;
             }
         }
         return null;
     }
 
-    public Mensalidade[] mostrarMensalidades() {
-        Mensalidade[] mensalidadesExistentes = new Mensalidade[tamanho];
-        System.arraycopy(mensalidades, 0, mensalidadesExistentes, 0, tamanho);
-        return mensalidadesExistentes;
+    public ArrayList<Mensalidade> mostrarMensalidades() {
+        return new ArrayList<>(mensalidades);
     }
 }

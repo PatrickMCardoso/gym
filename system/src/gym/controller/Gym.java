@@ -514,7 +514,7 @@ public class Gym {
                 }
                 break;
                 case 2: {
-                    Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                    ArrayList<Mensalidade> mensalidades = mensalidadeDAO.mostrarMensalidades();
                     Menus.mostrarTodasMensalidadesMenu(mensalidades);
                 }
                 break;
@@ -564,10 +564,10 @@ public class Gym {
             switch (opcaoMensalidadeAluno) {
                 case 1: {
                     MensalidadeAluno mensalidadeAluno = Menus.associarMensalidadeAlunoMenu();
-                    Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
-                    LocalDate dataVencimento = mensalidadeAlunoDAO.ajustarDataVencimento(calendario.getDataAtual(), mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDataFim());
+                    ArrayList<Mensalidade> mensalidades = mensalidadeDAO.mostrarMensalidades();
+                    LocalDate dataVencimento = mensalidadeAlunoDAO.ajustarDataVencimento(calendario.getDataAtual(), mensalidades.get(mensalidadeAluno.getIdMensalidade() - 1).getDataFim());
                     mensalidadeAluno.setDataVencimento(dataVencimento);
-                    mensalidadeAluno.setValorPago(mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getValor());
+                    mensalidadeAluno.setValorPago(mensalidades.get(mensalidadeAluno.getIdMensalidade() - 1).getValor());
                     Pessoa aluno = pessoaDAO.buscarPessoa(mensalidadeAluno.getIdAluno());
 
                     if (pessoaDAO.checarTipoPessoa("Aluno", aluno)) {
@@ -586,9 +586,9 @@ public class Gym {
                 }
                 break;
                 case 2: {
-                    MensalidadeAluno[] mensalidadeAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
+                    ArrayList<MensalidadeAluno> mensalidadeAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
                     ArrayList<Pessoa> alunos = pessoaDAO.mostrarPessoas();
-                    Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                    ArrayList<Mensalidade> mensalidades = mensalidadeDAO.mostrarMensalidades();
                     Menus.mostrarTodasMensalidadesAlunoMenu(mensalidadeAlunos, alunos, mensalidades);
                 }
                 break;
@@ -609,7 +609,7 @@ public class Gym {
                     MensalidadeAluno mensalidadeAlunoBuscada = mensalidadeAlunoDAO.buscarMensalidadeAluno(idBusca);
                     if (mensalidadeAlunoBuscada != null) {
                         ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
-                        Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
+                        ArrayList<Mensalidade> mensalidades = mensalidadeDAO.mostrarMensalidades();
                         Menus.mostrarMensalidadeAlunoMenu(mensalidadeAlunoBuscada, pessoas, mensalidades);
                     } else {
                         System.out.println("Associacao de mensalidade a aluno nao encontrada.");
@@ -702,7 +702,7 @@ public class Gym {
                         movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
                     } else if (calendario.checarTerminoMes() == true) {
                         ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
-                        MensalidadeAluno[] mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
+                         ArrayList<MensalidadeAluno> mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
                         int[] idsAlunosAdimplentes = calendario.checarAlunosAdimplentes(mensalidades);
                         Relatorios.relatorioAlunosAdimplentes(mensalidades, pessoas, calendario.getDataAtual(), idsAlunosAdimplentes);
                     }
@@ -804,6 +804,7 @@ public class Gym {
         
         academiaDAO.recuperarDadosAcademia();
         pessoaDAO.recuperarDadosPessoa();
+        mensalidadeDAO.recuperarDadosMensalidade();
         
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();

@@ -1,80 +1,161 @@
 package gym.model;
 
+import gym.controller.SQLConnection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MensalidadeAlunoDAO {
 
-    private MensalidadeAluno[] mensalidadesAluno;
-    private int tamanho;
-    private int geradorId;
+    private ArrayList<MensalidadeAluno> mensalidadesAluno;
 
     public MensalidadeAlunoDAO() {
-        this.mensalidadesAluno = new MensalidadeAluno[10];
-        this.tamanho = 0;
-        this.geradorId = 0;
+        this.mensalidadesAluno = new ArrayList<>();
+    }
+
+    public void recuperarDadosMensalidadeAluno() {
+        String sql = "SELECT * FROM MensalidadeAluno";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int idAluno = rs.getInt("idAluno");
+                    int idMensalidade = rs.getInt("idMensalidade");
+                    LocalDate dataVencimento = rs.getDate("dataVencimento").toLocalDate();
+                    LocalDate dataPagamento = rs.getDate("dataPagamento").toLocalDate();
+                    double valorPago = rs.getDouble("valorPago");
+                    String modalidade = rs.getString("modalidade");
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+
+                    MensalidadeAluno mensalidadeAluno = new MensalidadeAluno(id, idAluno, idMensalidade, dataVencimento, dataPagamento, valorPago, modalidade, dataCriacao, dataModificacao);
+                    mensalidadesAluno.add(mensalidadeAluno);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public boolean checarMensalidadeAlunoExisteBanco(int id) {
+        String sql = "SELECT * FROM MensalidadeAluno WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
     }
 
     public void adicionarMensalidadeAluno(MensalidadeAluno mensalidadeAluno, LocalDate dataAtual) {
-        geradorId++;
-        if (tamanho == mensalidadesAluno.length) {
-            aumentarCapacidade();
-        }
-        int id = geradorId;
-        mensalidadeAluno.setId(id);
-        mensalidadeAluno.setDataCriacao(dataAtual);
-        mensalidadeAluno.setDataModificacao(dataAtual);
-        mensalidadesAluno[tamanho++] = mensalidadeAluno;
-    }
+        String sql = "INSERT INTO MensalidadeAluno (idAluno, idMensalidade, dataVencimento, dataPagamento, valorPago, modalidade, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                stmt.setInt(1, mensalidadeAluno.getIdAluno());
+                stmt.setInt(2, mensalidadeAluno.getIdMensalidade());
+                stmt.setDate(3, Date.valueOf(mensalidadeAluno.getDataVencimento()));
+                stmt.setDate(4, Date.valueOf(mensalidadeAluno.getDataPagamento()));
+                stmt.setDouble(5, mensalidadeAluno.getValorPago());
+                stmt.setString(6, mensalidadeAluno.getModalidade());
+                stmt.setDate(7, Date.valueOf(dataAtual));
+                stmt.setDate(8, Date.valueOf(dataAtual));
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = mensalidadesAluno.length * 2;
-        MensalidadeAluno[] novoArray = new MensalidadeAluno[novaCapacidade];
-        System.arraycopy(mensalidadesAluno, 0, novoArray, 0, tamanho);
-        mensalidadesAluno = novoArray;
+                if (!checarMensalidadeAlunoExisteBanco(mensalidadeAluno.getId())) {
+                    stmt.executeUpdate();
+                    ResultSet rs = stmt.getGeneratedKeys();
+                    if (rs.next()) {
+                        mensalidadeAluno.setId(rs.getInt(1));
+                    }
+                    mensalidadesAluno.clear();
+                    recuperarDadosMensalidadeAluno();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
     }
 
     public void alterarMensalidadeAluno(int id, MensalidadeAluno novaMensalidadeAluno, LocalDate dataAtual) {
-        for (int i = 0; i < tamanho; i++) {
-            if (mensalidadesAluno[i].getId() == id) {
-                mensalidadesAluno[i].setIdAluno(novaMensalidadeAluno.getIdAluno());
-                mensalidadesAluno[i].setIdMensalidade(novaMensalidadeAluno.getIdMensalidade());
-                mensalidadesAluno[i].setDataModificacao(dataAtual);
+        for (MensalidadeAluno mensalidadeAluno : mensalidadesAluno) {
+            if (mensalidadeAluno.getId() == id) {
+                mensalidadeAluno.setIdAluno(novaMensalidadeAluno.getIdAluno());
+                mensalidadeAluno.setIdMensalidade(novaMensalidadeAluno.getIdMensalidade());
+                mensalidadeAluno.setDataVencimento(novaMensalidadeAluno.getDataVencimento());
+                mensalidadeAluno.setDataPagamento(novaMensalidadeAluno.getDataPagamento());
+                mensalidadeAluno.setValorPago(novaMensalidadeAluno.getValorPago());
+                mensalidadeAluno.setModalidade(novaMensalidadeAluno.getModalidade());
+                mensalidadeAluno.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE MensalidadeAluno SET idAluno = ?, idMensalidade = ?, dataVencimento = ?, dataPagamento = ?, valorPago = ?, modalidade = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setInt(1, novaMensalidadeAluno.getIdAluno());
+                        stmt.setInt(2, novaMensalidadeAluno.getIdMensalidade());
+                        stmt.setDate(3, Date.valueOf(novaMensalidadeAluno.getDataVencimento()));
+                        stmt.setDate(4, Date.valueOf(novaMensalidadeAluno.getDataPagamento()));
+                        stmt.setDouble(5, novaMensalidadeAluno.getValorPago());
+                        stmt.setString(6, novaMensalidadeAluno.getModalidade());
+                        stmt.setDate(7, Date.valueOf(dataAtual));
+                        stmt.setInt(8, id);
+                        stmt.executeUpdate();
+                        mensalidadesAluno.clear();
+                        recuperarDadosMensalidadeAluno();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
     public void removerMensalidadeAluno(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (mensalidadesAluno[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    mensalidadesAluno[j] = mensalidadesAluno[j + 1];
-                }
-                tamanho--;
-                break;
+        mensalidadesAluno.removeIf(mensalidadeAluno -> mensalidadeAluno.getId() == id);
+
+        String sql = "DELETE FROM MensalidadeAluno WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                mensalidadesAluno.clear();
+                recuperarDadosMensalidadeAluno();
             }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
     }
 
     public MensalidadeAluno buscarMensalidadeAluno(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (mensalidadesAluno[i].getId() == id) {
-                return mensalidadesAluno[i];
+        for (MensalidadeAluno mensalidadeAluno : mensalidadesAluno) {
+            if (mensalidadeAluno.getId() == id) {
+                return mensalidadeAluno;
             }
         }
         return null;
     }
 
-    public MensalidadeAluno[] mostrarMensalidadesAluno() {
-        MensalidadeAluno[] mensalidadesExistentes = new MensalidadeAluno[tamanho];
-        System.arraycopy(mensalidadesAluno, 0, mensalidadesExistentes, 0, tamanho);
-        return mensalidadesExistentes;
+    public ArrayList<MensalidadeAluno> mostrarMensalidadesAluno() {
+        return new ArrayList<>(mensalidadesAluno);
     }
-    
-    public LocalDate ajustarDataVencimento(LocalDate dataPagamento, LocalDate dataMensalidade){
+
+    public LocalDate ajustarDataVencimento(LocalDate dataPagamento, LocalDate dataMensalidade) {
         LocalDate dataAtual = LocalDate.now();
         int diferencaMeses = dataMensalidade.getMonthValue() - dataPagamento.getMonthValue();
-        LocalDate dataVencimento = dataAtual.plusMonths(diferencaMeses);
-        return dataVencimento;
+        return dataAtual.plusMonths(diferencaMeses);
     }
 }
