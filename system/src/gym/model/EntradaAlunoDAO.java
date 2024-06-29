@@ -1,73 +1,135 @@
 package gym.model;
 
+import gym.controller.SQLConnection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EntradaAlunoDAO {
 
-    private EntradaAluno[] entradasAlunos;
-    private int tamanho;
-    private int geradorId;
+    private ArrayList<EntradaAluno> entradasAlunos;
 
     public EntradaAlunoDAO() {
-        this.entradasAlunos = new EntradaAluno[10];
-        this.tamanho = 0;
-        this.geradorId = 0;
+        this.entradasAlunos = new ArrayList<>();
     }
-    
-    public void adicionarEntradaAluno(EntradaAluno entradaAluno) {
-        geradorId++;
-        if (tamanho == entradasAlunos.length) {
-            aumentarCapacidade();
+
+    public void recuperarDadosEntradaAluno() {
+        String sql = "SELECT * FROM EntradaAluno";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    LocalDate data = rs.getDate("data").toLocalDate();
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+
+                    EntradaAluno entradaAluno = new EntradaAluno(id, data, dataCriacao, dataModificacao);
+                    entradasAlunos.add(entradaAluno);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
-        int id = geradorId;
-        entradaAluno.setId(id);
-        LocalDate dataAtual = LocalDate.now();
-        entradaAluno.setDataCriacao(dataAtual);
-        entradaAluno.setDataModificacao(dataAtual);
-        entradasAlunos[tamanho++] = entradaAluno;
     }
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = entradasAlunos.length * 2;
-        EntradaAluno[] novoArray = new EntradaAluno[novaCapacidade];
-        System.arraycopy(entradasAlunos, 0, novoArray, 0, tamanho);
-        entradasAlunos = novoArray;
+    public boolean checarEntradaAlunoExisteBanco(int id) {
+        String sql = "SELECT * FROM EntradaAluno WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
     }
 
-    public void alterarEntradaAluno(int id, EntradaAluno novaEntradaAluno) {
-        for (int i = 0; i < tamanho; i++) {
-            if (entradasAlunos[i].getId() == id) {
-                entradasAlunos[i].setData(novaEntradaAluno.getData());
-                entradasAlunos[i].setDataModificacao(LocalDate.now());
+    public void adicionarEntradaAluno(EntradaAluno entradaAluno, LocalDate dataAtual) {
+        String sql = "INSERT INTO EntradaAluno (data, dataCriacao, dataModificacao) VALUES (?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                stmt.setDate(1, Date.valueOf(entradaAluno.getData()));
+                stmt.setDate(2, Date.valueOf(dataAtual));
+                stmt.setDate(3, Date.valueOf(dataAtual));
+
+                if (!checarEntradaAlunoExisteBanco(entradaAluno.getId())) {
+                    stmt.executeUpdate();
+                    ResultSet rs = stmt.getGeneratedKeys();
+                    if (rs.next()) {
+                        entradaAluno.setId(rs.getInt(1));
+                    }
+                    entradasAlunos.clear();
+                    recuperarDadosEntradaAluno();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public void alterarEntradaAluno(int id, EntradaAluno novaEntradaAluno, LocalDate dataAtual) {
+        for (EntradaAluno entradaAluno : entradasAlunos) {
+            if (entradaAluno.getId() == id) {
+                entradaAluno.setData(novaEntradaAluno.getData());
+                entradaAluno.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE EntradaAluno SET data = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setDate(1, Date.valueOf(novaEntradaAluno.getData()));
+                        stmt.setDate(2, Date.valueOf(dataAtual));
+                        stmt.setInt(3, id);
+                        stmt.executeUpdate();
+                        entradasAlunos.clear();
+                        recuperarDadosEntradaAluno();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
     public void removerEntradaAluno(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (entradasAlunos[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    entradasAlunos[j] = entradasAlunos[j + 1];
-                }
-                tamanho--;
-                break;
+        entradasAlunos.removeIf(entradaAluno -> entradaAluno.getId() == id);
+
+        String sql = "DELETE FROM EntradaAluno WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                entradasAlunos.clear();
+                recuperarDadosEntradaAluno();
             }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
     }
 
     public EntradaAluno buscarEntradaAluno(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (entradasAlunos[i].getId() == id) {
-                return entradasAlunos[i];
+        for (EntradaAluno entradaAluno : entradasAlunos) {
+            if (entradaAluno.getId() == id) {
+                return entradaAluno;
             }
         }
         return null;
     }
 
-    public EntradaAluno[] mostrarEntradasAlunos() {
-        EntradaAluno[] entradasExistentes = new EntradaAluno[tamanho];
-        System.arraycopy(entradasAlunos, 0, entradasExistentes, 0, tamanho);
-        return entradasExistentes;
+    public ArrayList<EntradaAluno> mostrarEntradasAlunos() {
+        return new ArrayList<>(entradasAlunos);
     }
 }

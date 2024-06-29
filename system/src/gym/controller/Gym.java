@@ -645,7 +645,7 @@ public class Gym {
                         Mensalidade mensalidade = mensalidadeDAO.buscarMensalidade(mensalidadeAluno.getIdMensalidade());
                         pagamentoRecorrente.setValor(mensalidadeAluno.getValorPago());
                         pagamentoRecorrente.setNumeroDeMeses(mensalidade.getTermino());
-                        pagamentoRecorrenteDAO.adicionarPagamento(pagamentoRecorrente, calendario.getDataAtual());
+                        pagamentoRecorrenteDAO.adicionarPagamentoRecorrente(pagamentoRecorrente, calendario.getDataAtual());
                         MovimentacaoFinanceira movimentacaoPagamento = new MovimentacaoFinanceira(0, pagamentoRecorrente.getValor(),
                                 "entrada", "Pagamento de mensalidade do aluno de id " + pagamentoRecorrente.getIdPessoa() + ", aprovado por " + pagamentoRecorrente.getNumeroDeMeses() + " meses", calendario.getDataAtual(), calendario.getDataAtual());
                         movimentacaoFinanceiraDAO.adicionarMovimentacao(movimentacaoPagamento, calendario.getDataAtual());
@@ -656,14 +656,14 @@ public class Gym {
                 }
                 break;
                 case 2: {
-                    PagamentoRecorrente[] pagamentos = pagamentoRecorrenteDAO.mostrarPagamentos();
+                    ArrayList<PagamentoRecorrente> pagamentos = pagamentoRecorrenteDAO.mostrarPagamentosRecorrentes();
                     ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                     Menus.mostrarTodosPagamentosRecorrentesMenu(pagamentos, pessoas);
                 }
                 break;
                 case 3: {
                     int idBusca = Menus.buscarPagamentoRecorrenteMenu("buscar");
-                    PagamentoRecorrente pagamentoBuscado = pagamentoRecorrenteDAO.buscarPagamento(idBusca);
+                    PagamentoRecorrente pagamentoBuscado = pagamentoRecorrenteDAO.buscarPagamentoRecorrente(idBusca);
                     if (pagamentoBuscado != null) {
                         ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                         Menus.mostrarPagamentoRecorrenteMenu(pagamentoBuscado, pessoas);
@@ -674,7 +674,7 @@ public class Gym {
                 break;
                 case 4: {
                     int idRemocao = Menus.buscarPagamentoRecorrenteMenu("remover");
-                    pagamentoRecorrenteDAO.removerPagamento(idRemocao);
+                    pagamentoRecorrenteDAO.removerPagamentoRecorrente(idRemocao);
                     System.out.println("Pagamento recorrente removido com sucesso!");
                 }
                 break;
@@ -741,7 +741,7 @@ public class Gym {
                         System.out.println("Mensalidade vencida! Procure alguem na recepcao para registrar o pagamento.");
                     } else {
                         EntradaAluno entradaAluno = new EntradaAluno(0, calendario.getDataAtual(), calendario.getDataAtual(), calendario.getDataAtual());
-                        entradaAlunoDAO.adicionarEntradaAluno(entradaAluno);
+                        entradaAlunoDAO.adicionarEntradaAluno(entradaAluno, calendario.getDataAtual());
                         System.out.println("Entrada aluno registrada com sucesso");
                     }
                 }

@@ -1268,7 +1268,7 @@ public class Menus {
         return pagamentoRecorrente;
     }
 
-    public static void mostrarTodosPagamentosRecorrentesMenu(PagamentoRecorrente[] pagamentos, ArrayList<Pessoa> pessoas) {
+    public static void mostrarTodosPagamentosRecorrentesMenu(ArrayList<PagamentoRecorrente> pagamentos, ArrayList<Pessoa> pessoas) {
         System.out.println("\n*****  TODOS OS PAGAMENTOS RECORRENTES  *****\n");
         System.out.println("------------------------");
 
