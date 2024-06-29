@@ -1,83 +1,151 @@
 package gym.model;
 
+import gym.controller.SQLConnection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AcademiaDAO {
 
-    private Academia[] academias;
-    private int tamanho;
-    private int geradorId;
+    private List<Academia> academias;
 
     public AcademiaDAO() {
-        this.academias = new Academia[10];
-        this.tamanho = 0;
-        this.geradorId = 0;
+        this.academias = new ArrayList<>();
+    }
+
+    public void recuperarDadosAcademia() {
+        String sql = "SELECT * FROM Academia";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String nome = rs.getString("nome");
+                    String endereco = rs.getString("endereco");
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+                    Academia academia = new Academia(id, nome, endereco, dataCriacao, dataModificacao);
+                    academias.add(academia);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public boolean checarAcademiaExisteBanco(int id) {
+        String sql = "SELECT * FROM Academia WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
     }
 
     public void adicionarAcademiasExemplo() {
-        Academia academia1 = new Academia(1, "Tasmanian Gym", "R. Píres de Campos, 409", LocalDate.now(), LocalDate.now());
-        Academia academia2 = new Academia(2, "BioTech Prime", "Av. Nenê Sabino, 915", LocalDate.now(), LocalDate.now());
-        Academia academia3 = new Academia(3, "Smart Fit", "Av. Guilherme Ferreira, 1550", LocalDate.now(), LocalDate.now());
+        if (!checarAcademiaExisteBanco(1)) {
+            LocalDate dataAtual = LocalDate.now();
 
-        adicionarAcademia(academia1, LocalDate.now());
-        adicionarAcademia(academia2, LocalDate.now());
-        adicionarAcademia(academia3, LocalDate.now());
+            Academia academia1 = new Academia(1, "Tasmanian Gym", "R. Píres de Campos, 409", dataAtual, dataAtual);
+            Academia academia2 = new Academia(2, "BioTech Prime", "Av. Nenê Sabino, 915", dataAtual, dataAtual);
+            Academia academia3 = new Academia(3, "Smart Fit", "Av. Guilherme Ferreira, 1550", dataAtual, dataAtual);
+
+            adicionarAcademia(academia1, dataAtual);
+            adicionarAcademia(academia2, dataAtual);
+            adicionarAcademia(academia3, dataAtual);
+        }
     }
 
     public void adicionarAcademia(Academia academia, LocalDate dataAtual) {
-        geradorId++;
-        if (tamanho == academias.length) {
-            aumentarCapacidade();
-        }
-        int id = geradorId;
-        academia.setId(id);
-        academia.setDataCriacao(dataAtual);
-        academia.setDataModificacao(dataAtual);
-        academias[tamanho++] = academia;
-    }
+        String sql = "INSERT INTO Academia (nome, endereco, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, academia.getNome());
+                stmt.setString(2, academia.getEndereco());
+                stmt.setDate(3, Date.valueOf(academia.getDataCriacao()));
+                stmt.setDate(4, Date.valueOf(academia.getDataModificacao()));
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = academias.length * 2;
-        Academia[] novoArray = new Academia[novaCapacidade];
-        System.arraycopy(academias, 0, novoArray, 0, tamanho);
-        academias = novoArray;
+                int id = academia.getId();
+
+                if (!checarAcademiaExisteBanco(id)) {
+                    stmt.executeUpdate();
+                    academias.clear();
+                    recuperarDadosAcademia();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
     }
 
     public void alterarAcademia(int id, Academia novaAcademia, LocalDate dataAtual) {
-        for (int i = 0; i < tamanho; i++) {
-            if (academias[i].getId() == id) {
-                academias[i].setNome(novaAcademia.getNome());
-                academias[i].setEndereco(novaAcademia.getEndereco());
-                academias[i].setDataModificacao(dataAtual);
+        for (Academia academia : academias) {
+            if (academia.getId() == id) {
+                academia.setNome(novaAcademia.getNome());
+                academia.setEndereco(novaAcademia.getEndereco());
+                academia.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE Academia SET nome = ?, endereco = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, academia.getNome());
+                        stmt.setString(2, academia.getEndereco());
+                        stmt.setDate(3, Date.valueOf(academia.getDataModificacao()));
+                        stmt.setInt(4, academia.getId());
+                        stmt.executeUpdate();
+                        academias.clear();
+                        recuperarDadosAcademia();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
     public void removerAcademia(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (academias[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    academias[j] = academias[j + 1];
-                }
-                tamanho--;
-                break;
+        academias.removeIf(academia -> academia.getId() == id);
+
+        String sql = "DELETE FROM Academia WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                academias.clear();
+                recuperarDadosAcademia();
             }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
     }
 
     public Academia buscarAcademia(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (academias[i].getId() == id) {
-                return academias[i];
+        for (Academia academia : academias) {
+            if (academia.getId() == id) {
+                return academia;
             }
         }
         return null;
     }
 
-    public Academia[] mostrarAcademias() {
-        Academia[] academiasExistentes = new Academia[tamanho];
-        System.arraycopy(academias, 0, academiasExistentes, 0, tamanho);
-        return academiasExistentes;
+    public ArrayList<Academia> mostrarAcademias() {
+        return new ArrayList<>(academias);
     }
 }

@@ -1,6 +1,7 @@
 package gym.view;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 import gym.model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -133,9 +134,9 @@ public class Menus {
         return academia;
     }
 
-    public static void mostrarTodasAcademiasMenu(Academia[] academias) {
+      public static void mostrarTodasAcademiasMenu(ArrayList<Academia> academias) {
         System.out.println("\n*****  TODAS AS ACADEMIAS  *****\n");
-        if (academias.length == 0) {
+        if (academias.isEmpty()) {
             System.out.println("Nenhuma academia cadastrada.");
         } else {
             System.out.println("------------------------");
@@ -162,8 +163,7 @@ public class Menus {
 
     public static int buscarAcademiaMenu(String modo) {
         System.out.println("Digite o ID da academia que deseja " + modo + ": ");
-        int id = Integer.parseInt(scanner.nextLine());
-        return id;
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static Academia alterarAcademiaMenu(int id, Academia academiaExistente) {
@@ -173,10 +173,8 @@ public class Menus {
         System.out.println("Digite o novo endereco da academia:");
         String novoEndereco = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
-        Academia novaAcademia = new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
-        return novaAcademia;
+        return new Academia(id, novoNome, novoEndereco, academiaExistente.getDataCriacao(), dataAtualizacao);
     }
-
     // PESSOA
     public static int pessoaMenu() {
         System.out.println("**************************");

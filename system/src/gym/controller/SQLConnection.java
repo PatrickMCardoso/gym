@@ -6,27 +6,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLConnection {
+
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USER = "root";
-    private static final String PASSWORD = "123123";
+    private static final String PASSWORD = "admin";
     private static final String DATABASE_NAME = "gym";
-    
-    public static Connection getConnection() throws SQLException{
+
+    public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL + DATABASE_NAME, USER, PASSWORD);
     }
 
-        public static void criarTabelas() {
-        Connection con = null;
+    public static void criarTabelas() {
+        Connection conn = null;
         Statement stmt = null;
         try {
-            con = getConnection();
-            stmt = con.createStatement();            
+            conn = getConnection();
+            stmt = conn.createStatement();
             stmt.executeUpdate("USE " + DATABASE_NAME);
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Academia (" 
-                    + "id INT AUTO_INCREMENT PRIMARY KEY," 
-                    + "nome VARCHAR(255) NOT NULL," 
-                    + "endereco VARCHAR(255) NOT NULL," 
-                    + "dataCriacao DATE NOT NULL," 
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Academia ("
+                    + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "nome VARCHAR(255) NOT NULL,"
+                    + "endereco VARCHAR(255) NOT NULL,"
+                    + "dataCriacao DATE NOT NULL,"
                     + "dataModificacao DATE NOT NULL)");
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS Pessoa ("
                     + "id INT AUTO_INCREMENT PRIMARY KEY,"
@@ -165,15 +166,17 @@ public class SQLConnection {
                     + "dataModificacao DATE NOT NULL)");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
-                if (con != null)
-                    con.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
             }
         }
     }

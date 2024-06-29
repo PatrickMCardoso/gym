@@ -4,6 +4,7 @@ import gym.model.*;
 import gym.view.Menus;
 import gym.view.Relatorios;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class Gym {
@@ -33,16 +34,15 @@ public class Gym {
             switch (opcaoAcademia) {
                 case 1: {
                     academiaDAO.adicionarAcademia(Menus.adicionarAcademiaMenu(), calendario.getDataAtual());
-                    SQLConnection.criarTabelas();
                 }
                 break;
                 case 2: {
-                    Academia[] academias = academiaDAO.mostrarAcademias();
+                    ArrayList<Academia> academias = academiaDAO.mostrarAcademias();
                     Menus.mostrarTodasAcademiasMenu(academias);
                 }
                 break;
                 case 3: {
-                    if (academiaDAO.mostrarAcademias().length == 0) {
+                    if (academiaDAO.mostrarAcademias().isEmpty()) {
                         System.out.println("Nenhuma academia cadastrada. Impossivel alterar.");
                     } else {
                         int id = Menus.buscarAcademiaMenu("alterar");
@@ -68,7 +68,7 @@ public class Gym {
                 }
                 break;
                 case 5: {
-                    if (academiaDAO.mostrarAcademias().length == 0) {
+                    if (academiaDAO.mostrarAcademias().isEmpty()) {
                         System.out.println("Nenhuma academia cadastrada. Impossivel remover.");
                     } else {
                         int id = Menus.buscarAcademiaMenu("remover");
@@ -800,9 +800,14 @@ public class Gym {
     }
 
     public static void main(String[] args) {
-        divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
+        SQLConnection.criarTabelas();
+        
+        
+        academiaDAO.recuperarDadosAcademia();
+        
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
+        divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         exercicioDAO.adicionarExercicioExemplos();
         mensalidadeDAO.adicionarMensalidadesExemplo();
         exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
