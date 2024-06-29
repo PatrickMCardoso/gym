@@ -1,6 +1,7 @@
 package gym.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MovimentacaoFinanceiraDAO {
 
@@ -72,7 +73,7 @@ public class MovimentacaoFinanceiraDAO {
         return movimentacoesExistentes;
     }
     
-    public void pagarDespesasAcademia(Pessoa[] pessoas, LocalDate dataAtual){
+    public void pagarDespesasAcademia(ArrayList<Pessoa> pessoas, LocalDate dataAtual){
         Double valorDespesasDoMes;
         //ALUGUEL
         valorDespesasDoMes = 1800.0;

@@ -225,9 +225,9 @@ public class Menus {
         return pessoa;
     }
 
-    public static void mostrarTodasPessoasMenu(Pessoa[] pessoas) {
+    public static void mostrarTodasPessoasMenu(ArrayList<Pessoa> pessoas) {
         System.out.println("\n*****  TODAS AS PESSOAS  *****\n");
-        if (pessoas.length == 0) {
+        if (pessoas.isEmpty()) {
             System.out.println("Nenhuma pessoa cadastrada.");
         } else {
             System.out.println("------------------------");
@@ -975,7 +975,7 @@ public class Menus {
 
         System.out.println("Digite seu nome para buscar seus dados:");
         String nomePessoa = scanner.nextLine();
-        Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+        ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
 
         Pessoa pessoaEncontrada = null;
         for (Pessoa pessoa : pessoas) {
@@ -1188,11 +1188,11 @@ public class Menus {
         return mensalidadeAluno;
     }
 
-    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno, Pessoa[] alunos, Mensalidade[] mensalidades) {
+    public static void mostrarMensalidadeAlunoMenu(MensalidadeAluno mensalidadeAluno, ArrayList<Pessoa> alunos, Mensalidade[] mensalidades) {
         System.out.println("\n*****  MENSALIDADE ALUNO  *****\n");
         System.out.println("ID Associacao: " + mensalidadeAluno.getId());
         System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
-        System.out.println("Nome do Aluno: " + alunos[mensalidadeAluno.getIdAluno() - 1].getNome());
+        System.out.println("Nome do Aluno: " + alunos.get(mensalidadeAluno.getIdAluno() - 1).getNome());
         System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
         System.out.println("Descricao da mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
         System.out.println("Data de Criacao: " + formataData(mensalidadeAluno.getDataCriacao()));
@@ -1200,12 +1200,12 @@ public class Menus {
         System.out.println("------------------------");
     }
 
-    public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos, Pessoa[] alunos, Mensalidade[] mensalidades) {
+    public static void mostrarTodasMensalidadesAlunoMenu(MensalidadeAluno[] mensalidadesAlunos, ArrayList<Pessoa> alunos, Mensalidade[] mensalidades) {
         System.out.println("\n*****  TODAS AS MENSALIDADES DOS ALUNOS  *****\n");
         for (MensalidadeAluno mensalidadeAluno : mensalidadesAlunos) {
             System.out.println("ID Associacao: " + mensalidadeAluno.getId());
             System.out.println("ID Aluno: " + mensalidadeAluno.getIdAluno());
-            System.out.println("Nome do Aluno: " + alunos[mensalidadeAluno.getIdAluno() - 1].getNome());
+            System.out.println("Nome do Aluno: " + alunos.get(mensalidadeAluno.getIdAluno() - 1).getNome());
             System.out.println("ID Mensalidade: " + mensalidadeAluno.getIdMensalidade());
             System.out.println("Descricao da Mensalidade: " + mensalidades[mensalidadeAluno.getIdMensalidade() - 1].getDescricao());
             System.out.println("Valor Pago: " + mensalidadeAluno.getValorPago());
@@ -1268,14 +1268,14 @@ public class Menus {
         return pagamentoRecorrente;
     }
 
-    public static void mostrarTodosPagamentosRecorrentesMenu(PagamentoRecorrente[] pagamentos, Pessoa[] pessoas) {
+    public static void mostrarTodosPagamentosRecorrentesMenu(PagamentoRecorrente[] pagamentos, ArrayList<Pessoa> pessoas) {
         System.out.println("\n*****  TODOS OS PAGAMENTOS RECORRENTES  *****\n");
         System.out.println("------------------------");
 
         for (PagamentoRecorrente pagamento : pagamentos) {
             System.out.println("ID: " + pagamento.getId());
             System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
-            System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
+            System.out.println("Nome da Pessoa: " + pessoas.get(pagamento.getIdPessoa() - 1).getNome());
             System.out.println("Cartao de Credito: " + pagamento.getCartaoDeCredito());
             System.out.println("Valor: R$ " + pagamento.getValor());
             System.out.println("Data de Inicio: " + formataData(pagamento.getDataDeInicio()));
@@ -1286,11 +1286,11 @@ public class Menus {
         }
     }
 
-    public static void mostrarPagamentoRecorrenteMenu(PagamentoRecorrente pagamento, Pessoa[] pessoas) {
+    public static void mostrarPagamentoRecorrenteMenu(PagamentoRecorrente pagamento, ArrayList<Pessoa> pessoas) {
         System.out.println("\n*****  PAGAMENTO RECORRENTE  *****\n");
         System.out.println("ID: " + pagamento.getId());
         System.out.println("ID Pessoa: " + pagamento.getIdPessoa());
-        System.out.println("Nome da Pessoa: " + pessoas[pagamento.getIdPessoa() - 1].getNome());
+        System.out.println("Nome da Pessoa: " + pessoas.get(pagamento.getIdPessoa() - 1).getNome());
         System.out.println("Cartao de Credito: " + pagamento.getCartaoDeCredito());
         System.out.println("Valor: R$ " + pagamento.getValor());
         System.out.println("Data de Inicio: " + formataData(pagamento.getDataDeInicio()));

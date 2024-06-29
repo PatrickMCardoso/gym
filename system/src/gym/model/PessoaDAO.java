@@ -1,108 +1,180 @@
 package gym.model;
 
+import gym.controller.SQLConnection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class PessoaDAO {
 
-    private Pessoa[] pessoas;
-    private int tamanho;
-    private int geradorId;
+    private ArrayList<Pessoa> pessoas;
 
     public PessoaDAO() {
-        this.pessoas = new Pessoa[10];
-        this.tamanho = 0;
+        this.pessoas = new ArrayList<>();
+    }
+
+    public void recuperarDadosPessoa() {
+        String sql = "SELECT * FROM Pessoa";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String nome = rs.getString("nome");
+                    char sexo = rs.getString("sexo").charAt(0);
+                    LocalDate nascimento = rs.getDate("nascimento").toLocalDate();
+                    String login = rs.getString("login");
+                    String senha = rs.getString("senha");
+                    String tipoUsuario = rs.getString("tipoUsuario");
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+                    Pessoa pessoa = new Pessoa(id, nome, sexo, nascimento, login, senha, tipoUsuario, dataCriacao, dataModificacao);
+                    pessoas.add(pessoa);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public boolean checarPessoaExisteBanco(int id) {
+        String sql = "SELECT * FROM Pessoa WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
     }
 
     public void adicionarPessoasExemplo() {
-        Pessoa pessoa1 = new Pessoa(1, "Eduardo", 'M', LocalDate.of(1990, 5, 15), "eduardo@g.com", "eduardo123", "Admin", LocalDate.now(), LocalDate.now());
-        Pessoa pessoa2 = new Pessoa(2, "Patrick Machado Cardoso", 'M', LocalDate.of(2004, 4, 12), "patrick@g.com", "patrick123", "Professor", LocalDate.now(), LocalDate.now());
-        Pessoa pessoa3 = new Pessoa(3, "Ruan Emanuell", 'M', LocalDate.of(2004, 3, 10), "ruan@g.com", "ruan123", "Aluno", LocalDate.now(), LocalDate.now());
+        if (!checarPessoaExisteBanco(1)) {
+            LocalDate dataAtual = LocalDate.now();
 
-        adicionarPessoa(pessoa1, LocalDate.now());
-        adicionarPessoa(pessoa2, LocalDate.now());
-        adicionarPessoa(pessoa3, LocalDate.now());
+            Pessoa pessoa1 = new Pessoa(1, "Eduardo", 'M', LocalDate.of(1990, 5, 15), "eduardo@g.com", "eduardo123", "Admin", dataAtual, dataAtual);
+            Pessoa pessoa2 = new Pessoa(2, "Patrick Machado Cardoso", 'M', LocalDate.of(2004, 4, 12), "patrick@g.com", "patrick123", "Professor", dataAtual, dataAtual);
+            Pessoa pessoa3 = new Pessoa(3, "Ruan Emanuell", 'M', LocalDate.of(2004, 3, 10), "ruan@g,com", "ruan123", "Aluno", dataAtual, dataAtual);
+
+            adicionarPessoa(pessoa1, dataAtual);
+            adicionarPessoa(pessoa2, dataAtual);
+            adicionarPessoa(pessoa3, dataAtual);
+        }
     }
 
     public void adicionarPessoa(Pessoa pessoa, LocalDate dataAtual) {
-        geradorId++;
-        if (tamanho == pessoas.length) {
-            aumentarCapacidade();
-        }
-        int id = geradorId;
-        pessoa.setId(id);
-        pessoa.setDataCriacao(dataAtual);
-        pessoa.setDataModificacao(dataAtual);
-        pessoas[tamanho++] = pessoa;
-    }
+        String sql = "INSERT INTO Pessoa (nome, sexo, nascimento, login, senha, tipoUsuario, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, pessoa.getNome());
+                stmt.setString(2, String.valueOf(pessoa.getSexo()));
+                stmt.setDate(3, Date.valueOf(pessoa.getNascimento()));
+                stmt.setString(4, pessoa.getLogin());
+                stmt.setString(5, pessoa.getSenha());
+                stmt.setString(6, pessoa.getTipoUsuario());
+                stmt.setDate(7, Date.valueOf(pessoa.getDataCriacao()));
+                stmt.setDate(8, Date.valueOf(pessoa.getDataModificacao()));
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = pessoas.length * 2;
-        Pessoa[] novoArray = new Pessoa[novaCapacidade];
-        System.arraycopy(pessoas, 0, novoArray, 0, tamanho);
-        pessoas = novoArray;
+                int id = pessoa.getId();
+
+                if (!checarPessoaExisteBanco(id)) {
+                    stmt.executeUpdate();
+                    pessoas.clear();
+                    recuperarDadosPessoa();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
     }
 
     public void alterarPessoa(int id, Pessoa novaPessoa, LocalDate dataAtual) {
-        for (int i = 0; i < tamanho; i++) {
-            if (pessoas[i].getId() == id) {
-                pessoas[i].setNome(novaPessoa.getNome());
-                pessoas[i].setSexo(novaPessoa.getSexo());
-                pessoas[i].setNascimento(novaPessoa.getNascimento());
-                pessoas[i].setLogin(novaPessoa.getLogin());
-                pessoas[i].setSenha(novaPessoa.getSenha());
-                pessoas[i].setTipoUsuario(novaPessoa.getTipoUsuario());
-                pessoas[i].setDataModificacao(dataAtual);
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getId() == id) {
+                pessoa.setNome(novaPessoa.getNome());
+                pessoa.setSexo(novaPessoa.getSexo());
+                pessoa.setNascimento(novaPessoa.getNascimento());
+                pessoa.setLogin(novaPessoa.getLogin());
+                pessoa.setSenha(novaPessoa.getSenha());
+                pessoa.setTipoUsuario(novaPessoa.getTipoUsuario());
+                pessoa.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE Pessoa SET nome = ?, sexo = ?, nascimento = ?, login = ?, senha = ?, tipoUsuario = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, pessoa.getNome());
+                        stmt.setString(2, String.valueOf(pessoa.getSexo()));
+                        stmt.setDate(3, Date.valueOf(pessoa.getNascimento()));
+                        stmt.setString(4, pessoa.getLogin());
+                        stmt.setString(5, pessoa.getSenha());
+                        stmt.setString(6, pessoa.getTipoUsuario());
+                        stmt.setDate(7, Date.valueOf(pessoa.getDataModificacao()));
+                        stmt.setInt(8, pessoa.getId());
+                        stmt.executeUpdate();
+                        pessoas.clear();
+                        recuperarDadosPessoa();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
+    public void removerPessoa(int id) {
+        pessoas.removeIf(pessoa -> pessoa.getId() == id);
+
+        String sql = "DELETE FROM Pessoa WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                pessoas.clear();
+                recuperarDadosPessoa();
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
     public Pessoa buscarPessoa(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (pessoas[i].getId() == id) {
-                return pessoas[i];
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getId() == id) {
+                return pessoa;
             }
         }
         return null;
     }
 
-    public void removerPessoa(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (pessoas[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    pessoas[j] = pessoas[j + 1];
-                }
-                tamanho--;
-                break;
-            }
-        }
-    }
-
-    public Pessoa[] mostrarPessoas() {
-        Pessoa[] pessoasExistentes = new Pessoa[tamanho];
-        System.arraycopy(pessoas, 0, pessoasExistentes, 0, tamanho);
-        return pessoasExistentes;
+    public ArrayList<Pessoa> mostrarPessoas() {
+        return new ArrayList<>(pessoas);
     }
     
-    public Pessoa[] buscarPessoasPorTipo(String tipoUsuario) {
-        int count = 0;
-        for (int i = 0; i < tamanho; i++) {
-            if (pessoas[i].getTipoUsuario().equals(tipoUsuario)) {
-                count++;
-            }
-        }
-
-        Pessoa[] pessoasPorTipo = new Pessoa[count];
-        int index = 0;
-        for (int i = 0; i < tamanho; i++) {
-            if (pessoas[i].getTipoUsuario().equals(tipoUsuario)) {
-                pessoasPorTipo[index++] = pessoas[i];
+    public ArrayList<Pessoa> buscarPessoasPorTipo(String tipoUsuario) {
+        ArrayList<Pessoa> pessoasPorTipo = new ArrayList<>();
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getTipoUsuario().equals(tipoUsuario)) {
+                pessoasPorTipo.add(pessoa);
             }
         }
         return pessoasPorTipo;
-    }    
+    }
     
-    public boolean checarTipoPessoa (String tipoUsuario, Pessoa pessoa){
+    public boolean checarTipoPessoa(String tipoUsuario, Pessoa pessoa) {
         return pessoa.getTipoUsuario().equals(tipoUsuario);
     }
 }

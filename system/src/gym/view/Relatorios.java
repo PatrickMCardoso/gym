@@ -5,6 +5,7 @@ import gym.model.MovimentacaoFinanceira;
 import gym.model.Pessoa;
 import static gym.view.Menus.formataData;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Relatorios {
 
@@ -27,7 +28,7 @@ public class Relatorios {
         }
     }
 
-    public static void relatorioAlunosAdimplentes(MensalidadeAluno[] mensalidades, Pessoa[] alunos, LocalDate dataAtual, int[] idsAlunosAdimplentes) {
+    public static void relatorioAlunosAdimplentes(MensalidadeAluno[] mensalidades, ArrayList<Pessoa> alunos, LocalDate dataAtual, int[] idsAlunosAdimplentes) {
         System.out.println("*******************************");
         System.out.println("*  ALUNOS ADIMPLENTES    *");
         System.out.println("*     MES/ANO: " + dataAtual.getMonthValue() + "/" + dataAtual.getYear() + "  *");

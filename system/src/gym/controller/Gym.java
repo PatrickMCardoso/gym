@@ -100,12 +100,12 @@ public class Gym {
                 }
                 break;
                 case 2: {
-                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                    ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                     Menus.mostrarTodasPessoasMenu(pessoas);
                 }
                 break;
                 case 3: {
-                    if (pessoaDAO.mostrarPessoas().length == 0) {
+                    if (pessoaDAO.mostrarPessoas().isEmpty()) {
                         System.out.println("Nenhuma pessoa cadastrada. Impossivel alterar.");
                     } else {
                         int id = Menus.buscarPessoaMenu("alterar");
@@ -131,7 +131,7 @@ public class Gym {
                 }
                 break;
                 case 5: {
-                    if (pessoaDAO.mostrarPessoas().length == 0) {
+                    if (pessoaDAO.mostrarPessoas().isEmpty()) {
                         System.out.println("Nenhuma pessoa cadastrada. Impossivel remover.");
                     } else {
                         int idRemocao = Menus.buscarPessoaMenu("remover");
@@ -587,7 +587,7 @@ public class Gym {
                 break;
                 case 2: {
                     MensalidadeAluno[] mensalidadeAlunos = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
-                    Pessoa[] alunos = pessoaDAO.mostrarPessoas();
+                    ArrayList<Pessoa> alunos = pessoaDAO.mostrarPessoas();
                     Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
                     Menus.mostrarTodasMensalidadesAlunoMenu(mensalidadeAlunos, alunos, mensalidades);
                 }
@@ -608,7 +608,7 @@ public class Gym {
                     int idBusca = Menus.buscarMensalidadeAlunoMenu("buscar");
                     MensalidadeAluno mensalidadeAlunoBuscada = mensalidadeAlunoDAO.buscarMensalidadeAluno(idBusca);
                     if (mensalidadeAlunoBuscada != null) {
-                        Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                        ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                         Mensalidade[] mensalidades = mensalidadeDAO.mostrarMensalidades();
                         Menus.mostrarMensalidadeAlunoMenu(mensalidadeAlunoBuscada, pessoas, mensalidades);
                     } else {
@@ -657,7 +657,7 @@ public class Gym {
                 break;
                 case 2: {
                     PagamentoRecorrente[] pagamentos = pagamentoRecorrenteDAO.mostrarPagamentos();
-                    Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                    ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                     Menus.mostrarTodosPagamentosRecorrentesMenu(pagamentos, pessoas);
                 }
                 break;
@@ -665,7 +665,7 @@ public class Gym {
                     int idBusca = Menus.buscarPagamentoRecorrenteMenu("buscar");
                     PagamentoRecorrente pagamentoBuscado = pagamentoRecorrenteDAO.buscarPagamento(idBusca);
                     if (pagamentoBuscado != null) {
-                        Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                        ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                         Menus.mostrarPagamentoRecorrenteMenu(pagamentoBuscado, pessoas);
                     } else {
                         System.out.println("Pagamento recorrente nao encontrado.");
@@ -698,10 +698,10 @@ public class Gym {
                     Menus.avancarCalendarioMenu();
                     calendario.avancarDia();
                     if (calendario.checarQuintoDiaUtil() == true) {
-                        Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                        ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                         movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
                     } else if (calendario.checarTerminoMes() == true) {
-                        Pessoa[] pessoas = pessoaDAO.mostrarPessoas();
+                        ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
                         MensalidadeAluno[] mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
                         int[] idsAlunosAdimplentes = calendario.checarAlunosAdimplentes(mensalidades);
                         Relatorios.relatorioAlunosAdimplentes(mensalidades, pessoas, calendario.getDataAtual(), idsAlunosAdimplentes);
@@ -802,8 +802,8 @@ public class Gym {
     public static void main(String[] args) {
         SQLConnection.criarTabelas();
         
-        
         academiaDAO.recuperarDadosAcademia();
+        pessoaDAO.recuperarDadosPessoa();
         
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
@@ -824,7 +824,7 @@ public class Gym {
                 String[] loginSenha = Menus.menuLogin();
                 String login = loginSenha[0];
                 String senha = loginSenha[1];
-                Pessoa[] loginsCadastrados = pessoaDAO.mostrarPessoas();
+                ArrayList<Pessoa> loginsCadastrados = pessoaDAO.mostrarPessoas();
 
                 for (Pessoa loginCadastrado : loginsCadastrados) {
                     if (loginCadastrado.getLogin().equals(login) && loginCadastrado.getSenha().equals(senha)) {
