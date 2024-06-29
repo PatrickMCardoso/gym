@@ -23,15 +23,17 @@ public class Gym {
     static Calendario calendario = new Calendario(LocalDate.now());
     static MovimentacaoFinanceiraDAO movimentacaoFinanceiraDAO = new MovimentacaoFinanceiraDAO();
     static EntradaAlunoDAO entradaAlunoDAO = new EntradaAlunoDAO();
+    
 
     public static void opcaoAcademia() {
-        int opcaoAcademia = 0;
+        int opcaoAcademia = 0;        
         while (opcaoAcademia != 6) {
             Menus.digitarQualquerTecla();
             opcaoAcademia = Menus.academiaMenu();
             switch (opcaoAcademia) {
                 case 1: {
                     academiaDAO.adicionarAcademia(Menus.adicionarAcademiaMenu(), calendario.getDataAtual());
+                    SQLConnection.criarTabelas();
                 }
                 break;
                 case 2: {
