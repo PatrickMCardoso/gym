@@ -4,11 +4,10 @@ import gym.controller.SQLConnection;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AcademiaDAO {
 
-    private List<Academia> academias;
+    private ArrayList<Academia> academias;
 
     public AcademiaDAO() {
         this.academias = new ArrayList<>();
