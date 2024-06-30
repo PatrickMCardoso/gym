@@ -256,16 +256,18 @@ public class Gym {
                     int idBusca = Menus.buscarExercicioAplicacaoMenu("buscar");
                     ExercicioAplicacao exercicioAplicacaoBuscado = exercicioAplicacaoDAO.buscarExercicioAplicacao(idBusca);
                     if (exercicioAplicacaoBuscado != null) {
-                        if (exercicioDAO.buscarExercicio(exercicioAplicacaoBuscado.getIdExercicio()) != null) {
-                            Menus.mostrarExercicioAplicacaoMenu(exercicioAplicacaoBuscado);
+                        Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacaoBuscado.getIdExercicio());
+                        if (exercicio != null) {
+                            Menus.mostrarExercicioAplicacaoMenu(exercicioAplicacaoBuscado, exercicioDAO);
                         } else {
-                            System.out.println("Exercicio aplicacao nao encontrado.");
+                            System.out.println("Exercicio associado a esta aplicacao nao encontrado.");
                         }
                     } else {
-                        System.out.println("Exercicio aplicacao nao encontrado.");
+                        System.out.println("Exercicio aplicacao nao encontrada.");
                     }
                 }
                 break;
+
                 case 5: {
                     int idRemocao = Menus.buscarExercicioAplicacaoMenu("remover");
                     ExercicioAplicacao exercicioAplicacaoBuscado = exercicioAplicacaoDAO.buscarExercicioAplicacao(idRemocao);
@@ -814,13 +816,14 @@ public class Gym {
         pessoaDAO.recuperarDadosPessoa();
         mensalidadeDAO.recuperarDadosMensalidade();
         exercicioDAO.recuperarDadosExercicio();
+        exercicioAplicacaoDAO.recuperarDadosExercicioAplicacao();
         
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
         exercicioDAO.adicionarExercicioExemplos();
         mensalidadeDAO.adicionarMensalidadesExemplo();
-        exercicioAplicacaoDAO.adicionarExerciciosAplicacaoExemplos();
+        exercicioAplicacaoDAO.adicionarExercicioAplicacaoExemplos();
         treinoDAO.adicionarTreinoExemplos();
 
         //MENU INICIO

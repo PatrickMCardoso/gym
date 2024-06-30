@@ -1,84 +1,146 @@
 package gym.model;
 
-import java.time.LocalDate;
-import java.util.Random;
+import gym.controller.SQLConnection;
 
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class ExercicioAplicacaoDAO {
 
-    private ExercicioAplicacao[] exerciciosAplicacao;
-    private int tamanho;
-    private int geradorId;
+    private ArrayList<ExercicioAplicacao> exerciciosAplicacao;
 
     public ExercicioAplicacaoDAO() {
-        this.exerciciosAplicacao = new ExercicioAplicacao[10];
-        this.tamanho = 0;
-        this.geradorId = 0;
+        this.exerciciosAplicacao = new ArrayList<>();
     }
-    
-    public void adicionarExerciciosAplicacaoExemplos() {
+
+    public void recuperarDadosExercicioAplicacao() {
+        String sql = "SELECT * FROM ExercicioAplicacao";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int idExercicio = rs.getInt("idExercicio");
+                    String descricao = rs.getString("descricao");
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+                    ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(id, idExercicio, descricao, dataCriacao, dataModificacao);
+                    exerciciosAplicacao.add(exercicioAplicacao);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public boolean checarExercicioAplicacaoExisteBanco(int id) {
+        String sql = "SELECT * FROM ExercicioAplicacao WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public void adicionarExercicioAplicacaoExemplos() {
         Random random = new Random();
         String[] descricoes = {"4x12", "4x10", "12 reps com rest pause", "5x5 com carga maxima", "4xMAX"};
 
-        for (int i = 1; i <= 36; i++) {           
+        for (int i = 1; i <= 36; i++) {
             int idExercicio = i;
-            String descricao = descricoes[random.nextInt(descricoes.length)];            
-            
+            String descricao = descricoes[random.nextInt(descricoes.length)];
+
             adicionarExercicioAplicacao(idExercicio, descricao, LocalDate.now());
         }
     }
 
     public void adicionarExercicioAplicacao(int idExercicio, String descricao, LocalDate dataAtual) {
-            geradorId++;
-            if (tamanho == exerciciosAplicacao.length) {
-                aumentarCapacidade();
-            }
-            int id = geradorId;
-            ExercicioAplicacao exercicioAplicacao = new ExercicioAplicacao(id, idExercicio, descricao, dataAtual, dataAtual);
-            exerciciosAplicacao[tamanho++] = exercicioAplicacao; 
-    }
+        String sql = "INSERT INTO ExercicioAplicacao (idExercicio, descricao, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, idExercicio);
+                stmt.setString(2, descricao);
+                stmt.setDate(3, Date.valueOf(dataAtual));
+                stmt.setDate(4, Date.valueOf(dataAtual));
 
-    private void aumentarCapacidade() {
-        int novaCapacidade = exerciciosAplicacao.length * 2;
-        ExercicioAplicacao[] novoArray = new ExercicioAplicacao[novaCapacidade];
-        System.arraycopy(exerciciosAplicacao, 0, novoArray, 0, tamanho);
-        exerciciosAplicacao = novoArray;
+                if (!checarExercicioAplicacaoExisteBanco(idExercicio)) {
+                    stmt.executeUpdate();
+                    exerciciosAplicacao.clear();
+                    recuperarDadosExercicioAplicacao();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
     }
 
     public void alterarExercicioAplicacao(int id, ExercicioAplicacao novoExercicioAplicacao, LocalDate dataAtual) {
-        for (int i = 0; i < tamanho; i++) {
-            if (exerciciosAplicacao[i].getId() == id) {
-                exerciciosAplicacao[i].setDescricao(novoExercicioAplicacao.getDescricao());
-                exerciciosAplicacao[i].setDataModificacao(dataAtual);
+        for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
+            if (exercicioAplicacao.getId() == id) {
+                exercicioAplicacao.setDescricao(novoExercicioAplicacao.getDescricao());
+                exercicioAplicacao.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE ExercicioAplicacao SET descricao = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, exercicioAplicacao.getDescricao());
+                        stmt.setDate(2, Date.valueOf(exercicioAplicacao.getDataModificacao()));
+                        stmt.setInt(3, exercicioAplicacao.getId());
+                        stmt.executeUpdate();
+                        exerciciosAplicacao.clear();
+                        recuperarDadosExercicioAplicacao();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
     public void removerExercicioAplicacao(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (exerciciosAplicacao[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    exerciciosAplicacao[j] = exerciciosAplicacao[j + 1];
-                }
-                tamanho--;
-                break;
+        exerciciosAplicacao.removeIf(exercicioAplicacao -> exercicioAplicacao.getId() == id);
+
+        String sql = "DELETE FROM ExercicioAplicacao WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                exerciciosAplicacao.clear();
+                recuperarDadosExercicioAplicacao();
             }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
     }
 
     public ExercicioAplicacao buscarExercicioAplicacao(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (exerciciosAplicacao[i].getId() == id) {
-                return exerciciosAplicacao[i];
+        for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
+            if (exercicioAplicacao.getId() == id) {
+                return exercicioAplicacao;
             }
         }
         return null;
     }
 
-    public ExercicioAplicacao[] mostrarExerciciosAplicacao() {
-        ExercicioAplicacao[] exerciciosAplicacaoExistentes = new ExercicioAplicacao[tamanho];
-        System.arraycopy(exerciciosAplicacao, 0, exerciciosAplicacaoExistentes, 0, tamanho);
-        return exerciciosAplicacaoExistentes;
+    public ArrayList<ExercicioAplicacao> mostrarExerciciosAplicacao() {
+        return new ArrayList<>(exerciciosAplicacao);
     }
 }

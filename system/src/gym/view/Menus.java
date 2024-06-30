@@ -370,7 +370,6 @@ public class Menus {
         return new Exercicio(id, novoNome, novaDescricao, exercicioExistente.getDataCriacao(), dataAtualizacao);
     }
 
-
     // EXERCICIO APLICACAO
     public static int exercicioAplicacaoMenu() {
         System.out.println("******************************************");
@@ -400,32 +399,41 @@ public class Menus {
 
     public static void mostrarTodosExerciciosAplicacaoMenu(ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO) {
         System.out.println("\n*****  TODOS OS EXERCICIOS APLICACAO  *****\n");
-        System.out.println("------------------------");
 
-        ExercicioAplicacao[] exerciciosAplicacao = exercicioAplicacaoDAO.mostrarExerciciosAplicacao();
+        ArrayList<ExercicioAplicacao> exerciciosAplicacao = exercicioAplicacaoDAO.mostrarExerciciosAplicacao();
 
-        for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
-            Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getIdExercicio());
-            if (exercicio != null) {
-                System.out.println("Nome do Exercicio: " + exercicio.getNome());
-                System.out.println("Descricao do Exercicio: " + exercicio.getDescricao());
-                System.out.println("Descricao do Exercicio de Aplicacao: " + exercicioAplicacao.getDescricao());
-                System.out.println("Data de Criacao: " + formataData(exercicioAplicacao.getDataCriacao()));
-                System.out.println("Data de Modificacao: " + formataData(exercicioAplicacao.getDataModificacao()));
-                System.out.println("------------------------");
-            } else {
-                System.out.println("Exercicio nao encontrado.");
+        if (exerciciosAplicacao.isEmpty()) {
+            System.out.println("Nenhuma aplicacao de exercicio cadastrada.");
+        } else {
+            for (ExercicioAplicacao exercicioAplicacao : exerciciosAplicacao) {
+                Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getIdExercicio());
+                if (exercicio != null) {
+                    System.out.println("------------------------");
+                    System.out.println("Nome do Exercicio: " + exercicio.getNome());
+                    System.out.println("Descricao do Exercicio: " + exercicio.getDescricao());
+                    System.out.println("Descricao do Exercicio de Aplicacao: " + exercicioAplicacao.getDescricao());
+                    System.out.println("Data de Criacao: " + formataData(exercicioAplicacao.getDataCriacao()));
+                    System.out.println("Data de Modificacao: " + formataData(exercicioAplicacao.getDataModificacao()));
+                } else {
+                    System.out.println("Exercicio nao encontrado.");
+                }
             }
         }
     }
 
-    public static void mostrarExercicioAplicacaoMenu(ExercicioAplicacao exercicioAplicacao) {
+    public static void mostrarExercicioAplicacaoMenu(ExercicioAplicacao exercicioAplicacao, ExercicioDAO exercicioDAO) {
         System.out.println("\n*****  EXERCICIO APLICACAO  *****\n");
-        System.out.println("ID: " + exercicioAplicacao.getId());
-        System.out.println("Descricao: " + exercicioAplicacao.getDescricao());
-        System.out.println("Data de Criacao: " + formataData(exercicioAplicacao.getDataCriacao()));
-        System.out.println("Data de Modificacao: " + formataData(exercicioAplicacao.getDataModificacao()));
-        System.out.println("------------------------");
+        Exercicio exercicio = exercicioDAO.buscarExercicio(exercicioAplicacao.getIdExercicio());
+        if (exercicio != null) {
+            System.out.println("Nome do Exercicio: " + exercicio.getNome());
+            System.out.println("Descricao do Exercicio: " + exercicio.getDescricao());
+            System.out.println("Descricao do Exercicio de Aplicacao: " + exercicioAplicacao.getDescricao());
+            System.out.println("Data de Criacao: " + formataData(exercicioAplicacao.getDataCriacao()));
+            System.out.println("Data de Modificacao: " + formataData(exercicioAplicacao.getDataModificacao()));
+            System.out.println("------------------------");
+        } else {
+            System.out.println("Exercicio nao encontrado.");
+        }
     }
 
     public static int buscarExercicioAplicacaoMenu(String modo) {
@@ -442,6 +450,7 @@ public class Menus {
         ExercicioAplicacao novoExercicioAplicacao = new ExercicioAplicacao(id, exercicioAplicacao.getIdExercicio(), novaDescricao, exercicioAplicacao.getDataCriacao(), dataAtualizacao);
         return novoExercicioAplicacao;
     }
+
 
     //DIVISAO DE TREINO
     public static int divisaoTreinoMenu() {
