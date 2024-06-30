@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Relatorios {
 
-    public static void relatorioMovimentacaoFinanceira(MovimentacaoFinanceira[] movimentacoes, int mesDesejado, int anoDesejado) {
+    public static void relatorioMovimentacaoFinanceira(ArrayList<MovimentacaoFinanceira> movimentacoes, int mesDesejado, int anoDesejado) {
         System.out.println("*******************************");
         System.out.println("*  MOVIMENTACAO FINANCEIRA    *");
         System.out.println("*     MES/ANO: " + mesDesejado + "/" + anoDesejado + "  *");

@@ -777,7 +777,7 @@ public class Gym {
                         int mesAnoRelatorio[] = Menus.relatorioMovimentacao();
                         int mes = mesAnoRelatorio[0];
                         int ano = mesAnoRelatorio[1];
-                        MovimentacaoFinanceira[] movimentacoes = movimentacaoFinanceiraDAO.mostrarMovimentacoes();
+                        ArrayList<MovimentacaoFinanceira> movimentacoes = movimentacaoFinanceiraDAO.mostrarMovimentacoes();
                         Relatorios.relatorioMovimentacaoFinanceira(movimentacoes, mes, ano);
                     }
                     break;
