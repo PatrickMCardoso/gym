@@ -328,17 +328,20 @@ public class Menus {
         return exercicio;
     }
 
-    public static void mostrarTodosExerciciosMenu(Exercicio[] exercicios) {
+    public static void mostrarTodosExerciciosMenu(ArrayList<Exercicio> exercicios) {
         System.out.println("\n*****  TODOS OS EXERCICIOS  *****\n");
-        System.out.println("------------------------");
-
-        for (Exercicio exercicio : exercicios) {
-            System.out.println("ID: " + exercicio.getId());
-            System.out.println("Nome: " + exercicio.getNome());
-            System.out.println("Descricao: " + exercicio.getDescricao());
-            System.out.println("Data de Criacao: " + formataData(exercicio.getDataCriacao()));
-            System.out.println("Data de Modificacao: " + formataData(exercicio.getDataModificacao()));
+        if (exercicios.isEmpty()) {
+            System.out.println("Nenhum exercicio cadastrado.");
+        } else {
             System.out.println("------------------------");
+            for (Exercicio exercicio : exercicios) {
+                System.out.println("ID: " + exercicio.getId());
+                System.out.println("Nome: " + exercicio.getNome());
+                System.out.println("Descricao: " + exercicio.getDescricao());
+                System.out.println("Data de Criacao: " + formataData(exercicio.getDataCriacao()));
+                System.out.println("Data de Modificacao: " + formataData(exercicio.getDataModificacao()));
+                System.out.println("------------------------");
+            }
         }
     }
 
@@ -354,20 +357,19 @@ public class Menus {
 
     public static int buscarExercicioMenu(String modo) {
         System.out.println("Digite o ID do exercicio que deseja " + modo + ": ");
-        int id = Integer.parseInt(scanner.nextLine());
-        return id;
+        return Integer.parseInt(scanner.nextLine());
     }
 
-    public static Exercicio alterarExercicioMenu(int id, Exercicio exercicio) {
+    public static Exercicio alterarExercicioMenu(int id, Exercicio exercicioExistente) {
         System.out.println("\n*****  ALTERAR EXERCICIO  *****\n");
         System.out.println("Digite o novo nome do exercicio:");
         String novoNome = scanner.nextLine();
         System.out.println("Digite a nova descricao do exercicio:");
         String novaDescricao = scanner.nextLine();
         LocalDate dataAtualizacao = LocalDate.now();
-        Exercicio novoExercicio = new Exercicio(id, novoNome, novaDescricao, exercicio.getDataCriacao(), dataAtualizacao);
-        return novoExercicio;
+        return new Exercicio(id, novoNome, novaDescricao, exercicioExistente.getDataCriacao(), dataAtualizacao);
     }
+
 
     // EXERCICIO APLICACAO
     public static int exercicioAplicacaoMenu() {

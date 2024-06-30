@@ -162,21 +162,24 @@ public class Gym {
                 }
                 break;
                 case 2: {
-                    Exercicio[] exercicios = exercicioDAO.mostrarExercicios();
+                    ArrayList<Exercicio> exercicios = exercicioDAO.mostrarExercicios();
                     Menus.mostrarTodosExerciciosMenu(exercicios);
                 }
                 break;
                 case 3: {
-                    int idAlteracao = Menus.buscarExercicioMenu("alterar");
-                    Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idAlteracao);
-                    if (exercicioExistente != null) {
-                        Exercicio novoExercicio = Menus.alterarExercicioMenu(idAlteracao, exercicioExistente);
-                        exercicioDAO.alterarExercicio(idAlteracao, novoExercicio, calendario.getDataAtual());
-                        System.out.println("Exercicio alterado com sucesso!");
+                    if (exercicioDAO.mostrarExercicios().isEmpty()) {
+                        System.out.println("Nenhum exercicio cadastrado. Impossível alterar.");
                     } else {
-                        System.out.println("Exercicio nao encontrado.");
+                        int idAlteracao = Menus.buscarExercicioMenu("alterar");
+                        Exercicio exercicioExistente = exercicioDAO.buscarExercicio(idAlteracao);
+                        if (exercicioExistente != null) {
+                            Exercicio novoExercicio = Menus.alterarExercicioMenu(idAlteracao, exercicioExistente);
+                            exercicioDAO.alterarExercicio(idAlteracao, novoExercicio, calendario.getDataAtual());
+                            System.out.println("Exercicio alterado com sucesso!");
+                        } else {
+                            System.out.println("Exercicio não encontrado.");
+                        }
                     }
-
                 }
                 break;
                 case 4: {
@@ -185,14 +188,18 @@ public class Gym {
                     if (exercicioBuscado != null) {
                         Menus.mostrarExercicioMenu(exercicioBuscado);
                     } else {
-                        System.out.println("Exercicio nao encontrado.");
+                        System.out.println("Exercicio não encontrado.");
                     }
                 }
                 break;
                 case 5: {
-                    int idRemocao = Menus.buscarExercicioMenu("remover");
-                    exercicioDAO.removerExercicio(idRemocao);
-                    System.out.println("Exercicio removido com sucesso!");
+                    if (exercicioDAO.mostrarExercicios().isEmpty()) {
+                        System.out.println("Nenhum exercicio cadastrado. Impossível remover.");
+                    } else {
+                        int idRemocao = Menus.buscarExercicioMenu("remover");
+                        exercicioDAO.removerExercicio(idRemocao);
+                        System.out.println("Exercicio removido com sucesso!");
+                    }
                 }
                 break;
                 case 6:
@@ -204,6 +211,7 @@ public class Gym {
             }
         }
     }
+
 
     public static void opcaoExercicioAplicacao() {
         int opcaoExercicioAplicacao = 0;
@@ -805,6 +813,7 @@ public class Gym {
         academiaDAO.recuperarDadosAcademia();
         pessoaDAO.recuperarDadosPessoa();
         mensalidadeDAO.recuperarDadosMensalidade();
+        exercicioDAO.recuperarDadosExercicio();
         
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
