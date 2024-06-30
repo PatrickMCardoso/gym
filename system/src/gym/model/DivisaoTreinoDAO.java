@@ -1,125 +1,183 @@
 package gym.model;
 
+import gym.controller.SQLConnection;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class DivisaoTreinoDAO {
 
-    private DivisaoTreino[] divisoes;
-    private DivisaoTreinoMusculo[] divisoesTreinoMusculo;
-    private int tamanho;
-    private int tamanhoMusculos;
+    private ArrayList<DivisaoTreino> divisoes;
 
     public DivisaoTreinoDAO() {
-        this.divisoes = new DivisaoTreino[10];
-        this.divisoesTreinoMusculo = new DivisaoTreinoMusculo[10];
-        this.tamanho = 0;
-        this.tamanhoMusculos = 0;
+        this.divisoes = new ArrayList<>();
     }
-    
+
+    public void recuperarDadosDivisaoTreino() {
+        String sql = "SELECT * FROM DivisaoTreino";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String nome = rs.getString("nome");
+                    String descricao = rs.getString("descricao");
+                    LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                    LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+                    DivisaoTreino divisao = new DivisaoTreino(id, nome, descricao, dataCriacao, dataModificacao);
+                    divisoes.add(divisao);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+    }
+
+    public boolean checarDivisaoTreinoExisteBanco(int id) {
+        String sql = "SELECT * FROM DivisaoTreino WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+        }
+
+        return false;
+    }
+
     public void adicionarDivisaoTreinoExemplos() {
-        String[][] exemplos = {
-            {"AB", "AB 2x descansa 1x"},
-            {"ABC", "ABC 2x descansa 1x"},
-            {"ABC", "ABC descansa 1x ABC descansa 1x"},
-            {"ABCD", "ABCD descansa 1x ABCD descansa 1x"},
-            {"ABCDE", "ABCDE descansa 1x"}
-        };
+        if (!checarDivisaoTreinoExisteBanco(1)) {
+            LocalDate dataAtual = LocalDate.now();
 
-        for (String[] exemplo : exemplos) {
-            adicionarDivisaoTreino(exemplo[0], exemplo[1], LocalDate.now());
+            DivisaoTreino[] divisoesExemplo = {
+                new DivisaoTreino(1, "AB", "AB 2x descansa 1x", dataAtual, dataAtual),
+                new DivisaoTreino(2, "ABC", "ABC 2x descansa 1x", dataAtual, dataAtual),
+                new DivisaoTreino(3, "ABC", "ABC descansa 1x ABC descansa 1x", dataAtual, dataAtual),
+                new DivisaoTreino(4, "ABCD", "ABCD descansa 1x ABCD descansa 1x", dataAtual, dataAtual),
+                new DivisaoTreino(5, "ABCDE", "ABCDE descansa 1x", dataAtual, dataAtual)
+            };
+
+            for (DivisaoTreino divisao : divisoesExemplo) {
+                adicionarDivisaoTreino(divisao, dataAtual);
+            }
         }
     }
 
-    public void adicionarDivisaoTreino(String nome, String descricao, LocalDate dataAtual) {
-        if (tamanho == divisoes.length) {
-            aumentarCapacidade();
+    public void adicionarDivisaoTreino(DivisaoTreino divisao, LocalDate dataAtual) {
+        String sql = "INSERT INTO DivisaoTreino (nome, descricao, dataCriacao, dataModificacao) VALUES (?, ?, ?, ?)";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, divisao.getNome());
+                stmt.setString(2, divisao.getDescricao());
+                stmt.setDate(3, Date.valueOf(divisao.getDataCriacao()));
+                stmt.setDate(4, Date.valueOf(divisao.getDataModificacao()));
+
+                int id = divisao.getId();
+
+                if (!checarDivisaoTreinoExisteBanco(id)) {
+                    stmt.executeUpdate();
+                    divisoes.clear();
+                    recuperarDadosDivisaoTreino();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
-        int id = tamanho + 1;
-        DivisaoTreino divisao = new DivisaoTreino(id, nome, descricao, dataAtual, dataAtual);
-        divisoes[tamanho++] = divisao;
     }
 
-    public void alterarDivisaoTreino(int id, String nome, String descricao, LocalDate dataAtual) {
-        for (int i = 0; i < tamanho; i++) {
-            if (divisoes[i].getId() == id) {
-                divisoes[i].setNome(nome);
-                divisoes[i].setDescricao(descricao);
-                divisoes[i].setDataModificacao(dataAtual);
+    public void alterarDivisaoTreino(int id, DivisaoTreino novaDivisao, LocalDate dataAtual) {
+        for (DivisaoTreino divisao : divisoes) {
+            if (divisao.getId() == id) {
+                divisao.setNome(novaDivisao.getNome());
+                divisao.setDescricao(novaDivisao.getDescricao());
+                divisao.setDataModificacao(dataAtual);
+
+                String sql = "UPDATE DivisaoTreino SET nome = ?, descricao = ?, dataModificacao = ? WHERE id = ?";
+                try {
+                    try (Connection conn = SQLConnection.getConnection()) {
+                        PreparedStatement stmt = conn.prepareStatement(sql);
+                        stmt.setString(1, divisao.getNome());
+                        stmt.setString(2, divisao.getDescricao());
+                        stmt.setDate(3, Date.valueOf(divisao.getDataModificacao()));
+                        stmt.setInt(4, divisao.getId());
+                        stmt.executeUpdate();
+                        divisoes.clear();
+                        recuperarDadosDivisaoTreino();
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                }
                 break;
             }
         }
     }
 
     public void removerDivisaoTreino(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (divisoes[i].getId() == id) {
-                for (int j = i; j < tamanho - 1; j++) {
-                    divisoes[j] = divisoes[j + 1];
-                }
-                tamanho--;
-                break;
-            }
-        }
+        divisoes.removeIf(divisao -> divisao.getId() == id);
 
-        for (int i = 0; i < tamanho; i++) {
-            divisoes[i].setId(i + 1);
+        String sql = "DELETE FROM DivisaoTreino WHERE id = ?";
+        try {
+            try (Connection conn = SQLConnection.getConnection()) {
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                divisoes.clear();
+                recuperarDadosDivisaoTreino();
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
         }
     }
 
     public DivisaoTreino buscarDivisaoTreino(int id) {
-        for (int i = 0; i < tamanho; i++) {
-            if (divisoes[i] != null && divisoes[i].getId() == id) {
-                return divisoes[i];
+        for (DivisaoTreino divisao : divisoes) {
+            if (divisao.getId() == id) {
+                return divisao;
             }
         }
         return null;
     }
 
-    public DivisaoTreino[] mostrarDivisoesTreino() {
-        DivisaoTreino[] divisoesExistentes = new DivisaoTreino[tamanho];
-        System.arraycopy(divisoes, 0, divisoesExistentes, 0, tamanho);
-        return divisoesExistentes;
+    public ArrayList<DivisaoTreino> mostrarDivisoesTreino() {
+        return new ArrayList<>(divisoes);
     }
-    
+
     public DivisaoTreino buscarDivisaoTreinoPorNome(String nome) {
-        for (DivisaoTreino divisaoTreino : divisoes) {
-            if (divisaoTreino != null && divisaoTreino.getNome().equalsIgnoreCase(nome)) {
-                return divisaoTreino;
+        String sql = "SELECT * FROM DivisaoTreino WHERE nome = ?";
+        try (Connection conn = SQLConnection.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                String descricao = rs.getString("descricao");
+                LocalDate dataCriacao = rs.getDate("dataCriacao").toLocalDate();
+                LocalDate dataModificacao = rs.getDate("dataModificacao").toLocalDate();
+
+                return new DivisaoTreino(id, nome, descricao, dataCriacao, dataModificacao);
             }
+        } catch (SQLException e) {
+            System.out.println("Ocorreu um erro ao buscar a divisão de treino por nome: " + e.getMessage());
         }
         return null;
     }
-    
+
     public void mostrarTodasDivisoesTreinoMenu() {
-        DivisaoTreino[] divisoesTreino = mostrarDivisoesTreino();
-        System.out.println("Divisoes de Treino Disponiveis:");
+        ArrayList<DivisaoTreino> divisoesTreino = mostrarDivisoesTreino();
+        System.out.println("Divisões de Treino Disponíveis:");
         for (DivisaoTreino divisaoTreino : divisoesTreino) {
             System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome());
         }
     }
-
-
-    private void aumentarCapacidade() {
-        int novaCapacidade = divisoes.length * 2;
-        DivisaoTreino[] novoArray = new DivisaoTreino[novaCapacidade];
-        System.arraycopy(divisoes, 0, novoArray, 0, tamanho);
-        divisoes = novoArray;
-    }
-    
-    public DivisaoTreinoMusculo[] buscarDivisoesTreinoMusculoPorAluno(int alunoId) {
-        DivisaoTreinoMusculo[] resultadoTemp = new DivisaoTreinoMusculo[tamanhoMusculos];
-        int count = 0;
-
-        for (int i = 0; i < tamanhoMusculos; i++) {
-            if (divisoesTreinoMusculo[i].getAlunoId() == alunoId) {
-                resultadoTemp[count++] = divisoesTreinoMusculo[i];
-            }
-        }
-
-        DivisaoTreinoMusculo[] resultadoFinal = new DivisaoTreinoMusculo[count];
-        System.arraycopy(resultadoTemp, 0, resultadoFinal, 0, count);
-        return resultadoFinal;
-    }
-    
-    
 }

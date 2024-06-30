@@ -301,40 +301,52 @@ public class Gym {
             switch (opcaoDivisao) {
                 case 1: {
                     DivisaoTreino divisaoTreino = Menus.adicionarDivisaoTreinoMenu();
-                    divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino.getNome(), divisaoTreino.getDescricao(), calendario.getDataAtual());
+                    LocalDate dataAtual = LocalDate.now();
+                    divisaoTreinoDAO.adicionarDivisaoTreino(divisaoTreino, dataAtual);
                     System.out.println("Divisao de Treino adicionada com sucesso!");
                 }
                 break;
                 case 2: {
-                    Menus.mostrarTodasDivisoesTreinoMenu(divisaoTreinoDAO);
+                    ArrayList<DivisaoTreino> divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+                    Menus.mostrarTodasDivisoesTreinoMenu(divisoesTreino);
                 }
                 break;
                 case 3: {
-                    int idAlteracao = Menus.buscarDivisaoTreinoMenu("alterar");
-                    DivisaoTreino divisaoTreinoExistente = divisaoTreinoDAO.buscarDivisaoTreino(idAlteracao);
-                    if (divisaoTreinoExistente != null) {
-                        DivisaoTreino novaDivisaoTreino = Menus.alterarDivisaoTreinoMenu(idAlteracao, divisaoTreinoExistente);
-                        divisaoTreinoDAO.alterarDivisaoTreino(idAlteracao, novaDivisaoTreino.getNome(), novaDivisaoTreino.getDescricao(), calendario.getDataAtual());
-                        System.out.println("Divisao de Treino alterada com sucesso!");
+                    ArrayList<DivisaoTreino> divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+                    if (divisoesTreino.isEmpty()) {
+                        System.out.println("Nenhuma divisão de treino cadastrada. Impossível alterar.");
                     } else {
-                        System.out.println("Divisao de Treino nao encontrada.");
+                        int idAlteracao = Menus.buscarDivisaoTreinoMenu("alterar");
+                        DivisaoTreino divisaoTreinoExistente = divisaoTreinoDAO.buscarDivisaoTreino(idAlteracao);
+                        if (divisaoTreinoExistente != null) {
+                            DivisaoTreino novaDivisaoTreino = Menus.alterarDivisaoTreinoMenu(idAlteracao, divisaoTreinoExistente);
+                            divisaoTreinoDAO.alterarDivisaoTreino(idAlteracao, novaDivisaoTreino, calendario.getDataAtual());
+                            System.out.println("Divisão de Treino alterada com sucesso!");
+                        } else {
+                            System.out.println("Divisão de Treino não encontrada.");
+                        }
                     }
                 }
                 break;
+
                 case 4: {
                     int idBusca = Menus.buscarDivisaoTreinoMenu("buscar");
                     DivisaoTreino divisaoTreinoBuscada = divisaoTreinoDAO.buscarDivisaoTreino(idBusca);
                     if (divisaoTreinoBuscada != null) {
                         Menus.mostrarDivisaoTreinoMenu(divisaoTreinoBuscada);
                     } else {
-                        System.out.println("Divisao de Treino nao encontrada.");
+                        System.out.println("Divisao de Treino não encontrada.");
                     }
                 }
                 break;
                 case 5: {
-                    int idRemocao = Menus.buscarDivisaoTreinoMenu("remover");
-                    divisaoTreinoDAO.removerDivisaoTreino(idRemocao);
-                    System.out.println("Divisao de Treino removida com sucesso!");
+                    if (divisaoTreinoDAO.mostrarDivisoesTreino().isEmpty()) {
+                        System.out.println("Nenhuma divisao de treino cadastrada. Impossível remover.");
+                    } else {
+                        int idRemocao = Menus.buscarDivisaoTreinoMenu("remover");
+                        divisaoTreinoDAO.removerDivisaoTreino(idRemocao);
+                        System.out.println("Divisao de Treino removida com sucesso!");
+                    }
                 }
                 break;
                 case 6:
@@ -346,6 +358,7 @@ public class Gym {
             }
         }
     }
+
 
     public static void opcaoDivisaoTreinoMusculo() {
         int opcaoDivisaoTreinoMusculo = 0;
@@ -386,7 +399,7 @@ public class Gym {
         }
     }
 
-    public static void opcaoTreino() {
+    /*public static void opcaoTreino() {
         int opcaoTreino = 0;
         while (opcaoTreino != 7) {
             Menus.digitarQualquerTecla();
@@ -483,7 +496,7 @@ public class Gym {
                     break;
             }
         }
-    }
+    }*/
 
     public static void opcaoAvaliacaoFisica() {
         int opcaoAvaliacaoFisica = 0;
@@ -817,6 +830,8 @@ public class Gym {
         mensalidadeDAO.recuperarDadosMensalidade();
         exercicioDAO.recuperarDadosExercicio();
         exercicioAplicacaoDAO.recuperarDadosExercicioAplicacao();
+        divisaoTreinoDAO.recuperarDadosDivisaoTreino();
+        
         
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
@@ -894,12 +909,12 @@ public class Gym {
                             break;
                             //TREINO
                             case 7: {
-                                opcaoTreino();
+                                //opcaoTreino();
                             }
                             break;
                             //TREINO APLICACAO
                             case 8: {
-                                opcaoTreinoAplicacao();
+                                //opcaoTreinoAplicacao();
                             }
                             break;
                             //AVALIACAO FISICA
@@ -974,12 +989,12 @@ public class Gym {
                             break;
                             //TREINO
                             case 5: {
-                                opcaoTreino();
+                                //opcaoTreino();
                             }
                             break;
                             //TREINO APLICACAO
                             case 6: {
-                                opcaoTreinoAplicacao();
+                                //opcaoTreinoAplicacao();
                             }
                             break;
                             //AVALIACAO FISICA
