@@ -24,10 +24,9 @@ public class Gym {
     static Calendario calendario = new Calendario(LocalDate.now());
     static MovimentacaoFinanceiraDAO movimentacaoFinanceiraDAO = new MovimentacaoFinanceiraDAO();
     static EntradaAlunoDAO entradaAlunoDAO = new EntradaAlunoDAO();
-    
 
     public static void opcaoAcademia() {
-        int opcaoAcademia = 0;        
+        int opcaoAcademia = 0;
         while (opcaoAcademia != 6) {
             Menus.digitarQualquerTecla();
             opcaoAcademia = Menus.academiaMenu();
@@ -212,7 +211,6 @@ public class Gym {
         }
     }
 
-
     public static void opcaoExercicioAplicacao() {
         int opcaoExercicioAplicacao = 0;
         while (opcaoExercicioAplicacao != 6) {
@@ -367,11 +365,9 @@ public class Gym {
             switch (opcaoDivisaoTreinoMusculo) {
                 case 1: {
                     Menus.adicionarDivisaoTreinoMusculoMenu(divisaoTreinoMusculoDAO, divisaoTreinoDAO);
-
                     System.out.println("Divisão de Treino Muscular adicionada com sucesso!");
                 }
                 break;
-
                 case 2: {
                     ArrayList<DivisaoTreinoMusculo> divisoesTreinoMusculo = divisaoTreinoMusculoDAO.mostrarDivisoesTreinoMusculo();
                     Menus.mostrarTodasDivisoesTreinoMusculoMenu(divisoesTreinoMusculo);
@@ -385,7 +381,7 @@ public class Gym {
                         int idAlteracao = Menus.buscarDivisaoTreinoMusculoMenu("alterar");
                         DivisaoTreinoMusculo divisaoTreinoMusculoExistente = divisaoTreinoMusculoDAO.buscarDivisaoTreinoMusculo(idAlteracao);
                         if (divisaoTreinoMusculoExistente != null) {
-                            Menus.alterarDivisaoTreinoMusculoMenu(idAlteracao, divisaoTreinoMusculoDAO); 
+                            Menus.alterarDivisaoTreinoMusculoMenu(idAlteracao, divisaoTreinoMusculoDAO);
                             System.out.println("Divisão de Treino Muscular alterada com sucesso!");
                         } else {
                             System.out.println("Divisão de Treino Muscular não encontrada.");
@@ -425,8 +421,7 @@ public class Gym {
         }
     }
 
-
-    /*public static void opcaoTreino() {
+    public static void opcaoTreino() {
         int opcaoTreino = 0;
         while (opcaoTreino != 7) {
             Menus.digitarQualquerTecla();
@@ -435,57 +430,66 @@ public class Gym {
                 case 1: {
                     Treino treino = Menus.adicionarTreinoMenu(treinoDAO, divisaoTreinoDAO, pessoaDAO);
                     if (treino != null) {
-                        treinoDAO.adicionarTreino(treino, calendario.getDataAtual());
+                        LocalDate dataAtual = LocalDate.now();
+                        treinoDAO.adicionarTreino(treino, dataAtual);
                         System.out.println("Treino adicionado com sucesso!");
                     }
+                    break;
                 }
-                break;
                 case 2: {
-                    Menus.mostrarTodosTreinosMenu(treinoDAO);
+                    ArrayList<Treino> treinos = treinoDAO.mostrarTodosTreinos();
+                    Menus.mostrarTodosTreinosMenu(treinos);
+                    break;
                 }
-                break;
                 case 3: {
-                    int idBusca = Menus.buscarTreinoMenu("mostrar");
+                    int idBusca = Menus.buscarTreinoMenu("buscar");
                     Treino treinoBuscado = treinoDAO.buscarTreino(idBusca);
                     if (treinoBuscado != null) {
                         Menus.mostrarTreinoMenu(treinoBuscado);
                     } else {
-                        System.out.println("Treino nao encontrado.");
+                        System.out.println("Treino não encontrado.");
                     }
-
+                    break;
                 }
-                break;
                 case 4: {
                     int idBusca = Menus.buscarTreinoMenu("buscar");
                     Treino treinoBuscado = treinoDAO.buscarTreino(idBusca);
                     if (treinoBuscado != null) {
                         Menus.mostrarTreinoMenu(treinoBuscado);
                     } else {
-                        System.out.println("Treino nao encontrado.");
+                        System.out.println("Treino não encontrado.");
                     }
+                    break;
                 }
-                break;
                 case 5: {
-                    int idAlteracao = Menus.buscarTreinoMenu("alterar");
-                    Treino treinoExistente = treinoDAO.buscarTreino(idAlteracao);
-                    if (treinoExistente != null) {
-                        Treino novoTreino = Menus.alterarTreinoMenu(idAlteracao, treinoExistente, divisaoTreinoDAO, pessoaDAO);
-                        if (novoTreino != null) {
-                            treinoDAO.alterarTreino(idAlteracao, novoTreino, calendario.getDataAtual());
-                            System.out.println("Treino alterado com sucesso!");
-                        }
+                    if (treinoDAO.mostrarTodosTreinos().isEmpty()) {
+                        System.out.println("Nenhum treino cadastrado. Impossível alterar.");
                     } else {
-                        System.out.println("Treino nao encontrado.");
+                        int idAlteracao = Menus.buscarTreinoMenu("alterar");
+                        Treino treinoExistente = treinoDAO.buscarTreino(idAlteracao);
+                        if (treinoExistente != null) {
+                            Treino novoTreino = Menus.alterarTreinoMenu(idAlteracao, treinoExistente, divisaoTreinoDAO, pessoaDAO);
+                            if (novoTreino != null) {
+                                LocalDate dataAtual = LocalDate.now();
+                                treinoDAO.alterarTreino(idAlteracao, novoTreino, dataAtual);
+                                System.out.println("Treino alterado com sucesso!");
+                            }
+                        } else {
+                            System.out.println("Treino não encontrado.");
+                        }
                     }
+                    break;
                 }
-                break;
-
                 case 6: {
-                    int idRemocao = Menus.buscarTreinoMenu("remover");
-                    treinoDAO.removerTreino(idRemocao);
-                    System.out.println("Treino removido com sucesso!");
+                    if (treinoDAO.mostrarTodosTreinos().isEmpty()) {
+                        System.out.println("Nenhum treino cadastrado. Impossível remover.");
+                    } else {
+                        int idRemocao = Menus.buscarTreinoMenu("remover");
+                        treinoDAO.removerTreino(idRemocao);
+                        System.out.println("Treino removido com sucesso!");
+                    }
+                    break;
                 }
-                break;
                 case 7:
                     System.out.println("\nSaindo...");
                     break;
@@ -496,6 +500,7 @@ public class Gym {
         }
     }
 
+    /*
     public static void opcaoTreinoAplicacao() {
         int opcaoTreinoAplicacao = 0;
         String[] nomesExercicios = new String[100];
@@ -524,7 +529,6 @@ public class Gym {
             }
         }
     }*/
-
     public static void opcaoAvaliacaoFisica() {
         int opcaoAvaliacaoFisica = 0;
         while (opcaoAvaliacaoFisica != 2) {
@@ -752,7 +756,7 @@ public class Gym {
                         movimentacaoFinanceiraDAO.pagarDespesasAcademia(pessoas, calendario.getDataAtual());
                     } else if (calendario.checarTerminoMes() == true) {
                         ArrayList<Pessoa> pessoas = pessoaDAO.mostrarPessoas();
-                         ArrayList<MensalidadeAluno> mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
+                        ArrayList<MensalidadeAluno> mensalidades = mensalidadeAlunoDAO.mostrarMensalidadesAluno();
                         int[] idsAlunosAdimplentes = calendario.checarAlunosAdimplentes(mensalidades);
                         Relatorios.relatorioAlunosAdimplentes(mensalidades, pessoas, calendario.getDataAtual(), idsAlunosAdimplentes);
                     }
@@ -851,20 +855,20 @@ public class Gym {
 
     public static void main(String[] args) {
         SQLConnection.criarTabelas();
-        
+
         academiaDAO.recuperarDadosAcademia();
         pessoaDAO.recuperarDadosPessoa();
         exercicioDAO.recuperarDadosExercicio();
         exercicioAplicacaoDAO.recuperarDadosExercicioAplicacao();
         divisaoTreinoDAO.recuperarDadosDivisaoTreino();
-        divisaoTreinoMusculoDAO.recuperarDadosDivisaoTreinoMusculo();        
+        divisaoTreinoMusculoDAO.recuperarDadosDivisaoTreinoMusculo();
+        treinoDAO.recuperarDadosTreino();
         mensalidadeDAO.recuperarDadosMensalidade();
         mensalidadeAlunoDAO.recuperarDadosMensalidadeAluno();
         pagamentoRecorrenteDAO.recuperarDadosPagamentoRecorrente();
         entradaAlunoDAO.recuperarDadosEntradaAluno();
         movimentacaoFinanceiraDAO.recuperarMovimentacoes();
-        
-        
+
         academiaDAO.adicionarAcademiasExemplo();
         pessoaDAO.adicionarPessoasExemplo();
         divisaoTreinoDAO.adicionarDivisaoTreinoExemplos();
@@ -941,7 +945,7 @@ public class Gym {
                             break;
                             //TREINO
                             case 7: {
-                                //opcaoTreino();
+                                opcaoTreino();
                             }
                             break;
                             //TREINO APLICACAO
@@ -1021,7 +1025,7 @@ public class Gym {
                             break;
                             //TREINO
                             case 5: {
-                                //opcaoTreino();
+                                opcaoTreino();
                             }
                             break;
                             //TREINO APLICACAO
