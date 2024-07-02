@@ -17,7 +17,7 @@ public class Gym {
     static DivisaoTreinoDAO divisaoTreinoDAO = new DivisaoTreinoDAO();
     static DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO = new DivisaoTreinoMusculoDAO(divisaoTreinoDAO);
     static TreinoDAO treinoDAO = new TreinoDAO(pessoaDAO, divisaoTreinoDAO);
-    static TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO();
+    static TreinoAplicacaoDAO treinoAplicacaoDAO = new TreinoAplicacaoDAO(pessoaDAO, treinoDAO, exercicioDAO, exercicioAplicacaoDAO, divisaoTreinoDAO, divisaoTreinoMusculoDAO);
     static MensalidadeDAO mensalidadeDAO = new MensalidadeDAO();
     static MensalidadeAlunoDAO mensalidadeAlunoDAO = new MensalidadeAlunoDAO();
     static PagamentoRecorrenteDAO pagamentoRecorrenteDAO = new PagamentoRecorrenteDAO();
@@ -500,7 +500,6 @@ public class Gym {
         }
     }
 
-    /*
     public static void opcaoTreinoAplicacao() {
         int opcaoTreinoAplicacao = 0;
         String[] nomesExercicios = new String[100];
@@ -528,7 +527,8 @@ public class Gym {
                     break;
             }
         }
-    }*/
+    }
+    
     public static void opcaoAvaliacaoFisica() {
         int opcaoAvaliacaoFisica = 0;
         while (opcaoAvaliacaoFisica != 2) {
@@ -863,6 +863,7 @@ public class Gym {
         divisaoTreinoDAO.recuperarDadosDivisaoTreino();
         divisaoTreinoMusculoDAO.recuperarDadosDivisaoTreinoMusculo();
         treinoDAO.recuperarDadosTreino();
+        treinoAplicacaoDAO.recuperarDadosTreinoAplicacao();
         mensalidadeDAO.recuperarDadosMensalidade();
         mensalidadeAlunoDAO.recuperarDadosMensalidadeAluno();
         pagamentoRecorrenteDAO.recuperarDadosPagamentoRecorrente();
@@ -950,7 +951,7 @@ public class Gym {
                             break;
                             //TREINO APLICACAO
                             case 8: {
-                                //opcaoTreinoAplicacao();
+                                opcaoTreinoAplicacao();
                             }
                             break;
                             //AVALIACAO FISICA
@@ -1030,7 +1031,7 @@ public class Gym {
                             break;
                             //TREINO APLICACAO
                             case 6: {
-                                //opcaoTreinoAplicacao();
+                                opcaoTreinoAplicacao();
                             }
                             break;
                             //AVALIACAO FISICA

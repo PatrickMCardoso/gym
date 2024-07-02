@@ -743,7 +743,6 @@ public class Menus {
                 System.out.println("Data de Inicio: " + formataData(treino.getDataInicio()));
                 System.out.println("Data de Termino: " + formataData(treino.getDataTermino()));
 
-                // Verificação se o DivisaoTreino é null
                 if (treino.getDivisaoTreino() != null) {
                     System.out.println("ID da Divisao de Treino: " + treino.getDivisaoTreino().getId());
                     System.out.println("Nome da Divisao de Treino: " + treino.getDivisaoTreino().getNome());
@@ -757,7 +756,6 @@ public class Menus {
             }
         }
     }
-
 
     public static void mostrarTreinoMenu(Treino treino) {
         System.out.println("\n***** TREINO *****\n");
@@ -827,11 +825,13 @@ public class Menus {
         return menuOption;
     }
 
-    /*public static String[] adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, TreinoDAO treinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
+    public static String[] adicionarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, DivisaoTreinoDAO divisaoTreinoDAO, TreinoDAO treinoDAO, ExercicioDAO exercicioDAO, ExercicioAplicacaoDAO exercicioAplicacaoDAO, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
         System.out.println("Informe o ID do usuario: ");
         int usuarioId = Integer.parseInt(scanner.nextLine());
 
-        mostrarTodasDivisoesTreinoMenu(divisaoTreinoDAO);
+        ArrayList<DivisaoTreino> divisoesTreino = divisaoTreinoDAO.mostrarDivisoesTreino();
+        mostrarTodasDivisoesTreinoMenu(divisoesTreino);
+
         System.out.println("Informe o ID da divisao de treino escolhida: ");
         int divisaoTreinoId = Integer.parseInt(scanner.nextLine());
         DivisaoTreino divisaoTreino = divisaoTreinoDAO.buscarDivisaoTreino(divisaoTreinoId);
@@ -841,7 +841,7 @@ public class Menus {
             return new String[0];
         }
 
-        Treino[] treinos = treinoDAO.mostrarTreinos();
+        ArrayList<Treino> treinos = treinoDAO.mostrarTreinos();
         for (Treino treino : treinos) {
             System.out.println("ID do Treino: " + treino.getId() + " - Objetivo: " + treino.getObjetivo());
         }
@@ -880,8 +880,9 @@ public class Menus {
                 if (exercicio != null) {
                     ExercicioAplicacao exercicioAplicacao = exercicioAplicacaoDAO.buscarExercicioAplicacao(exercicio.getId());
                     if (exercicioAplicacao != null) {
-                        TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, usuarioId, treino, exercicio, exercicioAplicacao, divisaoTreino, divisaoTreinoMusculo, LocalDate.now(), LocalDate.now());
-                        treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacao);
+                        LocalDate dataAtual = LocalDate.now();
+                        TreinoAplicacao treinoAplicacao = new TreinoAplicacao(0, usuarioId, treino, exercicio, exercicioAplicacao, divisaoTreino, divisaoTreinoMusculo, dataAtual, dataAtual);
+                        treinoAplicacaoDAO.adicionarTreinoAplicacao(treinoAplicacao, dataAtual); 
                     } else {
                         System.out.println("Exercicio aplicacao nao encontrado.");
                     }
@@ -891,14 +892,15 @@ public class Menus {
             }
         }
         return nomesExercicios;
-    }*/
+    }
+
     public static void mostrarTreinoAplicacaoMenu(TreinoAplicacaoDAO treinoAplicacaoDAO, TreinoDAO treinoDAO, DivisaoTreinoDAO divisaoTreinoDAO, DivisaoTreinoMusculoDAO divisaoTreinoMusculoDAO) {
         System.out.println("Informe o ID do usuario: ");
         int usuarioId = Integer.parseInt(scanner.nextLine());
+        
+        ArrayList<TreinoAplicacao> treinoAplicacoesUsuario = treinoAplicacaoDAO.listarTodosPorUsuario(usuarioId);
 
-        TreinoAplicacao[] treinoAplicacoesUsuario = treinoAplicacaoDAO.listarTodosPorUsuario(usuarioId);
-
-        if (treinoAplicacoesUsuario.length == 0) {
+        if (treinoAplicacoesUsuario.isEmpty()) {
             System.out.println("Nenhuma ficha de treino encontrada para este usuario.");
             return;
         }
