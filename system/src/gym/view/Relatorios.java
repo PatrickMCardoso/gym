@@ -57,13 +57,13 @@ public class Relatorios {
 
             document.close();
 
-            System.out.println("Relatório gerado com sucesso: " + fileName);
+            System.out.println("Relatorio gerado com sucesso: " + fileName);
 
             File file = new File(fileName);
             if (file.exists()) {
                 Desktop.getDesktop().open(file);
             } else {
-                System.out.println("Arquivo PDF não encontrado e não pode ser aberto.");
+                System.out.println("Arquivo PDF nao encontrado e nao pode ser aberto.");
             }
         } catch (FileNotFoundException | DocumentException e) {
             System.out.println("Erro ao gerar PDF: " + e.getMessage());
@@ -101,7 +101,7 @@ public class Relatorios {
                             document.add(new Paragraph("Data de Termino do Treino: " + formataData(treino.getDataTermino())));
 
                             document.add(new Paragraph("Divisao Treino Musculo ID: " + divisaoTreinoMusculo.getId()));
-                            document.add(new Paragraph("Tipos de Exercícios: " + Arrays.toString(divisaoTreinoMusculo.getTiposExercicios())));
+                            document.add(new Paragraph("Tipos de Exercicios: " + Arrays.toString(divisaoTreinoMusculo.getTiposExercicios())));
                             document.add(new Paragraph("Data de Criacao: " + formataData(treinoAplicacao.getDataCriacao())));
                             document.add(new Paragraph("Data de Modificacao: " + formataData(treinoAplicacao.getDataModificacao())));
                             document.add(new Paragraph("------------------------"));
@@ -115,13 +115,13 @@ public class Relatorios {
 
             document.close();
 
-            System.out.println("Relatório gerado com sucesso: " + fileName);
+            System.out.println("Relatorio gerado com sucesso: " + fileName);
 
             File file = new File(fileName);
             if (file.exists()) {
                 Desktop.getDesktop().open(file);
             } else {
-                System.out.println("Arquivo PDF não encontrado e não pode ser aberto.");
+                System.out.println("Arquivo PDF nao encontrado e nao pode ser aberto.");
             }
         } catch (FileNotFoundException | DocumentException e) {
             System.out.println("Erro ao gerar PDF: " + e.getMessage());
