@@ -52,7 +52,7 @@ public class TreinoAplicacaoDAO {
                 treinoAplicacoes.add(treinoAplicacao);
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ public class TreinoAplicacaoDAO {
             ResultSet rs = stmt.executeQuery();
             return rs.next();
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
         return false;
     }
@@ -92,7 +92,7 @@ public class TreinoAplicacaoDAO {
 
             treinoAplicacoes.add(treinoAplicacao);
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -123,7 +123,7 @@ public class TreinoAplicacaoDAO {
                     treinoAplicacoes.clear();
                     recuperarDadosTreinoAplicacao();
                 } catch (SQLException e) {
-                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                    System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
                 }
                 break;
             }
@@ -141,7 +141,7 @@ public class TreinoAplicacaoDAO {
             treinoAplicacoes.clear();
             recuperarDadosTreinoAplicacao();
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 

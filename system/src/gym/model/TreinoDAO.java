@@ -42,7 +42,7 @@ public class TreinoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -57,7 +57,7 @@ public class TreinoDAO {
                 return rs.next();
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
 
         return false;
@@ -113,7 +113,7 @@ public class TreinoDAO {
                 treinos.add(treino);
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -144,7 +144,7 @@ public class TreinoDAO {
                         recuperarDadosTreino();
                     }
                 } catch (SQLException e) {
-                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                    System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
                 }
                 break;
             }
@@ -164,7 +164,7 @@ public class TreinoDAO {
                 recuperarDadosTreino();
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 

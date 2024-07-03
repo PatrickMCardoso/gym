@@ -35,7 +35,7 @@ public class PessoaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class PessoaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
 
         return false;
@@ -95,7 +95,7 @@ public class PessoaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -127,7 +127,7 @@ public class PessoaDAO {
                         recuperarDadosPessoa();
                     }
                 } catch (SQLException e) {
-                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                    System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
                 }
                 break;
             }
@@ -147,7 +147,7 @@ public class PessoaDAO {
                 recuperarDadosPessoa();
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 

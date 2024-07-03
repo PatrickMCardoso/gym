@@ -32,7 +32,7 @@ public class MovimentacaoFinanceiraDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -49,7 +49,7 @@ public class MovimentacaoFinanceiraDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
 
         return false;
@@ -76,7 +76,7 @@ public class MovimentacaoFinanceiraDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -103,7 +103,7 @@ public class MovimentacaoFinanceiraDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -118,7 +118,7 @@ public class MovimentacaoFinanceiraDAO {
                 movimentacoes.removeIf(movimentacao -> movimentacao.getId() == id);
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -138,10 +138,10 @@ public class MovimentacaoFinanceiraDAO {
     public void pagarDespesasAcademia(ArrayList<Pessoa> pessoas, LocalDate dataAtual) {
         Double valorDespesasDoMes = 0.0;
 
-        // Simulação de despesas fixas
+        // Simulacao de despesas fixas
         valorDespesasDoMes += 1800.0; // ALUGUEL
         valorDespesasDoMes += 400.0;  // ENERGIA
-        valorDespesasDoMes += 200.0;  // ÁGUA
+        valorDespesasDoMes += 200.0;  // AGUA
 
         // Adicionando despesas de professores
         for (Pessoa pessoa : pessoas) {

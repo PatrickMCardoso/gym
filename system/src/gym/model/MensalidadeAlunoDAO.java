@@ -36,7 +36,7 @@ public class MensalidadeAlunoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -53,7 +53,7 @@ public class MensalidadeAlunoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
 
         return false;
@@ -84,7 +84,7 @@ public class MensalidadeAlunoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ public class MensalidadeAlunoDAO {
                         recuperarDadosMensalidadeAluno();
                     }
                 } catch (SQLException e) {
-                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                    System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
                 }
                 break;
             }
@@ -136,7 +136,7 @@ public class MensalidadeAlunoDAO {
                 recuperarDadosMensalidadeAluno();
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 

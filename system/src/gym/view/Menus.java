@@ -646,11 +646,11 @@ public class Menus {
             divisaoTreinoMusculo.setTiposExercicios(tiposExercicios);
             divisaoTreinoMusculo.setDataModificacao(LocalDate.now());
 
-            divisaoTreinoMusculoDAO.alterarDivisaoTreinoMusculo(id, divisaoTreinoMusculo, LocalDate.now()); // Chamada corrigida para o método adequado
+            divisaoTreinoMusculoDAO.alterarDivisaoTreinoMusculo(id, divisaoTreinoMusculo, LocalDate.now()); 
 
-            System.out.println("Divisão de treino muscular alterada com sucesso.");
+            System.out.println("Divisao de treino muscular alterada com sucesso.");
         } else {
-            System.out.println("Divisão de treino muscular não encontrada.");
+            System.out.println("Divisao de treino muscular nao encontrada.");
         }
     }
 
@@ -747,7 +747,7 @@ public class Menus {
                     System.out.println("ID da Divisao de Treino: " + treino.getDivisaoTreino().getId());
                     System.out.println("Nome da Divisao de Treino: " + treino.getDivisaoTreino().getNome());
                 } else {
-                    System.out.println("Divisão de Treino não associada.");
+                    System.out.println("Divisao de Treino nao associada.");
                 }
 
                 System.out.println("Data de Criacao: " + formataData(treino.getDataCriacao()));
@@ -1330,7 +1330,7 @@ public class Menus {
     }
 
     public static void avancarCalendarioMenu() {
-        System.out.println("Dia do calendario avançado com sucesso!: \n");
+        System.out.println("Dia do calendario avancado com sucesso!: \n");
     }
 
     public static void diminuirCalendarioMenu() {
@@ -1342,10 +1342,10 @@ public class Menus {
         System.out.println("*****************************************");
         System.out.println("*       SISTEMA DE ENTRADA DE ALUNOS    *");
         System.out.println("*****************************************\n");
-        System.out.println("Escolha uma opção:\n");
+        System.out.println("Escolha uma opcao:\n");
         System.out.println("1 - Fazer entrada de aluno");
         System.out.println("2 - Sair");
-        System.out.println("\nDigite a opção escolhida:");
+        System.out.println("\nDigite a opcao escolhida:");
         int menuOption = Integer.parseInt(scanner.nextLine());
         return menuOption;
     }

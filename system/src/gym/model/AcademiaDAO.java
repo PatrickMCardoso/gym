@@ -31,7 +31,7 @@ public class AcademiaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class AcademiaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
 
         return false;
@@ -58,7 +58,7 @@ public class AcademiaDAO {
         if (!checarAcademiaExisteBanco(1)) {
             LocalDate dataAtual = LocalDate.now();
 
-            Academia academia1 = new Academia(1, "Tasmanian Gym", "R. Píres de Campos, 409", dataAtual, dataAtual);
+            Academia academia1 = new Academia(1, "Tasmanian Gym", "R. Pires de Campos, 409", dataAtual, dataAtual);
             Academia academia2 = new Academia(2, "BioTech Prime", "Av. Nenê Sabino, 915", dataAtual, dataAtual);
             Academia academia3 = new Academia(3, "Smart Fit", "Av. Guilherme Ferreira, 1550", dataAtual, dataAtual);
 
@@ -87,7 +87,7 @@ public class AcademiaDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -111,7 +111,7 @@ public class AcademiaDAO {
                         recuperarDadosAcademia();
                     }
                 } catch (SQLException e) {
-                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                    System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
                 }
                 break;
             }
@@ -131,7 +131,7 @@ public class AcademiaDAO {
                 recuperarDadosAcademia();
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 

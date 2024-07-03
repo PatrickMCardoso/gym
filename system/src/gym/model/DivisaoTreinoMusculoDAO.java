@@ -34,7 +34,7 @@ public class DivisaoTreinoMusculoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class DivisaoTreinoMusculoDAO {
             divisoes.clear();
             recuperarDadosDivisaoTreinoMusculo();
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ public class DivisaoTreinoMusculoDAO {
             divisoes.clear();
             recuperarDadosDivisaoTreinoMusculo();
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -98,7 +98,7 @@ public class DivisaoTreinoMusculoDAO {
             divisoes.clear();
             recuperarDadosDivisaoTreinoMusculo();
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 

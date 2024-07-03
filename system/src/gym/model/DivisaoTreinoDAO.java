@@ -31,7 +31,7 @@ public class DivisaoTreinoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class DivisaoTreinoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
 
         return false;
@@ -91,7 +91,7 @@ public class DivisaoTreinoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -115,7 +115,7 @@ public class DivisaoTreinoDAO {
                         recuperarDadosDivisaoTreino();
                     }
                 } catch (SQLException e) {
-                    System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+                    System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
                 }
                 break;
             }
@@ -135,7 +135,7 @@ public class DivisaoTreinoDAO {
                 recuperarDadosDivisaoTreino();
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao executar a função SQL: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao executar a funcao SQL: " + e.getMessage());
         }
     }
 
@@ -168,14 +168,14 @@ public class DivisaoTreinoDAO {
                 return new DivisaoTreino(id, nome, descricao, dataCriacao, dataModificacao);
             }
         } catch (SQLException e) {
-            System.out.println("Ocorreu um erro ao buscar a divisão de treino por nome: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao buscar a divisao de treino por nome: " + e.getMessage());
         }
         return null;
     }
 
     public void mostrarTodasDivisoesTreinoMenu() {
         ArrayList<DivisaoTreino> divisoesTreino = mostrarDivisoesTreino();
-        System.out.println("Divisões de Treino Disponíveis:");
+        System.out.println("Divisoes de Treino Disponiveis:");
         for (DivisaoTreino divisaoTreino : divisoesTreino) {
             System.out.println("ID: " + divisaoTreino.getId() + ", Nome: " + divisaoTreino.getNome());
         }
