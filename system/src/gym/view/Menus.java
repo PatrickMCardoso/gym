@@ -28,7 +28,7 @@ public class Menus {
     public static String[] menuLogin() {
         System.out.println("**********************");
         System.out.println("*  SISTEMA DE LOGIN  *");
-        System.out.println("***********************\n");
+        System.out.println("**********************\n");
         System.out.println("------------------------");
         System.out.println("\nDigite seu login:");
         String login = scanner.nextLine();

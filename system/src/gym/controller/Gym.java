@@ -3,6 +3,7 @@ package gym.controller;
 import gym.model.*;
 import gym.view.Menus;
 import gym.view.Relatorios;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.time.LocalDate;
@@ -810,7 +811,7 @@ public class Gym {
         }
     }
 
-    public static void opcaoRelatorio(String tipoUsuarioLogado) {
+    public static void opcaoRelatorio(String tipoUsuarioLogado) throws IOException {
         int opcaoRelatorio = 0;
         while (opcaoRelatorio != 3) {
             Menus.digitarQualquerTecla();
@@ -826,7 +827,10 @@ public class Gym {
                     }
                     break;
                     case 2: {
-                        Menus.mostrarTreinoAplicacaoMenu(treinoAplicacaoDAO, treinoDAO, divisaoTreinoDAO, divisaoTreinoMusculoDAO);
+                        System.out.println("Informe o ID do usuario: ");
+                        int usuarioId = Integer.parseInt(scanner.nextLine());
+                        ArrayList<TreinoAplicacao> treinoAplicacoesUsuario = treinoAplicacaoDAO.listarTodosPorUsuario(usuarioId);
+                        Relatorios.relatorioTreinoAplicacao(treinoAplicacoesUsuario, treinoDAO, divisaoTreinoMusculoDAO, usuarioId);
                     }
                     break;
                     case 3:
@@ -839,7 +843,10 @@ public class Gym {
             } else {
                 switch (opcaoRelatorio) {
                     case 1: {
-                        Menus.mostrarTreinoAplicacaoMenu(treinoAplicacaoDAO, treinoDAO, divisaoTreinoDAO, divisaoTreinoMusculoDAO);
+                        System.out.println("Informe o ID do usuario: ");
+                        int usuarioId = Integer.parseInt(scanner.nextLine());
+                        ArrayList<TreinoAplicacao> treinoAplicacoesUsuario = treinoAplicacaoDAO.listarTodosPorUsuario(usuarioId);
+                        Relatorios.relatorioTreinoAplicacao(treinoAplicacoesUsuario, treinoDAO, divisaoTreinoMusculoDAO, usuarioId);
                     }
                     break;
                     case 2:
@@ -853,7 +860,7 @@ public class Gym {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         SQLConnection.criarTabelas();
 
         academiaDAO.recuperarDadosAcademia();
