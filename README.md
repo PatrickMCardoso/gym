@@ -1,47 +1,135 @@
-## JavaGym
-    
-### O que é isso? 🤔 
-Sistema de Gestão de Academia em Java
-    
-### Onde posso acessá-lo? 🖥
-Você deve baixar os arquivos desse repositório
+# Gym System
 
-## Funcionalidades
-O sistema oferece diversas opções de gerenciamento, que podem ser acessadas através de um menu principal:
+Sistema completo para gestão de academias, alunos, treinos, mensalidades e relatórios financeiros. Desenvolvido em Java, com persistência em MySQL e geração de relatórios em PDF.
 
-- Gerenciamento de diferentes academias
-- Cadastro e gerenciamento de alunos, instrutores e demais funcionários
-- Cadastro e gerenciamento de diferentes tipos de exercícios
-- Registro da aplicação de exercícios aos alunos
-- Organização e estruturação dos treinos
-- Associação dos exercícios aos grupos musculares
-- Gerenciamento dos treinos específicos para os alunos
-- Acompanhamento da execução dos treinos pelos alunos
-- Realização de avaliações físicas (custo de R$ 20)
-- Gerenciamento das mensalidades das academias
-- Controle das mensalidades pagas pelos alunos
-- Configuração de pagamentos recorrentes
-- Gestão de calendário com agendamentos e eventos
-- Registro das entradas dos alunos na academia
-- Geração de relatórios diversos para análise e acompanhamento
-    
-### Que tecnologias foram usadas para construí-lo? 🚀 
-<table><tr><td style="padding: 5px;">
-        <div style="background-color: #333; width: 200px; height: 50px; padding: 10px;">
-            <img src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' width="25" height="25" style="border-radius: 5px;">
-            <p style="color: white; padding: 5px; margin: 0;">Java</p>
-        </div>
-    </td><td style="padding: 5px;">
-        <div style="background-color: #333; width: 200px; height: 50px; padding: 10px;">
-            <img src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' width="25" height="25" style="border-radius: 5px;">
-            <p style="color: white; padding: 5px; margin: 0;">MySQL</p>
-        </div>
-    </td></tr></table>
-    
-### Como rodar 🏃
+---
 
-- Clone este repositório.
-- Configure o banco de dados MySQL com as tabelas necessárias.
-- Configure a conexão com o banco de dados no arquivo de configuração do projeto.
-- Compile e execute o projeto Java.
+## Repositório Complementar
+
+> Este projeto pode ser utilizado em conjunto com o repositório [mysql-connector-j](./mysql-connector-j-8.4.0/) para integração com o banco de dados MySQL.
+
+---
+
+## Índice
+
+- [Visão Geral](#visão-geral)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura e Arquitetura](#estrutura-e-arquitetura)
+- [Instalação e Execução](#instalação-e-execução)
+- [Documentação da API](#documentação-da-api)
+- [Boas Práticas](#boas-práticas)
+- [Licença](#licença)
+
+---
+
+## Visão Geral
+
+O Gym System é um sistema desktop para academias, permitindo o cadastro e gerenciamento de alunos, treinos, exercícios, mensalidades, pagamentos recorrentes, avaliações físicas e geração de relatórios em PDF. O sistema segue o padrão MVC, garantindo organização e escalabilidade.
+
+---
+
+## Tecnologias Utilizadas
+
+- **Java SE 8+**
+- **JDBC** (Java Database Connectivity)
+- **MySQL**
+- **iTextPDF** (Geração de relatórios PDF)
+- **Ant** (Automação de build)
+- **VS Code** (Recomendado para edição)
+- **NetBeans/Eclipse** (Opcional)
+
+---
+
+## Estrutura e Arquitetura
+
+O projeto segue o padrão MVC e está organizado da seguinte forma:
+
+```text
+system/
+├── build.xml                # Script de build Ant
+├── manifest.mf              # Manifesto do projeto
+├── lib/                     # Dependências e bibliotecas
+│   └── itextpdf-5.5.6.jar   # Biblioteca para PDF
+├── nbproject/               # Configurações NetBeans
+├── src/
+│   └── gym/
+│       ├── controller/      # Lógica de controle e conexão
+│       ├── model/           # Entidades e DAOs
+│       └── view/            # Menus e relatórios
+├── relatorio_movimentacao.pdf
+├── relatorio_treino_aplicacao_usuario_3.pdf
+└── mysql-connector-j-8.4.0/ # Driver JDBC MySQL
+```
+
+- **controller/**: Fluxo do sistema, conexão com banco, inicialização.
+- **model/**: Entidades (Academia, Pessoa, Treino, etc.) e DAOs (acesso ao banco).
+- **view/**: Interface textual, menus e geração de relatórios.
+
+---
+
+## Instalação e Execução
+
+### Pré-requisitos
+- Java 8 ou superior
+- MySQL Server
+- VS Code ou outro editor Java
+
+### Variáveis de Ambiente
+- Configure o usuário e senha do MySQL em `SQLConnection.java` se necessário.
+
+### Instalação das Dependências
+
+Coloque os arquivos JAR na pasta `lib/` ou na raiz do projeto:
+- `itextpdf-5.5.6.jar`
+- `mysql-connector-j-8.4.0.jar`
+
+### Criação do Banco de Dados
+
+Crie o banco de dados `gym` no MySQL:
+```sql
+CREATE DATABASE gym;
+```
+
+### Compilação
+
+No terminal, execute:
+```bash
+javac -cp .:lib/itextpdf-5.5.6.jar:lib/mysql-connector-j-8.4.0.jar src/gym/model/*.java src/gym/controller/*.java src/gym/view/*.java
+```
+
+### Execução
+
+```bash
+java -cp .:lib/itextpdf-5.5.6.jar:lib/mysql-connector-j-8.4.0.jar src/gym/controller/Gym
+```
+
+### Seed/Migrations
+
+As tabelas são criadas automaticamente na primeira execução via método `SQLConnection.criarTabelas()`.
+Dados de exemplo são inseridos pelos métodos `adicionar*Exemplo()` dos DAOs.
+
+---
+
+## Documentação da API
+
+Este sistema não expõe uma API HTTP, mas toda a lógica está documentada nos arquivos de código-fonte. Para entender os métodos disponíveis, consulte os arquivos em `src/gym/model/`, `src/gym/controller/` e `src/gym/view/`.
+
+---
+
+## Boas Práticas
+
+- Padrão MVC
+- DAO para acesso a dados
+- Uso de PreparedStatement para segurança
+- Tratamento de exceções
+- Separação clara de responsabilidades
+- Geração de relatórios em PDF
+- Uso de Java Collections e LocalDate
+- Código comentado e organizado
+
+---
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
 
